@@ -37,6 +37,12 @@ const checkboxInputTag = (checked) => {
   return <input type="checkbox" checked={checked} disabled />
 }
 
+const thumbnail = (url) => {
+  const parts = url.split('/')
+  parts.splice(3, 0, 'resize=width:100')
+  return parts.join('/')
+}
+
 const ImagesList = ({ images }) => {
   const { addMessage } = useFlash()
   const [deleteImage] = useMutation(DELETE_IMAGE_MUTATION, {
@@ -72,7 +78,11 @@ const ImagesList = ({ images }) => {
             <tr key={image.id}>
               <td>{truncate(image.id)}</td>
               <td>{truncate(image.title)}</td>
-              <td>{truncate(image.url)}</td>
+              <td>
+                <a href={image.url} target="_blank">
+                  <img src={thumbnail(image.url)} style={{ maxWidth: '50px' }} />
+                </a>
+              </td>
               <td>
                 <nav className="rw-table-actions">
                   <Link

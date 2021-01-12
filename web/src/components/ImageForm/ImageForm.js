@@ -7,10 +7,19 @@ import {
   Submit,
 } from '@redwoodjs/forms'
 import { PickerInline } from 'filestack-react'
+import { useState } from 'react'
 
 const ImageForm = (props) => {
+  const [url, setUrl] = useState(props?.image?.url)
+
   const onSubmit = (data) => {
-    props.onSave(data, props?.image?.id)
+    const dataWithUrl = Object.assign(data, { url })
+    props.onSave(dataWithUrl, props?.image?.id)
+  }
+
+  const onFileUpload = (response) => {
+    setUrl(response.filesUploaded[0].url)
+    // console.info(response)
   }
 
   return (
@@ -39,9 +48,34 @@ const ImageForm = (props) => {
         />
         <FieldError name="title" className="rw-field-error" />
 
-        <div style={{ height: '30%' }}></div>
+        <div 
+          id="picker" 
+          style={{ 
+          marginTop: '2rem', 
+          height: '20rem', 
+          display: url ? 'none' : 'block' 
+          }}
+        ></div>
 
-        <PickerInline apikey={process.env.REDWOOD_ENV_FILESTACK_API_KEY} />
+        <PickerInline 
+          onSuccess={onFileUpload}
+          apikey={process.env.REDWOOD_ENV_FILESTACK_API_KEY} 
+          
+        />
+
+        {url && (
+          <div>
+            <img src={url} style={{ display: 'block', margin: '2rem 0' }} />
+            <a
+              href="#"
+              onClick={() =>
+                setUrl(null)}
+              className="bg-blue-600 text-white hover:bg-blue-700 text-xs rounded px-4 py-2 uppercase font-semibold tracking-wide"
+            >
+              Replace Image
+            </a>
+          </div>
+        )}
 
         <Label
           name="url"
@@ -55,7 +89,7 @@ const ImageForm = (props) => {
           defaultValue={props.image?.url}
           className="rw-input"
           errorClassName="rw-input rw-input-error"
-          validation={{ required: true }}
+          validation={{ required: false }}
         />
         <FieldError name="url" className="rw-field-error" />
 
