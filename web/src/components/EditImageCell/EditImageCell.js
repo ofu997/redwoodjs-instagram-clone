@@ -8,6 +8,7 @@ export const QUERY = gql`
       id
       title
       url
+      likes
     }
   }
 `
@@ -17,6 +18,7 @@ const UPDATE_IMAGE_MUTATION = gql`
       id
       title
       url
+      likes
     }
   }
 `

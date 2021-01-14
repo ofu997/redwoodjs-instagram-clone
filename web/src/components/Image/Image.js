@@ -68,6 +68,10 @@ const Image = ({ image }) => {
               <th>Url</th>
               <td>{image.url}</td>
             </tr>
+            <tr>
+              <th>Likes</th>
+              <td>{image.likes}</td>
+            </tr>
           </tbody>
         </table>
       </div>

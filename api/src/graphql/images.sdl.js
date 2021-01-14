@@ -3,6 +3,7 @@ export const schema = gql`
     id: Int!
     title: String!
     url: String!
+    likes: Int!
   }
 
   type Query {
@@ -13,11 +14,13 @@ export const schema = gql`
   input CreateImageInput {
     title: String!
     url: String!
+    likes: Int!
   }
 
   input UpdateImageInput {
     title: String
     url: String
+    likes: Int
   }
 
   type Mutation {

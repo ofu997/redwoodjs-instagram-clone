@@ -30,10 +30,10 @@ describe('images', () => {
     const original = await image({ id: scenario.image.one.id })
     const result = await updateImage({
       id: original.id,
-      input: { name: 'String9853643' },
+      input: { name: 'String1159984' },
     })
 
-    expect(result.name).toEqual('String9853643')
+    expect(result.name).toEqual('String1159984')
   })
 
   scenario('deletes a image', async (scenario) => {
