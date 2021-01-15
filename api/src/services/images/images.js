@@ -28,3 +28,11 @@ export const deleteImage = ({ id }) => {
     where: { id },
   })
 }
+
+export const updateLikes = ({ id, likes}) => {
+  likes += 1;
+  return db.image.update({
+    data: likes,
+    where: { id },
+  })
+}

@@ -10,6 +10,14 @@ const DELETE_IMAGE_MUTATION = gql`
     }
   }
 `
+const UPDATE_LIKE_MUTATION = gql`
+  mutation ($id: Int!, $likes: Int!) {
+    updateLikes(id: $id, likes: $likes) {
+      likes
+    }
+  }
+`
+
 
 const MAX_STRING_LENGTH = 150
 
@@ -49,11 +57,23 @@ const ImagesList = ({ images }) => {
     refetchQueries: [{ query: QUERY }],
     awaitRefetchQueries: true,
   })
+  const [updateLikes] = useMutation(UPDATE_LIKE_MUTATION, {
+    onCompleted: () => {
+      console.log('[updateLikes] was pressed')
+      addMessage('Likes updated.', { classes: 'rw-flash-success' })
+    },
+    refetchQueries: [{ query: QUERY }],
+    awaitRefetchQueries: true,
+  })
 
   const onDeleteClick = (id) => {
     if (confirm('Are you sure you want to delete image ' + id + '?')) {
       deleteImage({ variables: { id } })
     }
+  }
+
+  const incrementLikes = (id, likes) => {
+    updateLikes({ variables: { id, likes }})
   }
 
   return (
@@ -75,6 +95,13 @@ const ImagesList = ({ images }) => {
               <td>{truncate(image.title)}</td>
               <td>{truncate(image.url)}</td>
               <td>{truncate(image.likes)}</td>
+              <td>
+                <button
+                  onClick={() => incrementLikes(image.id, image.likes)}
+                >
+                  like
+                </button>
+              </td>
               <td>
                 <nav className="rw-table-actions">
                   <Link
@@ -110,3 +137,11 @@ const ImagesList = ({ images }) => {
 }
 
 export default ImagesList
+
+// Show image and edit image are <Link>s, while delete image is an <a>
+
+// useMutation returns a tuple that includes:
+// A mutate function that you can call at any time to execute the mutation
+// An object with fields that represent the current status of the mutation's execution
+// src: https://www.apollographql.com/docs/react/data/mutations/
+

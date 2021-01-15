@@ -27,5 +27,6 @@ export const schema = gql`
     createImage(input: CreateImageInput!): Image!
     updateImage(id: Int!, input: UpdateImageInput!): Image!
     deleteImage(id: Int!): Image!
+    updateLikes(id: Int!, likes: Int!): Image!
   }
 `
