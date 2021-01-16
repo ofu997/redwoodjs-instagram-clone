@@ -21,6 +21,12 @@ const UPDATE_LIKE_MUTATION = gql`
 
 const MAX_STRING_LENGTH = 150
 
+const thumbnail = (url) => {
+  const parts = url.split('/')
+  parts.splice(3, 0, 'resize=width:100')
+  return parts.join('/')
+}
+
 const truncate = (text) => {
   let output = text
   if (text && text.length > MAX_STRING_LENGTH) {
@@ -93,6 +99,11 @@ const ImagesList = ({ images }) => {
             <tr key={image.id}>
               <td>{truncate(image.id)}</td>
               <td>{truncate(image.title)}</td>
+              <td>
+                <a href={image.url} target="_blank">
+                  <img src={thumbnail(image.url)} style={{ maxWidth: '50px' }} />
+                </a>
+              </td>
               <td>{truncate(image.url)}</td>
               <td>{truncate(image.likes)}</td>
               <td>

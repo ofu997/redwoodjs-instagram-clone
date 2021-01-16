@@ -17,5 +17,5 @@ model Image {
   id    Int    @default(autoincrement()) @id
   title String
   url   String
-  likes Int @default(0)
+  likes Int? @default(0)
 }
