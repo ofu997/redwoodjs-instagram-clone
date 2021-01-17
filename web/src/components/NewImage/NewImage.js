@@ -1,6 +1,7 @@
 import { useMutation, useFlash } from '@redwoodjs/web'
 import { navigate, routes } from '@redwoodjs/router'
-import ImageForm from 'src/components/ImageForm'
+// import ImageForm from 'src/components/ImageForm'
+import FirebaseImageForm from 'src/components/ImageForm/FirebaseImageForm'
 
 import { QUERY } from 'src/components/ImagesCell'
 
@@ -31,7 +32,7 @@ const NewImage = () => {
         <h2 className="rw-heading rw-heading-secondary">New Image</h2>
       </header>
       <div className="rw-segment-main">
-        <ImageForm onSave={onSave} loading={loading} error={error} />
+        <FirebaseImageForm onSave={onSave} loading={loading} error={error} />
       </div>
     </div>
   )
