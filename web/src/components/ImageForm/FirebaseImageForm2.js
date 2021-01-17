@@ -12,7 +12,7 @@ import { useState } from 'react'
 import {storage} from '../../firebase/firebase'
 
 const FirebaseImageForm = (props) => {
-  // const allInputs = { imgUrl: '' }
+  // const allInputs = { url: '' }
   const [imageAsFile, setImageAsFile] = useState('')
   const [url, setUrl] = useState('')
 
@@ -35,7 +35,7 @@ const FirebaseImageForm = (props) => {
   }
 
   const handleFirebaseUpload = (e, data) => {
-    // e.preventDefault()
+    e.preventDefault()
     console.log('start of upload')
     // async magic goes here...
     if(imageAsFile === '' ) {
@@ -59,14 +59,14 @@ const FirebaseImageForm = (props) => {
         .getDownloadURL()
         .then(fireBaseUrl => {
           console.log(`firebaseurl: ${fireBaseUrl}`)
-          // setUrl(prevObject => ({...prevObject, imgUrl: fireBaseUrl}))
+          // setUrl(prevObject => ({...prevObject, url: fireBaseUrl}))
           setUrl(fireBaseUrl)
         })
 
 
       })
       console.log(`image.url: ${url}`)
-    onSubmit(data)
+    // onSubmit(data)
       // save to table
       // dataWithUrl = Object.assign(data, { url }),
       // props.onSave(Object.assign(data, { url }), props?.image?.id)
@@ -74,14 +74,14 @@ const FirebaseImageForm = (props) => {
 
   return (
     <div className="rw-form-wrapper">
-      {/* <form onSubmit={handleFirebaseUpload}>
+      <form onSubmit={handleFirebaseUpload}>
         <input
           type='file'
           onChange={handleImageAsFile}
         />
         <button disabled={!imageAsFile}>upload to firebase</button>
-      </form> */}
-      <Form onSubmit={handleFirebaseUpload} error={props.error}>
+      </form>
+      <Form onSubmit={onSubmit} error={props.error}>
         <FormError
           error={props.error}
           wrapperClassName="rw-form-error-wrapper"
@@ -110,10 +110,10 @@ const FirebaseImageForm = (props) => {
           onSuccess={onFileUpload}
         /> */}
         {/* move this out of redwood form */}
-        <input
+        {/* <input
           type='file'
           onChange={handleImageAsFile}
-        />
+        /> */}
 
         {/* <div
           id="picker"
@@ -148,8 +148,8 @@ const FirebaseImageForm = (props) => {
           </Label>
           <TextField
             name="url"
-            // defaultValue={props.image?.url}
-            defaultValue='https://firebasestorage.googleapis.com/v0/b/social-media-redwood.appspot.com/o/images%2Fbadlands.jpg?alt=media&token=7875505a-eb66-4404-97db-e120b49d1235'
+            defaultValue={props.image?.url}
+            // defaultValue='https://firebasestorage.googleapis.com/v0/b/social-media-redwood.appspot.com/o/images%2Fbadlands.jpg?alt=media&token=7875505a-eb66-4404-97db-e120b49d1235'
             className="rw-input"
             errorClassName="rw-input rw-input-error"
             validation={{ required: false }}
@@ -188,9 +188,4 @@ const FirebaseImageForm = (props) => {
 
 export default FirebaseImageForm
 
-// uploads to firebase
-// error: 'Network request failed. Payload is not serializable:
-// Converting circular structure to JSON --> starting at object
-// with constructor 'HTMLInputElement' |
-// property '__reactFiber$7dwm81u98u7' -> object with constructor
-// 'FiberNode' --- property 'stateNode' closes the circle'
+// creates record without url or image, no firebase upload
