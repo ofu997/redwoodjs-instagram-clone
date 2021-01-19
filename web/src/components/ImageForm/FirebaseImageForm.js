@@ -14,11 +14,11 @@ import {storage} from '../../firebase/firebase'
 const FirebaseImageForm = (props) => {
   // const allInputs = { imgUrl: '' }
   const [imageAsFile, setImageAsFile] = useState('')
-  const [url, setUrl] = useState('')
+  const [url, setUrl] = useState(props?.image?.url)
 
   const onSubmit = (data) => {
     const dataWithUrl = Object.assign(data, { url })
-    console.log(`datawithurl: ${dataWithUrl}`)
+    console.table(` ${dataWithUrl}`)
     props.onSave(dataWithUrl, props?.image?.id)
   }
 
@@ -35,7 +35,7 @@ const FirebaseImageForm = (props) => {
   }
 
   const handleFirebaseUpload = (e, data) => {
-    // e.preventDefault()
+    e.preventDefault()
     console.log('start of upload')
     // async magic goes here...
     if(imageAsFile === '' ) {
@@ -61,12 +61,18 @@ const FirebaseImageForm = (props) => {
           console.log(`firebaseurl: ${fireBaseUrl}`)
           // setUrl(prevObject => ({...prevObject, imgUrl: fireBaseUrl}))
           setUrl(fireBaseUrl)
+          // return fireBaseUrl
         })
-
-
+        // .then((fireBaseUrl) => {
+        //   setUrl(fireBaseUrl)
+        // })
+        // .then((data, { fireBaseUrl }) => {
+        //   const dataWithUrl = Object.assign(data, { fireBaseUrl })
+        //   console.log(`datawithurl: ${dataWithUrl}`)
+        //   props.onSave(dataWithUrl, props?.image?.id)
+        // })
       })
-      console.log(`image.url: ${url}`)
-    onSubmit(data)
+
       // save to table
       // dataWithUrl = Object.assign(data, { url }),
       // props.onSave(Object.assign(data, { url }), props?.image?.id)
@@ -81,7 +87,7 @@ const FirebaseImageForm = (props) => {
         />
         <button disabled={!imageAsFile}>upload to firebase</button>
       </form> */}
-      <Form onSubmit={handleFirebaseUpload} error={props.error}>
+      <Form onSubmit={onSubmit} error={props.error}>
         <FormError
           error={props.error}
           wrapperClassName="rw-form-error-wrapper"
@@ -114,6 +120,7 @@ const FirebaseImageForm = (props) => {
           type='file'
           onChange={handleImageAsFile}
         />
+        <button onClick={handleFirebaseUpload}>Upload</button>
 
         {/* <div
           id="picker"
@@ -149,7 +156,7 @@ const FirebaseImageForm = (props) => {
           <TextField
             name="url"
             // defaultValue={props.image?.url}
-            defaultValue='https://firebasestorage.googleapis.com/v0/b/social-media-redwood.appspot.com/o/images%2Fbadlands.jpg?alt=media&token=7875505a-eb66-4404-97db-e120b49d1235'
+            defaultValue={props.image?.url}
             className="rw-input"
             errorClassName="rw-input rw-input-error"
             validation={{ required: false }}
@@ -189,8 +196,5 @@ const FirebaseImageForm = (props) => {
 export default FirebaseImageForm
 
 // uploads to firebase
-// error: 'Network request failed. Payload is not serializable:
-// Converting circular structure to JSON --> starting at object
-// with constructor 'HTMLInputElement' |
-// property '__reactFiber$7dwm81u98u7' -> object with constructor
-// 'FiberNode' --- property 'stateNode' closes the circle'
+// saves url and redirects to /images page
+// does not show thumbnail

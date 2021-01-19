@@ -13,7 +13,7 @@ export const schema = gql`
 
   input CreateImageInput {
     title: String!
-    url: String!
+    url: String
     likes: Int!
   }
 

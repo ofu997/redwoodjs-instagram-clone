@@ -20,7 +20,7 @@ const ImageForm = (props) => {
 
   const onFileUpload = (response) => {
     setUrl(response.filesUploaded[0].url)
-    console.info(response)
+    console.info(response.filesUploaded[0].url)
   }
 
   return (
