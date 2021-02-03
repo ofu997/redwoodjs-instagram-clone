@@ -101,7 +101,7 @@ const ImagesList = ({ images }) => {
               <td>{truncate(image.title)}</td>
               <td>
                 <a href={image.url} target="_blank">
-                  <img src={thumbnail(image.url)} style={{ maxWidth: '50px' }} />
+                  <img src={image.url} style={{ maxWidth: '150px' }} />
                 </a>
               </td>
               <td>{truncate(image.url)}</td>

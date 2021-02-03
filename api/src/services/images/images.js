@@ -5,7 +5,7 @@ export const images = () => {
 }
 
 export const image = ({ id }) => {
-  return db.image.findOne({
+  return db.image.findUnique({
     where: { id },
   })
 }

@@ -16,7 +16,7 @@ describe('images', () => {
   scenario('creates a image', async (scenario) => {
     const result = await createImage({
       input: {
-        name: 'String',
+        title: 'String',
         body: 'String',
         postId: scenario.image.one.post.id,
       },
@@ -30,7 +30,7 @@ describe('images', () => {
     const original = await image({ id: scenario.image.one.id })
     const result = await updateImage({
       id: original.id,
-      input: { name: 'String1159984' },
+      input: { title: 'String1159984' },
     })
 
     expect(result.name).toEqual('String1159984')

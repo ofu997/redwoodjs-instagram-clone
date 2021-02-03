@@ -3,3 +3,6 @@ https://www.prisma.io/docs/concepts/components/prisma-client/crud
 
 image upload:
 https://dev.to/itnext/how-to-do-image-upload-with-firebase-in-react-cpj
+
+image optimize:
+https://www.npmjs.com/package/react-cool-img
