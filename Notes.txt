@@ -6,3 +6,48 @@ https://dev.to/itnext/how-to-do-image-upload-with-firebase-in-react-cpj
 
 image optimize:
 https://www.npmjs.com/package/react-cool-img
+
+components/images: ImagesList receives images at /images
+components/imagesCell: return <Images images={images} />, sends to components/Images
+pages/ImagesPage: <ImagesCell>
+
+components/CommentsCell:
+export const QUERY = gql`
+  query CommentsQuery {
+    comments {
+      id
+      name
+      body
+      createdAt
+    }
+  }
+`
+
+comments.sdl.js:
+input CreateCommentInput {
+  name: String!
+  body: String!
+  postId: Int!
+}
+
+schema.prisma:
+model Comment {
+  id        Int      @id @default(autoincrement())
+  name      String
+  body      String
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    Int
+  createdAt DateTime @default(now())
+}
+
+things to add:
+component/Comment
+components/CommentsCell
+api/db/schema.prisma
+api/src/graphql/comments.sdl.js
+api/src/services/comments/comments.js
+web/src/components/CommentForm
+
+
+authenticate with prisma:
+https://www.howtographql.com/graphql-js/6-authentication/

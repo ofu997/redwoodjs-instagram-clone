@@ -13,9 +13,9 @@
     ]
   },
   "dependencies": {
-    "@redwoodjs/forms": "^0.22.1",
-    "@redwoodjs/router": "^0.22.1",
-    "@redwoodjs/web": "^0.22.1",
+    "@redwoodjs/forms": "^0.24.0",
+    "@redwoodjs/router": "^0.24.0",
+    "@redwoodjs/web": "^0.24.0",
     "filestack-react": "^4.0.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",

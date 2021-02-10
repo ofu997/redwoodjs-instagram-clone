@@ -1,5 +1,6 @@
 import { useMutation, useFlash } from '@redwoodjs/web'
 import { Link, routes } from '@redwoodjs/router'
+import CommentsCell from 'src/components/CommentsCell'
 
 import { QUERY } from 'src/components/ImagesCell'
 
@@ -17,7 +18,6 @@ const UPDATE_LIKE_MUTATION = gql`
     }
   }
 `
-
 
 const MAX_STRING_LENGTH = 150
 
@@ -85,13 +85,16 @@ const ImagesList = ({ images }) => {
   return (
     <div className="rw-segment rw-table-wrapper-responsive">
       <table className="rw-table">
-        <thead>
+        <thead style={{ border: '5px solid black'}}>
           <tr>
             <th>Id</th>
             <th>Title</th>
+            <th style={{ width: 150 }}></th>
             <th>Url</th>
             <th>Likes</th>
             <th>&nbsp;</th>
+            <th>Comments</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -112,6 +115,9 @@ const ImagesList = ({ images }) => {
                 >
                   like
                 </button>
+              </td>
+              <td>
+                <CommentsCell imageId={image.id} />
               </td>
               <td>
                 <nav className="rw-table-actions">

@@ -1,5 +1,6 @@
 import { useMutation, useFlash } from '@redwoodjs/web'
 import { Link, routes, navigate } from '@redwoodjs/router'
+import CommentForm from '../CommentForm'
 
 import { QUERY } from 'src/components/ImagesCell'
 
@@ -74,6 +75,22 @@ const Image = ({ image }) => {
             </tr>
           </tbody>
         </table>
+        {/* Form for comments here */}
+        <CommentForm imageId={image.id} />
+        {/* <Form className="mt-4 w-full" onSubmit={() => onSubmit(image.id)}>
+          <TextField
+            name="body"
+            validation={{ required: true }}
+            placeholder="Comment"
+          />
+          <Submit
+            disabled={loading}
+          >
+            <p style={{ backgroundColor: 'gray', color: 'white', padding: 5, fontSize: '0.9rem' }}>
+              Comment
+            </p>
+          </Submit>
+        </Form> */}
       </div>
       <nav className="rw-button-group">
         <Link
