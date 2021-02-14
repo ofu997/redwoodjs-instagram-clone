@@ -1,0 +1,8 @@
+Add user model
+Authentication that stores user session
+
+associate comments with user
+associate likes with user
+
+limit user likes to one increment/decrement
+

@@ -20,6 +20,7 @@ model Image {
   url   String
   likes Int? @default(0)
   comments Comment[]
+  likedBy User[]
 }
 
 model Comment {
@@ -27,4 +28,14 @@ model Comment {
   body     String
   image    Image      @relation(fields: [imageId], references: [id])
   imageId  Int
+}
+
+model User {
+  id         Int         @id @default(autoincrement())
+  name        String
+  email       String       @unique
+  password         String
+  userImages  Image[]
+  image       Image @relation(fields: [likedImages], references: [id])
+  likedImages Int[]
 }
