@@ -51,3 +51,5 @@ web/src/components/CommentForm
 
 authenticate with prisma:
 https://www.howtographql.com/graphql-js/6-authentication/
+
+took out of schema.prisma user: image       Image @relation(fields: [likedImages], references: [id])

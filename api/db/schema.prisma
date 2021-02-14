@@ -8,7 +8,6 @@ datasource DS {
 generator client {
   provider      = "prisma-client-js"
   binaryTargets = "native"
-  previewFeatures = ["uncheckedScalarInputs"]
 }
 
 // Define your own datamodels here and run `yarn redwood db save` to create
@@ -20,7 +19,9 @@ model Image {
   url   String
   likes Int? @default(0)
   comments Comment[]
-  likedBy User[]
+  likedBy Int[]
+  commenter User @relation(fields: [authorId], references: [handle])
+  authorId String
 }
 
 model Comment {
@@ -28,14 +29,15 @@ model Comment {
   body     String
   image    Image      @relation(fields: [imageId], references: [id])
   imageId  Int
+  author User @relation(fields: [handle], references: [handle])
+
 }
 
 model User {
   id         Int         @id @default(autoincrement())
   name        String
+  handle String
   email       String       @unique
   password         String
-  userImages  Image[]
-  image       Image @relation(fields: [likedImages], references: [id])
-  likedImages Int[]
+  images Image[]
 }
