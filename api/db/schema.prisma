@@ -2,6 +2,9 @@ datasource DS {
   // optionally set multiple providers
   // example: provider = ["sqlite", "postgresql"]
   provider = "sqlite"
+
+
+
   url      = env("DATABASE_URL")
 }
 
@@ -19,9 +22,11 @@ model Image {
   url   String
   likes Int? @default(0)
   comments Comment[]
-  likedBy Int[]
-  commenter User @relation(fields: [authorId], references: [handle])
-  authorId String
+
+  likedBy User[] @relation("likedBy")
+  user User @relation("imageList")
+  author User @relation(fields: [authorHandle], references: [handle])
+  authorHandle String
 }
 
 model Comment {
@@ -29,15 +34,17 @@ model Comment {
   body     String
   image    Image      @relation(fields: [imageId], references: [id])
   imageId  Int
-  author User @relation(fields: [handle], references: [handle])
-
+  user User @relation(fields: [poster], references: [handle])
+  poster String
 }
 
 model User {
   id         Int         @id @default(autoincrement())
   name        String
-  handle String
+  handle String @unique
   email       String       @unique
   password         String
-  images Image[]
+
+  images Image[] @relation("imageList")
+  imageLikedBy  Image? @relation("likedBy")
 }

@@ -53,3 +53,9 @@ authenticate with prisma:
 https://www.howtographql.com/graphql-js/6-authentication/
 
 took out of schema.prisma user: image       Image @relation(fields: [likedImages], references: [id])
+
+  // likes Image? @relation("likes")
+  // author Image? @relation("author")
+
+  image:   likedBy User[] @relation("LikedBy", references: [handle])
+  author User @relation(fields: [authorId], references: [handle])
