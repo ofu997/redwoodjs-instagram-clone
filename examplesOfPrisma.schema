@@ -1,0 +1,31 @@
+/* 1 to many */
+
+model author {
+  id Int @id @default(autoincrement())
+  recipe recipes[]
+}
+
+model recipe {
+  id Int @id @default(autoincrement())
+  author author @relation(fields: [authorId], references: [id])
+  authorId Int
+  title String
+}
+
+
+/* from richard wardza */
+model User {
+  id         Int    @default(autoincrement()) @id
+  name       String
+  profilePic Image?  @relation("ProfilePicture", fields: [profileImageId], references: [id])
+  avatar     Image?  @relation("AvatarImage", fields: [avatarImageId], references: [id])
+  profileImageId  Int? @map("userProfilePic")
+  avatarImageId   Int? @map("userAvatar")
+}
+
+model Image {
+  id             Int    @default(autoincrement()) @id
+  name           String
+  userProfilePic User? @relation("ProfilePicture")
+  userAvatar     User? @relation("AvatarImage")
+ }
