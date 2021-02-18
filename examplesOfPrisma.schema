@@ -1,5 +1,6 @@
 /* 1 to many */
 
+Author has many Recipes, and Recipe references Author.
 model author {
   id Int @id @default(autoincrement())
   recipe recipes[]
@@ -7,13 +8,46 @@ model author {
 
 model recipe {
   id Int @id @default(autoincrement())
+
   author author @relation(fields: [authorId], references: [id])
   authorId Int
+
   title String
 }
 
+/* 1 to 1 */
+
+1 author has 1 profile
+
+model author {
+  id Int @id @default(autoincrement())
+  profileId Int? @unique
+
+  profile profile? @relation(fields: [profileId], references: [id])
+}
+
+model profile {
+  id Int @id @default(autoincrement())
+  firstname String?
+  lastname String?
+
+  author author
+}
+
+/* Many to many */
+/* implicit relation */
+model recipe {
+  id Int @id @default(autoincrement())
+  tags tag[] @relation(references: [id])
+}
+
+model tag {
+  id Int @id @default(autoincrement())
+  recipes recipe[] @relation(references: [id])
+}
 
 /* from richard wardza */
+
 model User {
   id         Int    @default(autoincrement()) @id
   name       String

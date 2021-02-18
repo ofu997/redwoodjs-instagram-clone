@@ -111,7 +111,8 @@ const ImagesList = ({ images }) => {
               <td>{truncate(image.likes)}</td>
               <td>
                 <button
-                  onClick={() => incrementLikes(image.id, image.likes)}
+                  // onClick={() => incrementLikes(image.id, image.likes)}
+                  onClick={() => incrementLikes(image.id)}
                 >
                   like
                 </button>

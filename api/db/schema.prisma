@@ -5,7 +5,7 @@ datasource DS {
 
 
 
-  url      = env("DATABASE_URL")
+  url = env("DATABASE_URL")
 }
 
 generator client {
@@ -21,21 +21,23 @@ model Image {
   title String
   url   String
   likes Int? @default(0)
+
   comments Comment[]
 
   likedBy User[] @relation("likedBy")
-  user User @relation("imageList")
-  author User @relation(fields: [authorHandle], references: [handle])
-  authorHandle String
+
+  author User? @relation("author")
 }
 
 model Comment {
   id       Int        @id @default(autoincrement())
   body     String
+
   image    Image      @relation(fields: [imageId], references: [id])
   imageId  Int
-  user User @relation(fields: [poster], references: [handle])
-  poster String
+
+  poster User @relation(fields: [posterId], references: [id])
+  posterId Int
 }
 
 model User {
@@ -45,6 +47,11 @@ model User {
   email       String       @unique
   password         String
 
-  images Image[] @relation("imageList")
-  imageLikedBy  Image? @relation("likedBy")
+  image Image @relation("likedBy", fields: [imageLikedById], references: [id])
+  imageLikedById Int
+
+  author Image @relation("author", fields: [authorId], references: [id])
+  authorId Int
+
+  poster Comment?
 }
