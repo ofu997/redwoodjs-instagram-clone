@@ -16,6 +16,20 @@ async function main() {
   //     await db.user.create({ data: { name: 'Admin', email: 'admin@email.com' }})
   //   }
 
+    const existing = await db.user.findMany({ where: { email: 'admin@email.com' }})
+    if (!existing.length) {
+      await db.user.create(
+        {
+          data: {
+              title: 'first',
+              url: 'https://firebasestorage.googleapis.com/v0/b/social-media-redwood.appspot.com/o/images%2Fafternoon-waterfall.jpg?alt=media&token=7d71dd5d-cb23-4a06-a77c-c885cd4c68f1',
+              likes: 0
+          }
+        }
+      )
+    }
+
+
   console.info('No data to seed. See api/db/seeds.js for info.')
 }
 

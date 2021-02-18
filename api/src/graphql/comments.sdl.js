@@ -4,24 +4,23 @@ export const schema = gql`
     body: String!
     image: Image!
     imageId: Int!
+    user: User!
+    posterId: Int!
   }
 
   type Query {
-    comments(imageId: Int!): [Comment!]!
+    comments: [Comment!]!
   }
 
   input CreateCommentInput {
     body: String!
     imageId: Int!
+    posterId: Int!
   }
 
   input UpdateCommentInput {
     body: String
     imageId: Int
-  }
-
-  type Mutation {
-    createComment(input: CreateCommentInput!): Comment!
-    deleteComment(id: Int!): Comment!
+    posterId: Int
   }
 `

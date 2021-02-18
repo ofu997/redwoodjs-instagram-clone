@@ -3,18 +3,20 @@ export const schema = gql`
     id: Int!
     title: String!
     url: String!
-    likes: Int!
+    likes: Int
+    comments: [Comment]!
+    likedBy: [User]!
+    author: User
   }
 
   type Query {
     images: [Image!]!
-    image(id: Int!): Image
   }
 
   input CreateImageInput {
     title: String!
-    url: String
-    likes: Int!
+    url: String!
+    likes: Int
   }
 
   input UpdateImageInput {
@@ -22,14 +24,4 @@ export const schema = gql`
     url: String
     likes: Int
   }
-
-  type Mutation {
-    createImage(input: CreateImageInput!): Image!
-    updateImage(id: Int!, input: UpdateImageInput!): Image!
-    deleteImage(id: Int!): Image!
-
-    updateLikes(id: Int!, likes: Int!): Image!
-  }
 `
-
-// updateLikes(id: Int!, likes: Int!): Image!
