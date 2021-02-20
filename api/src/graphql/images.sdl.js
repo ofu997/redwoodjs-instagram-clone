@@ -6,22 +6,34 @@ export const schema = gql`
     likes: Int
     comments: [Comment]!
     likedBy: [User]!
-    author: User
+    user: User!
+    userId: Int!
   }
 
   type Query {
     images: [Image!]!
+    image(id: Int!): Image
   }
 
   input CreateImageInput {
     title: String!
     url: String!
     likes: Int
+    userId: Int!
   }
 
   input UpdateImageInput {
     title: String
     url: String
     likes: Int
+    userId: Int
+  }
+
+  type Mutation {
+    createImage(input: CreateImageInput!): Image!
+    updateImage(id: Int!, input: UpdateImageInput!): Image!
+    deleteImage(id: Int!): Image!
+
+    updateLikes(id: Int!): Image!
   }
 `

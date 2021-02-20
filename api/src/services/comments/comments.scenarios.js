@@ -9,8 +9,8 @@ export const standard = defineScenario({
           user: {
             create: {
               name: 'String',
-              handle: 'String925432',
-              email: 'String2074735',
+              handle: 'String7848372',
+              email: 'String7733756',
               password: 'String',
             },
           },
@@ -20,8 +20,8 @@ export const standard = defineScenario({
       user: {
         create: {
           name: 'String',
-          handle: 'String6510952',
-          email: 'String4998059',
+          handle: 'String3311377',
+          email: 'String3425195',
           password: 'String',
         },
       },
@@ -36,8 +36,8 @@ export const standard = defineScenario({
           user: {
             create: {
               name: 'String',
-              handle: 'String9412401',
-              email: 'String5352629',
+              handle: 'String8307251',
+              email: 'String3711591',
               password: 'String',
             },
           },
@@ -47,8 +47,8 @@ export const standard = defineScenario({
       user: {
         create: {
           name: 'String',
-          handle: 'String759719',
-          email: 'String7220220',
+          handle: 'String2412267',
+          email: 'String9616397',
           password: 'String',
         },
       },

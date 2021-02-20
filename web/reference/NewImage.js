@@ -24,6 +24,7 @@ const NewImage = () => {
 
   const onSave = (input) => {
     createImage({ variables: { input } })
+    // createImage({ variables: { userId, ...input } })
   }
 
   return (

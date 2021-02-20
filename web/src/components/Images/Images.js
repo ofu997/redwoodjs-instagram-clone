@@ -11,9 +11,17 @@ const DELETE_IMAGE_MUTATION = gql`
     }
   }
 `
+// const UPDATE_LIKE_MUTATION = gql`
+//   mutation ($id: Int!, $likes: Int!) {
+//     updateLikes(id: $id, likes: $likes) {
+//       likes
+//     }
+//   }
+// `
+
 const UPDATE_LIKE_MUTATION = gql`
-  mutation ($id: Int!, $likes: Int!) {
-    updateLikes(id: $id, likes: $likes) {
+  mutation ($id: Int!) {
+    updateLikes(id: $id) {
       likes
     }
   }
@@ -78,8 +86,13 @@ const ImagesList = ({ images }) => {
     }
   }
 
-  const incrementLikes = (id, likes) => {
-    updateLikes({ variables: { id, likes }})
+  // const incrementLikes = (id, likes) => {
+  //   updateLikes({ variables: { id, likes }})
+  // }
+
+  const incrementLikes = (id) => {
+    console.log('incrementLikes() pressed')
+    updateLikes({ variables: { id }})
   }
 
   return (

@@ -22,10 +22,10 @@ const FirebaseImageForm = (props) => {
     props.onSave(dataWithUrl, props?.image?.id)
   }
 
-  const onFileUpload = (response) => {
-    setUrl(response.filesUploaded[0].url)
-    console.info(response)
-  }
+  // const onFileUpload = (response) => {
+  //   setUrl(response.filesUploaded[0].url)
+  //   console.info(response)
+  // }
 
   console.log(imageAsFile)
   const handleImageAsFile = (e) => {
@@ -180,7 +180,11 @@ const FirebaseImageForm = (props) => {
             validation={{ required: false }}
           />
           <FieldError name="likes" className="rw-field-error" />
-        </div>
+          <NumberField
+            name="userId"
+            defaultValue={1}
+          />
+        </div> {/* hidden */}
 
         <div className="rw-button-group">
           <Submit disabled={props.loading} className="rw-button rw-button-blue">

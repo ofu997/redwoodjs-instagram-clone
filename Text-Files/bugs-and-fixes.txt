@@ -1,0 +1,2 @@
+Error when user does not exist: Unknown arg `userId` in data.userId for type ImageUncheckedCreateInput. Did you mean `url`? Available args:
+fix in user service: db.post.create({ data: { title: 'My post', body: 'Lorem ipsum...', userId: { connect: { id: 1 } } } })

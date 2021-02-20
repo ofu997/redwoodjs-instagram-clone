@@ -41,6 +41,8 @@ model Comment {
   posterId Int
 }
 
+
+
 model User {
   id         Int         @id @default(autoincrement())
   name        String
@@ -51,4 +53,6 @@ model User {
   userLikes Image[] @relation("m:m. Image is liked by users", references: [id])
 
   images Image[] @relation("1:m. User has many images")
+
+  comments Comment[] @relation("1:m. User has many comments")
 }

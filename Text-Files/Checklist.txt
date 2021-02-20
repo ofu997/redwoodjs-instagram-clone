@@ -1,4 +1,6 @@
-Add user model
+- Add user model
+fix Like functions
+display comments
 Authentication that stores user session
 
 associate comments with user
