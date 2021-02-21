@@ -1,5 +1,11 @@
 - Add user model
 fix Like functions
+  modify ImagesCell QUERY so that it returns relational fields
+  components/images.js
+    incrementLikes needs to pass user.id
+    USER_QUERY should store userLikes in useEffect function
+    query images where image.likedBy.id equals current user.id.
+
 display comments
 Authentication that stores user session
 

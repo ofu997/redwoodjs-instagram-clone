@@ -27,6 +27,27 @@ const UPDATE_LIKE_MUTATION = gql`
   }
 `
 
+const USER_QUERY = gql`
+  query ($id: Int!) {
+    user (id: $id) {
+      id
+      name
+      email
+      handle
+      password
+
+      userLikes {
+        id
+        title
+      }
+      images {
+        id
+        title
+      }
+    }
+  }
+`
+
 const MAX_STRING_LENGTH = 150
 
 const thumbnail = (url) => {
