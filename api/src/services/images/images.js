@@ -30,7 +30,7 @@ export const deleteImage = ({ id }) => {
   })
 }
 
-export const updateLikes = ({ id }) => {
+export const updateLikes = ({ id, currentUserId }) => {
   return db.image.update({
     data: {
       likes: {

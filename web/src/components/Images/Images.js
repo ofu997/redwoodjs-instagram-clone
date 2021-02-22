@@ -20,8 +20,8 @@ const DELETE_IMAGE_MUTATION = gql`
 // `
 
 const UPDATE_LIKE_MUTATION = gql`
-  mutation ($id: Int!) {
-    updateLikes(id: $id) {
+  mutation ($id: Int!, $currentUserId: Int!) {
+    updateLikes(id: $id, currentUserId: $currentUserId) {
       likes
     }
   }
@@ -47,6 +47,8 @@ const USER_QUERY = gql`
     }
   }
 `
+
+const currentUserId = 1
 
 const MAX_STRING_LENGTH = 150
 
@@ -111,9 +113,9 @@ const ImagesList = ({ images }) => {
   //   updateLikes({ variables: { id, likes }})
   // }
 
-  const incrementLikes = (id) => {
+  const incrementLikes = (id, currentUserId) => {
     console.log('incrementLikes() pressed')
-    updateLikes({ variables: { id }})
+    updateLikes({ variables: { id, currentUserId }})
   }
 
   return (
@@ -146,7 +148,7 @@ const ImagesList = ({ images }) => {
               <td>
                 <button
                   // onClick={() => incrementLikes(image.id, image.likes)}
-                  onClick={() => incrementLikes(image.id)}
+                  onClick={() => incrementLikes(image.id, currentUserId)}
                 >
                   like
                 </button>

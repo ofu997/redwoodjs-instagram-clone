@@ -6,6 +6,13 @@ fix Like functions
     USER_QUERY should store userLikes in useEffect function
     query images where image.likedBy.id equals current user.id.
 
+    PRISMA DOCS: use multiple select statements to return relation fields
+    Use include  to include all fields from related records, such as a user's posts or profile, in the query response.
+    Use a nested select  to include specific fields from a related record. You can also nest select inside an include.
+    Nested writes: the following nested write creates a User and two related Post records:
+    Add new related records to an existing record
+    You can nest create or createMany inside an update to add new related records to an existing record. The following query adds two posts to a user with an id of 9:
+
 display comments
 Authentication that stores user session
 
