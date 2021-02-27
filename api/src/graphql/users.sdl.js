@@ -21,9 +21,9 @@ export const schema = gql`
     email: String!
     password: String!
 
-    userLikes: [Image]!
-    images: [Image]!
-    comments: [Comment]!
+    userLikes: String!
+    images: String!
+    comments: String!
   }
 
   input UpdateUserInput {

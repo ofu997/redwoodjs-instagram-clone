@@ -35,6 +35,11 @@ export const updateLikes = ({ id, currentUserId }) => {
     data: {
       likes: {
         increment: 1
+      },
+      likedBy: {
+        connect: {
+          id: currentUserId
+        }
       }
     },
     where: { id },
