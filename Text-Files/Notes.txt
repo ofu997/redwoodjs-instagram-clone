@@ -7,9 +7,9 @@ https://dev.to/itnext/how-to-do-image-upload-with-firebase-in-react-cpj
 image optimize:
 https://www.npmjs.com/package/react-cool-img
 
-components/images: ImagesList receives images at /images
+pages/ImagesPage: returns <ImagesCell>
 components/imagesCell: return <Images images={images} />, sends to components/Images
-pages/ImagesPage: <ImagesCell>
+components/images: ImagesList receives images at /images
 
 components/CommentsCell:
 export const QUERY = gql`

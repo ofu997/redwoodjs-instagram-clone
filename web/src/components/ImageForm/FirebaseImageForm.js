@@ -182,7 +182,7 @@ const FirebaseImageForm = (props) => {
           <FieldError name="likes" className="rw-field-error" />
           <NumberField
             name="userId"
-            defaultValue={1}
+            defaultValue={2}
           />
         </div> {/* hidden */}
 

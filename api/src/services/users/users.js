@@ -29,6 +29,19 @@ export const deleteUser = ({ id }) => {
   })
 }
 
+export const updateUserLikes = ({ id, imageId }) => {
+  return db.user.update({
+    data: {
+      userLikes: {
+        connect: {
+          imageId: imageId
+        }
+      }
+    },
+    where: { id },
+  })
+}
+
 export const User = {
   userLikes: (_obj, { root }) =>
     db.user.findUnique({ where: { id: root.id } }).userLikes(),

@@ -5,6 +5,8 @@ fix Like functions
     incrementLikes needs to pass user.id
     USER_QUERY should store userLikes in useEffect function
     query images where image.likedBy.id equals current user.id.
+    /images should distinguish if image is liked by currentUser
+    implement if statements depending on image being liked
 
     PRISMA DOCS: use multiple select statements to return relation fields
     Use include  to include all fields from related records, such as a user's posts or profile, in the query response.

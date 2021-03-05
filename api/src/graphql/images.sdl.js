@@ -20,8 +20,8 @@ export const schema = gql`
     url: String!
     likes: Int
     userId: Int!
-    comments: String!
-    likedBy: Int!
+    comments: String
+    likedBy: Int
   }
 
   input UpdateImageInput {

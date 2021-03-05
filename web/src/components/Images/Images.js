@@ -21,15 +21,25 @@ const DELETE_IMAGE_MUTATION = gql`
 
 const UPDATE_LIKE_MUTATION = gql`
   mutation ($id: Int!, $currentUserId: Int!) {
-    updateLikes(id: $id, currentUserId: $currentUserId) {
+    updateLikes(id: $imageId, currentUserId: $currentUserId) {
       likes
     }
   }
 `
 
+const UPDATE_USER_LIKES_MUTATION = gql`
+  mutation($imageId: Int!, $currentUserId: Int!) {
+    updateUserLikes(imageId: $imageId, currentUserId: $currentUserId) {
+      userLikes {
+        id
+      }
+    }
+  }
+`
+
 const USER_QUERY = gql`
-  query ($id: Int!) {
-    user (id: $id) {
+  query ($currentUserId: Int!) {
+    user (id: $currentUserId) {
       id
       name
       email
@@ -82,7 +92,7 @@ const checkboxInputTag = (checked) => {
   return <input type="checkbox" checked={checked} disabled />
 }
 
-const ImagesList = ({ images }) => {
+const ImagesList = ({ images, user }) => {
   const { addMessage } = useFlash()
   const [deleteImage] = useMutation(DELETE_IMAGE_MUTATION, {
     onCompleted: () => {
@@ -94,12 +104,21 @@ const ImagesList = ({ images }) => {
     refetchQueries: [{ query: QUERY }],
     awaitRefetchQueries: true,
   })
+
   const [updateLikes] = useMutation(UPDATE_LIKE_MUTATION, {
     onCompleted: () => {
       console.log('[updateLikes] was pressed')
       addMessage('Likes updated.', { classes: 'rw-flash-success' })
     },
     refetchQueries: [{ query: QUERY }],
+    awaitRefetchQueries: true,
+  })
+
+  const [updateUserLikes] = useMutation(UPDATE_USER_LIKES_MUTATION, {
+    onCompleted: () => {
+      console.log('[updateUserLikes] was pressed')
+    },
+    refetchQueries: [{ query: USER_QUERY }],
     awaitRefetchQueries: true,
   })
 
@@ -113,9 +132,10 @@ const ImagesList = ({ images }) => {
   //   updateLikes({ variables: { id, likes }})
   // }
 
-  const incrementLikes = (id, currentUserId) => {
+  const incrementLikes = (imageId, currentUserId) => {
     console.log('incrementLikes() pressed')
-    updateLikes({ variables: { id, currentUserId }})
+    updateLikes({ variables: { imageId, currentUserId }})
+    updateUserLikes({ variables: imageId, currentUserId })
   }
 
   return (
@@ -128,7 +148,8 @@ const ImagesList = ({ images }) => {
             <th style={{ width: 150 }}></th>
             <th>Url</th>
             <th>Likes</th>
-            <th>&nbsp;</th>
+            <th>Which users like this</th>
+            <th style={{ width: 150 }}></th>
             <th>Comments</th>
             <th>Actions</th>
           </tr>
@@ -145,6 +166,20 @@ const ImagesList = ({ images }) => {
               </td>
               <td>{truncate(image.url)}</td>
               <td>{truncate(image.likes)}</td>
+              <td>{/*logic for displaying if user likes this. use useQuery from Apollo */}
+                {/* {image.likedBy.some(item => item.id === currentUserId) ?
+                  <p>{user.handle} likes this</p> :
+                  <p> no </p>
+                } */}
+                {/* {image.likedBy.find(item => item.id === currentUserId) ?
+                  <p>{user.handle} likes this</p> :
+                  <p> no </p>
+                } */}
+                {/* {Array.isArray({image.likedBy})} */}
+                {image.likedBy.map(item => {
+                  return <p>{item.id}</p>
+                })}
+              </td>
               <td>
                 <button
                   // onClick={() => incrementLikes(image.id, image.likes)}
