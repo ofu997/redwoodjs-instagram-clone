@@ -146,7 +146,7 @@ const ImagesList = ({ images, user }) => {
             <th>Id</th>
             <th>Title</th>
             <th style={{ width: 150 }}></th>
-            <th>Url</th>
+            {/* <th>Url</th> */}
             <th>Likes</th>
             <th>Which users like this</th>
             <th style={{ width: 150 }}></th>
@@ -164,20 +164,14 @@ const ImagesList = ({ images, user }) => {
                   <img src={image.url} style={{ maxWidth: '150px' }} />
                 </a>
               </td>
-              <td>{truncate(image.url)}</td>
+              {/* <td>{truncate(image.url)}</td> */}
               <td>{truncate(image.likes)}</td>
               <td>{/*logic for displaying if user likes this. use useQuery from Apollo */}
-                {/* {image.likedBy.some(item => item.id === currentUserId) ?
-                  <p>{user.handle} likes this</p> :
-                  <p> no </p>
-                } */}
-                {/* {image.likedBy.find(item => item.id === currentUserId) ?
-                  <p>{user.handle} likes this</p> :
-                  <p> no </p>
-                } */}
-                {/* {Array.isArray({image.likedBy})} */}
+                {image.likedBy.some(item => item.id === currentUserId) &&
+                  <p>current user: {user.handle} likes this</p>
+                }
                 {image.likedBy.map(item => {
-                  return <p>{item.id}</p>
+                  return <p>user with id: {item.id} likes this</p>
                 })}
               </td>
               <td>

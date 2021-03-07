@@ -18,6 +18,7 @@ export const QUERY = gql`
     }
     user (id: $currentUserId) {
       id
+      handle
       userLikes {
         id
         title

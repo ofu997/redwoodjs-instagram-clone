@@ -3,17 +3,16 @@ import {
   FormError,
   Label,
   TextField,
-  TextAreaField,
   Submit,
 } from '@redwoodjs/forms'
 import { useAuth } from '@redwoodjs/auth'
 
-const SignUpForm = () => {
+const SignInForm = () => {
   const { logIn, logOut, isAuthenticated } = useAuth()
 
   const handleSignUp = input => {
     logIn();
-    createUser({ variables: { input } })
+    authenticateUser({ variables: { input } })
   }
 
   return (
@@ -26,7 +25,6 @@ const SignUpForm = () => {
         >
 
             <FormError
-              // error={error}
               titleClassName="font-semibold"
               wrapperClassName="bg-red-100 text-red-900 text-sm p-3 rounded"
             />
@@ -92,7 +90,7 @@ const SignUpForm = () => {
 
               <div className="flex sign-up-in-btn">
                 <Submit className="rw-button rw-button-blue">
-                  <p>Sign Up</p>
+                  <p>Sign In</p>
                 </Submit>
               </div>
             </div>
@@ -102,4 +100,5 @@ const SignUpForm = () => {
   )
 }
 
-export default SignUpForm
+export default SignInForm
+

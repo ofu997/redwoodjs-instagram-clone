@@ -2,10 +2,10 @@
 fix Like functions
   modify ImagesCell QUERY so that it returns relational fields
   components/images.js
-    incrementLikes needs to pass user.id
+    - incrementLikes needs to pass user.id
     USER_QUERY should store userLikes in useEffect function
-    query images where image.likedBy.id equals current user.id.
-    /images should distinguish if image is liked by currentUser
+    - query images where image.likedBy.id equals current user.id.
+    - /images should distinguish if image is liked by currentUser
     implement if statements depending on image being liked
 
     PRISMA DOCS: use multiple select statements to return relation fields
@@ -16,10 +16,11 @@ fix Like functions
     You can nest create or createMany inside an update to add new related records to an existing record. The following query adds two posts to a user with an id of 9:
 
 display comments
-Authentication that stores user session
+SignUpForm should create user
+SignInForm should authenticate
+Authentication stores user session
 
 associate comments with user
-associate likes with user
 
 limit user likes to one increment/decrement
 
