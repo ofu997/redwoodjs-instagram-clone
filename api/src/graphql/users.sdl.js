@@ -13,6 +13,10 @@ export const schema = gql`
   type Query {
     users: [User!]!
     user(id: Int!): User
+
+    findUserByHandle(handle: String!): User
+    findUserByPassword(password: String!): User
+    findUserByEmail(email: String!): User
   }
 
   input CreateUserInput {
@@ -33,11 +37,20 @@ export const schema = gql`
     password: String
   }
 
+  input SignUpOrInInput {
+    email: String!
+    password: String!
+  }
+
   type Mutation {
     createUser(input: CreateUserInput!): User!
     updateUser(id: Int!, input: UpdateUserInput!): User!
     deleteUser(id: Int!): User!
 
     updateUserLikes(imageId: Int!, currentUserId: Int!): User!
+
+    signUp(input: SignUpOrInInput!): User!
+    signIn(input: SignUpOrInInput!): User!
+
   }
 `
