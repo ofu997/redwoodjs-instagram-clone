@@ -59,7 +59,7 @@ const SignInForm = () => {
 
   const [signIn, { loading, error }] = useMutation(SIGN_IN_MUTATION, {
     onCompleted: () => {
-      navigate(routes.images())
+      // navigate(routes.images())
       // loading && addMessage('loading', { classes: 'rw-flash-success' })
       // error && addMessage('error', { classes: 'rw-flash-success' })
       addMessage('Signed in', { classes: 'rw-flash-success' })

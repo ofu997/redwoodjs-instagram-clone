@@ -89,9 +89,11 @@ export const signIn = ({ input }) => {
   const  {email, password} = input
   console.log('services/signup-signin.js')
 
-  return db.user.findUnique({
+  const userByEmail = db.user.findUnique({
     where: { email }
   })
+
+  console.log(userByEmail)
 
   // const userByPassword = findUserByPassword(password)
 
@@ -105,11 +107,12 @@ export const signIn = ({ input }) => {
   //   console.log(signedIn)
   // }
 
-  // localStorage.setItem('user', JSON.stringify.userByPassword)
 
-  // return userByPassword
+
+  localStorage.setItem('user', JSON.stringify.userByPassword)
+
+  return userByEmail
 }
-
 
 export const User = {
   userLikes: (_obj, { root }) =>
