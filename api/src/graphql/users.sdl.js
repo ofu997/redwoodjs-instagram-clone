@@ -19,15 +19,16 @@ export const schema = gql`
     findUserByEmail(email: String!): User
   }
 
+  type LoginResponse {
+    token: String
+    user: User
+  }
+
   input CreateUserInput {
     name: String!
     handle: String!
     email: String!
     password: String!
-
-    userLikes: String!
-    images: String!
-    comments: String!
   }
 
   input UpdateUserInput {
@@ -51,6 +52,6 @@ export const schema = gql`
 
     signUp(input: SignUpOrInInput!): User!
     signIn(input: SignUpOrInInput!): User!
-
+    loginUser(input: SignUpOrInInput!): LoginResponse
   }
 `

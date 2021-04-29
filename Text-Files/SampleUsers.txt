@@ -1,0 +1,8 @@
+sample users
+
+{
+  name: Ash Ketchum,
+  handle: @ashketchum,
+  email: ashketchum@email.com,
+  password: Ashketchum1!
+}

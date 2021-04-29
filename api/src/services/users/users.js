@@ -1,4 +1,6 @@
 import { db } from 'src/lib/db'
+import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 
 export const users = () => {
   return db.user.findMany()
@@ -10,9 +12,11 @@ export const user = ({ id }) => {
   })
 }
 
-export const createUser = ({ input }) => {
+export const createUser = async ({ input }) => {
+  const password = await bcrypt.hash(input.password, 10)
+  const data = { ...input, password }
   return db.user.create({
-    data: input,
+    data,
   })
 }
 
@@ -54,8 +58,32 @@ export const findUserByEmail = ({ email }) => {
   })
 }
 
-export const loginUser = ({ handle, password }) => {
-  return 0;
+export const loginUser = async ({ input }) => {
+  try {
+    const user = await db.user.findUnique({
+      where: { email: input.email },
+    })
+    if (!user) {
+      throw new Error('Invalid User')
+    }
+    const passwordMatch = await bcrypt.compare(input.password, user.password)
+    if (!passwordMatch) {
+      throw new Error('Invalid Login')
+    }
+    const token = jwt.sign(
+      {
+        id: user.id,
+        username: user.email,
+      },
+      'my-secret-from-env-file-in-prod',
+      {
+        expiresIn: '30d', // token will expire in 30days
+      }
+    )
+    return { user, token }
+  } catch (e) {
+    return e
+  }
 }
 
 export const findUserByPassword = ({ password }) => {
