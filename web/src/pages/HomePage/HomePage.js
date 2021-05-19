@@ -1,25 +1,25 @@
 import { useState } from 'react'
 
 import SignUpForm from 'src/components/SignUpForm/SignUpForm.js'
-import SignInForm from 'src/components/SignInForm/SignInForm.js'
+import LogInForm from 'src/components/LogInForm/LogInForm.js'
 
 const HomePage = () => {
   const [showSignUp, setShowSignUp] = useState(true)
-  const [showSignIn, setShowSignIn] = useState(false)
+  const [showLogIn, setShowLogIn] = useState(false)
 
-  const toggleSignUpSignIn = () => {
+  const toggleSignUpLogIn = () => {
     setShowSignUp(!showSignUp)
-    setShowSignIn(!showSignIn)
+    setShowLogIn(!showLogIn)
     console.log(showSignUp)
   }
 
   return (
     <>
       <h2
-        onClick={toggleSignUpSignIn}
+        onClick={toggleSignUpLogIn}
       >
         {
-          showSignUp? `Sign Up` : `Sign In`
+          showSignUp? `Log In` : `Sign Up`
         }
       </h2>
       {/* <h1>Login</h1> */}
@@ -27,8 +27,8 @@ const HomePage = () => {
       {showSignUp &&
         <SignUpForm />
       }
-      {showSignIn &&
-        <SignInForm />
+      {showLogIn &&
+        <LogInForm />
       }
     </>
   )
