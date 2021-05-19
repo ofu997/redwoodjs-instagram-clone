@@ -49,9 +49,6 @@ export const schema = gql`
     deleteUser(id: Int!): User!
 
     updateUserLikes(imageId: Int!, currentUserId: Int!): User!
-
-    signUp(input: SignUpOrInInput!): User!
-    signIn(input: SignUpOrInInput!): User!
     loginUser(input: SignUpOrInInput!): LoginResponse
   }
 `
