@@ -4,32 +4,34 @@ import SignUpForm from 'src/components/SignUpForm/SignUpForm.js'
 import LogInForm from 'src/components/LogInForm/LogInForm.js'
 
 const HomePage = () => {
-  const [showSignUp, setShowSignUp] = useState(true)
-  const [showLogIn, setShowLogIn] = useState(false)
+  const [showSignUpForm, setShowSignUpForm] = useState(false)
+  const [showLogInForm, setShowLogInForm] = useState(true)
 
   const toggleSignUpLogIn = () => {
-    setShowSignUp(!showSignUp)
-    setShowLogIn(!showLogIn)
-    console.log(showSignUp)
+    setShowSignUpForm(!showSignUpForm)
+    setShowLogInForm(!showLogInForm)
   }
 
   return (
     <>
-      <h2
-        onClick={toggleSignUpLogIn}
-      >
-        {
-          showSignUp? `Log In` : `Sign Up`
-        }
-      </h2>
+
       {/* <h1>Login</h1> */}
 
-      {showSignUp &&
+      {showSignUpForm &&
         <SignUpForm />
       }
-      {showLogIn &&
+      {showLogInForm &&
         <LogInForm />
       }
+
+      <h4
+        onClick={toggleSignUpLogIn}
+        style={{ display: 'flex', justifyContent: 'center' }}
+      >
+        {
+          showLogInForm? `Don't have an account? Sign Up` : `Already have an account? Log In`
+        }
+      </h4>
     </>
   )
 }

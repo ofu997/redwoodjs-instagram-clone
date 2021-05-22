@@ -14,9 +14,19 @@ const LOG_IN_MUTATION = gql`
     loginUser(input: $input) {
       token
       user {
+
         id
         name
         email
+        handle
+
+        images {
+          title
+          url
+          likes
+          userId
+        }
+
       }
     }
   }
@@ -26,11 +36,12 @@ const LogInForm = () => {
   const [loginUser, { loading, error }] = useMutation(LOG_IN_MUTATION, {
     onCompleted: ({ loginUser }) => {
       addMessage('Signed in', { classes: 'rw-flash-success' })
-      console.log('signed in: ', loginUser)
-      localStorage.setItem('authToken', loginUser.token)
+      const { token, user } = loginUser;
+      localStorage.setItem('authToken', JSON.stringify(token));
+      localStorage.setItem('user', JSON.stringify(user));
       setTimeout(() => {
         navigate(routes.images())
-      }, 100)
+      }, 50)
     },
     onError: (e) => {
       console.log(e)
@@ -97,7 +108,7 @@ const LogInForm = () => {
 
               <div className="flex sign-up-in-btn">
                 <Submit className="rw-button rw-button-blue">
-                  <p>Sign In</p>
+                  <p>Log In</p>
                 </Submit>
               </div>
             </div>
