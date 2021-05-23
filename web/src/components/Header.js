@@ -12,21 +12,22 @@ const Header = () => {
 
   return(
   <>
-      <header>
-      <Navbar bg="dark" variant='dark' expand="lg" collapseOnSelect>
-        <Container>
+      {/* <header style={{ alignItems: 'center' }}> */}
+      <Navbar className="header-custom cntr-v" bg="dark" variant='dark' expand="lg" collapseOnSelect>
+        {/* <Container> */}
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-
+          <Navbar.Collapse id="basic-navbar-nav" className="cntr-v">
+              <Navbar.Text>
               {user ? (
                   <p>{user.handle}</p>
                 ) : <p>no user yet</p>
               }
+              </Navbar.Text>
           </Navbar.Collapse>
-        </Container>
+        {/* </Container> */}
       </Navbar>
-    </header>
+    {/* </header> */}
   </>
   )
 }

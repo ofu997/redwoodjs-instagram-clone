@@ -5,7 +5,7 @@ import FatalErrorPage from 'src/pages/FatalErrorPage'
 
 import Routes from 'src/Routes'
 
-import './scaffold.css'
+import './custom-styles.css'
 import './index.css'
 
 ReactDOM.render(

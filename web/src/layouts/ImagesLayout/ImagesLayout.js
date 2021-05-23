@@ -1,12 +1,12 @@
 import { Link, routes } from '@redwoodjs/router'
 import { Flash } from '@redwoodjs/web'
-import Header from '../../components/Header'
+// import Header from '../../components/Header'
 
 const ImagesLayout = (props) => {
   return (
     <div className="rw-scaffold">
       <Flash timeout={1000} />
-      <Header />
+      {/* <Header /> */}
       <header className="rw-header">
         <h1 className="rw-heading rw-heading-primary">
           <Link to={routes.images()} className="rw-link">

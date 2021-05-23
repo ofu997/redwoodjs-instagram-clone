@@ -1,11 +1,15 @@
 import ImagesLayout from 'src/layouts/ImagesLayout'
 import ImagesCell from 'src/components/ImagesCell'
+import Header from '../../components/Header'
 
 const ImagesPage = () => {
   return (
-    <ImagesLayout>
-      <ImagesCell currentUserId={currentUserId} />
-    </ImagesLayout>
+    <>
+      <Header />
+      <ImagesLayout>
+        <ImagesCell currentUserId={currentUserId} />
+      </ImagesLayout>
+    </>
   )
 }
 
