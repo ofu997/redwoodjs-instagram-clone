@@ -8,10 +8,13 @@
 // 'src/pages/Admin/BooksPage/BooksPage.js' -> AdminBooksPage
 
 import { Router, Route } from '@redwoodjs/router'
+import UserPage from './pages/UserPage/UserPage'
 
 const Routes = () => {
   return (
     <Router>
+      {/* <Route path="/user" page={UserPage} name="user" /> */}
+      <Route path="/user/{id:Int}" page={UserPage} name="userPage" />
       <Route path="/" page={HomePage} name='homePage' />
       <Route path="/images/new" page={NewImagePage} name="newImage" />
       <Route path="/images/{id:Int}/edit" page={EditImagePage} name="editImage" />

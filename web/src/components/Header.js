@@ -1,5 +1,6 @@
 import { Navbar, Container } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
+import { Link, routes } from '@redwoodjs/router';
 
 const Header = () => {
   const [user, setUser]=useState('');
@@ -20,7 +21,7 @@ const Header = () => {
           <Navbar.Collapse id="basic-navbar-nav" className="cntr-v">
               <Navbar.Text>
               {user ? (
-                  <p>{user.handle}</p>
+                  <Link to={ routes.userPage({id: user.id}) }><p>{user.handle}</p></Link>
                 ) : <p>no user yet</p>
               }
               </Navbar.Text>
