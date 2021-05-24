@@ -11,13 +11,6 @@ const DELETE_IMAGE_MUTATION = gql`
     }
   }
 `
-// const UPDATE_LIKE_MUTATION = gql`
-//   mutation ($id: Int!, $likes: Int!) {
-//     updateLikes(id: $id, likes: $likes) {
-//       likes
-//     }
-//   }
-// `
 
 const UPDATE_LIKE_MUTATION = gql`
   mutation ($id: Int!, $currentUserId: Int!) {
@@ -128,10 +121,6 @@ const ImagesList = ({ images, user }) => {
     }
   }
 
-  // const incrementLikes = (id, likes) => {
-  //   updateLikes({ variables: { id, likes }})
-  // }
-
   const incrementLikes = (imageId, currentUserId) => {
     console.log('incrementLikes() pressed')
     updateLikes({ variables: { imageId, currentUserId }})
@@ -164,7 +153,6 @@ const ImagesList = ({ images, user }) => {
                   <img src={image.url} style={{ maxWidth: '150px' }} />
                 </a>
               </td>
-              {/* <td>{truncate(image.url)}</td> */}
               <td>{truncate(image.likes)}</td>
               <td>{/*logic for displaying if user likes this. use useQuery from Apollo */}
                 {image.likedBy.some(item => item.id === currentUserId) &&

@@ -1,7 +1,11 @@
 import { Link, routes } from '@redwoodjs/router'
 import UserCell from '../../components/UserCell'
+import { useContext } from 'react'
+ import {LoggedInUserContext} from 'src/Routes'
 
 const UserPage = props => {
+  const [user, setUser] = useContext(LoggedInUserContext)
+
   return (
     <>
       <h1>User page</h1>
