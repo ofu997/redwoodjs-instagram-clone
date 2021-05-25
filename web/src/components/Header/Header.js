@@ -1,10 +1,10 @@
 import { Navbar } from 'react-bootstrap';
 import { useState, useEffect, useContext } from 'react';
 import { Link, routes } from '@redwoodjs/router';
-import {LoggedInUserContext} from 'src/Routes'
+import {LoggedInUserContext} from 'src/components/Context/LoggedInUserContext'
 
 const Header = () => {
-  const [userInfo, setUserInfo] = useContext(LoggedInUserContext);
+  const message = useContext(LoggedInUserContext);
 
   useEffect(() => {
     const user = localStorage.getItem('user')?
@@ -20,7 +20,7 @@ const Header = () => {
           <Navbar.Collapse id="basic-navbar-nav" className="cntr-v">
               <Navbar.Text>
               {user ? (
-                  <Link to={ routes.userPage({id: user.id}) }><p>{user.handle}</p></Link>
+                  <Link to={ routes.userPage({id: user.id}) }><p>{user.handle} {message}</p></Link>
                 ) : <p>no user yet</p>
               }
               </Navbar.Text>
