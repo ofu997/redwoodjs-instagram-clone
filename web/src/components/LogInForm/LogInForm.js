@@ -7,8 +7,7 @@ import {
   Submit,
 } from '@redwoodjs/forms'
 import { navigate, routes } from '@redwoodjs/router'
-import { useContext } from 'react';
-import {LoggedInUserContext} from 'src/Routes'
+
 
 
 const LOG_IN_MUTATION = gql`
@@ -40,11 +39,8 @@ const LogInForm = () => {
       addMessage('Signed in', { classes: 'rw-flash-success' })
 
       const { token, user } = loginUser;
-
-      addUserInfoToContext(user); //const userInfo = useContext(user)
-
       localStorage.setItem('authToken', JSON.stringify(token));
-      localStorage.setItem('user', JSON.stringify(userInfo));
+      localStorage.setItem('user', JSON.stringify(user));
       setTimeout(() => {
         navigate(routes.images())
       }, 50)
@@ -54,12 +50,6 @@ const LogInForm = () => {
     },
     ignoreResults: false,
   })
-
-  const [userInfo, setUserInfo] = useContext(LoggedInUserContext)
-
-  const addUserInfoToContext = user => {
-    setUserInfo(user)
-  }
 
   const handleSignIn = data => {
     loginUser({ variables: { input: data } })

@@ -3,7 +3,6 @@ import ImagesCell from 'src/components/ImagesCell'
 import Header from '../../components/Header/Header'
 
 const ImagesPage = () => {
-
   return (
     <>
       <Header />

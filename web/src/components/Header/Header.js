@@ -1,17 +1,16 @@
 import { Navbar } from 'react-bootstrap';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, routes } from '@redwoodjs/router';
-import {LoggedInUserContext} from 'src/Routes'
 
 const Header = () => {
-  const [userInfo, setUserInfo] = useContext(LoggedInUserContext);
+  const [user, setUser] = useState({ });
 
   useEffect(() => {
-    const user = localStorage.getItem('user')?
+    const localStorageUser = localStorage.getItem('user')?
       JSON.parse(localStorage.getItem('user'))
       : []
-    setUser(user);
-  }, [user])
+    setUser(localStorageUser);
+  }, [])
 
   return(
   <>
@@ -21,7 +20,8 @@ const Header = () => {
               <Navbar.Text>
               {user ? (
                   <Link to={ routes.userPage({id: user.id}) }><p>{user.handle}</p></Link>
-                ) : <p>no user yet</p>
+                )
+                : <p>no user yet</p>
               }
               </Navbar.Text>
           </Navbar.Collapse>

@@ -14,9 +14,6 @@ const HomePage = () => {
 
   return (
     <>
-
-      {/* <h1>Login</h1> */}
-
       {showSignUpForm &&
         <SignUpForm />
       }
