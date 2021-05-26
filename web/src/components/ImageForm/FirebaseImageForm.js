@@ -7,12 +7,10 @@ import {
   NumberField,
   Submit,
 } from '@redwoodjs/forms'
-// import { PickerInline } from 'filestack-react'
 import { useState } from 'react'
 import {storage} from '../../firebase/firebase'
 
 const FirebaseImageForm = (props) => {
-  // const allInputs = { imgUrl: '' }
   const [imageAsFile, setImageAsFile] = useState('')
   const [url, setUrl] = useState(props?.image?.url)
 
@@ -22,15 +20,8 @@ const FirebaseImageForm = (props) => {
     props.onSave(dataWithUrl, props?.image?.id)
   }
 
-  // const onFileUpload = (response) => {
-  //   setUrl(response.filesUploaded[0].url)
-  //   console.info(response)
-  // }
-
   console.log(imageAsFile)
   const handleImageAsFile = (e) => {
-    // const image = e.target.files[0]
-    // setImageAsFile(imageFile => (image))
     setImageAsFile(e.target.files[0])
   }
 
@@ -59,18 +50,8 @@ const FirebaseImageForm = (props) => {
         .getDownloadURL()
         .then(fireBaseUrl => {
           console.log(`firebaseurl: ${fireBaseUrl}`)
-          // setUrl(prevObject => ({...prevObject, imgUrl: fireBaseUrl}))
           setUrl(fireBaseUrl)
-          // return fireBaseUrl
         })
-        // .then((fireBaseUrl) => {
-        //   setUrl(fireBaseUrl)
-        // })
-        // .then((data, { fireBaseUrl }) => {
-        //   const dataWithUrl = Object.assign(data, { fireBaseUrl })
-        //   console.log(`datawithurl: ${dataWithUrl}`)
-        //   props.onSave(dataWithUrl, props?.image?.id)
-        // })
       })
 
       // save to table
@@ -80,13 +61,6 @@ const FirebaseImageForm = (props) => {
 
   return (
     <div className="rw-form-wrapper">
-      {/* <form onSubmit={handleFirebaseUpload}>
-        <input
-          type='file'
-          onChange={handleImageAsFile}
-        />
-        <button disabled={!imageAsFile}>upload to firebase</button>
-      </form> */}
       <Form onSubmit={onSubmit} error={props.error}>
         <FormError
           error={props.error}
@@ -111,25 +85,11 @@ const FirebaseImageForm = (props) => {
         />
         <FieldError name="title" className="rw-field-error" />
 
-        {/* <PickerInline
-          apikey={process.env.REDWOOD_ENV_FILESTACK_API_KEY}
-          onSuccess={onFileUpload}
-        /> */}
-        {/* move this out of redwood form */}
         <input
           type='file'
           onChange={handleImageAsFile}
         />
         <button onClick={handleFirebaseUpload}>Upload</button>
-
-        {/* <div
-          id="picker"
-          style={{
-            marginTop: '2rem',
-            height: '20rem',
-            display: url ? 'none' : 'block',
-          }}
-        ></div> */}
 
         {url && (
           <div>
@@ -155,7 +115,6 @@ const FirebaseImageForm = (props) => {
           </Label>
           <TextField
             name="url"
-            // defaultValue={props.image?.url}
             defaultValue={props.image?.url}
             className="rw-input"
             errorClassName="rw-input rw-input-error"
@@ -192,7 +151,6 @@ const FirebaseImageForm = (props) => {
           </Submit>
         </div>
       </Form>
-      {/* <img src={url} alt="" /> */}
     </div>
   )
 }

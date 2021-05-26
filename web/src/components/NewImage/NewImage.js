@@ -32,6 +32,7 @@ const NewImage = () => {
         <h2 className="rw-heading rw-heading-secondary">New Image</h2>
       </header>
       <div className="rw-segment-main">
+        // task: pass in new prop showing logged in status
         <FirebaseImageForm onSave={onSave} loading={loading} error={error} />
       </div>
     </div>
