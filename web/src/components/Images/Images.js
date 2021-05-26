@@ -30,6 +30,7 @@ const UPDATE_USER_LIKES_MUTATION = gql`
   }
 `
 
+// we need this for refetching after interactions
 const USER_QUERY = gql`
   query ($currentUserId: Int!) {
     user (id: $currentUserId) {
@@ -51,42 +52,42 @@ const USER_QUERY = gql`
   }
 `
 
-const currentUserId = 1
-
-const MAX_STRING_LENGTH = 150
-
-const thumbnail = (url) => {
-  const parts = url.split('/')
-  parts.splice(3, 0, 'resize=width:100')
-  return parts.join('/')
-}
-
-const truncate = (text) => {
-  let output = text
-  if (text && text.length > MAX_STRING_LENGTH) {
-    output = output.substring(0, MAX_STRING_LENGTH) + '...'
-  }
-  return output
-}
-
-const jsonTruncate = (obj) => {
-  return truncate(JSON.stringify(obj, null, 2))
-}
-
-const timeTag = (datetime) => {
-  return (
-    <time dateTime={datetime} title={datetime}>
-      {new Date(datetime).toUTCString()}
-    </time>
-  )
-}
-
-const checkboxInputTag = (checked) => {
-  return <input type="checkbox" checked={checked} disabled />
-}
-
 const ImagesList = ({ images, user }) => {
+
+  const MAX_STRING_LENGTH = 150
+
+  const thumbnail = (url) => {
+    const parts = url.split('/')
+    parts.splice(3, 0, 'resize=width:100')
+    return parts.join('/')
+  }
+
+  const truncate = (text) => {
+    let output = text
+    if (text && text.length > MAX_STRING_LENGTH) {
+      output = output.substring(0, MAX_STRING_LENGTH) + '...'
+    }
+    return output
+  }
+
+  const jsonTruncate = (obj) => {
+    return truncate(JSON.stringify(obj, null, 2))
+  }
+
+  const timeTag = (datetime) => {
+    return (
+      <time dateTime={datetime} title={datetime}>
+        {new Date(datetime).toUTCString()}
+      </time>
+    )
+  }
+
+  const checkboxInputTag = (checked) => {
+    return <input type="checkbox" checked={checked} disabled />
+  }
+
   const { addMessage } = useFlash()
+
   const [deleteImage] = useMutation(DELETE_IMAGE_MUTATION, {
     onCompleted: () => {
       addMessage('Image deleted.', { classes: 'rw-flash-success' })
@@ -121,16 +122,16 @@ const ImagesList = ({ images, user }) => {
     }
   }
 
-  const incrementLikes = (imageId, currentUserId) => {
+  const incrementLikes = (imageId, userId) => {
     console.log('incrementLikes() pressed')
-    updateLikes({ variables: { imageId, currentUserId }})
-    updateUserLikes({ variables: imageId, currentUserId })
+    updateLikes({ variables: { imageId, userId } })
+    updateUserLikes({ variables: imageId, userId })
   }
 
   return (
     <div className="rw-segment rw-table-wrapper-responsive">
       <table className="rw-table">
-        <thead style={{ border: '5px solid black'}}>
+        <thead style={{ border: '5px solid black' }}>
           <tr>
             <th>Id</th>
             <th>Title</th>
@@ -155,7 +156,7 @@ const ImagesList = ({ images, user }) => {
               </td>
               <td>{truncate(image.likes)}</td>
               <td>{/*logic for displaying if user likes this. use useQuery from Apollo */}
-                {image.likedBy.some(item => item.id === currentUserId) &&
+                {image.likedBy.some(item => item.id === user.id) &&
                   <p>current user: {user.handle} likes this</p>
                 }
                 {image.likedBy.map(item => {
@@ -165,7 +166,7 @@ const ImagesList = ({ images, user }) => {
               <td>
                 <button
                   // onClick={() => incrementLikes(image.id, image.likes)}
-                  onClick={() => incrementLikes(image.id, currentUserId)}
+                  onClick={() => incrementLikes(image.id, user.id)}
                 >
                   like
                 </button>
