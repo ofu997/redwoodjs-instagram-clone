@@ -2,26 +2,27 @@ import User from 'src/components/User/User'
 
 export const QUERY = gql`
   query UserQuery($id: Int!) {
-    user: user(id: $id) {
+    userInfoAndImages: user(id: $id) {
       id
-      images {
+      handle
+
+      userImages : images {
         id
         title
         url
         likes
-
         comments {
           body
           user {
             handle
           }
         }
-
         likedBy {
           handle
         }
 
       }
+
     }
   }
 `
@@ -32,6 +33,6 @@ export const Empty = () => <div>Empty</div>
 
 export const Failure = ({ error }) => <div>Error: {error.message}</div>
 
-export const Success = ({ user }) => {
-  return <User user={user} />
+export const Success = ({ userInfoAndImages }) => {
+  return <User infoAndImages={userInfoAndImages} />
 }
