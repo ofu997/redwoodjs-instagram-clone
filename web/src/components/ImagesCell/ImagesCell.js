@@ -4,6 +4,7 @@ import Images from 'src/components/Images'
 
 export const QUERY = gql`
   query ($currentUserId: Int!) {
+
     images {
       id
       title
@@ -16,6 +17,7 @@ export const QUERY = gql`
         id
       }
     }
+
     user (id: $currentUserId) {
       id
       handle
@@ -30,10 +32,9 @@ export const QUERY = gql`
         userId
       }
     }
+
   }
 `
-
-
 
 export const Loading = () => <div>Loading...</div>
 
