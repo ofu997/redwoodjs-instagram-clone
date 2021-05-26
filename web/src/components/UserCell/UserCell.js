@@ -1,4 +1,4 @@
-import User from 'src/components/User'
+import User from 'src/components/User/User'
 
 export const QUERY = gql`
   query UserQuery($id: Int!) {
