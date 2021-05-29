@@ -136,7 +136,6 @@ const ImagesList = ({ images, user }) => {
             <th>Id</th>
             <th>Title</th>
             <th style={{ width: 150 }}></th>
-            {/* <th>Url</th> */}
             <th>Likes</th>
             <th>Which users like this</th>
             <th style={{ width: 150 }}></th>
@@ -145,7 +144,7 @@ const ImagesList = ({ images, user }) => {
           </tr>
         </thead>
         <tbody>
-          {images.map((image) => (
+          {images.map((image) =>
             <tr key={image.id}>
               <td>{truncate(image.id)}</td>
               <td>{truncate(image.title)}</td>
@@ -159,8 +158,8 @@ const ImagesList = ({ images, user }) => {
                 {image.likedBy.some(item => item.id === user.id) &&
                   <p>current user: {user.handle} likes this</p>
                 }
-                {image.likedBy.map(item => {
-                  return <p>user with id: {item.id} likes this</p>
+                {image.likedBy.map(user => {
+                  return <p key={user.id}>user with id: {user.id} likes this</p>
                 })}
               </td>
               <td>
@@ -201,7 +200,7 @@ const ImagesList = ({ images, user }) => {
                 </nav>
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>
