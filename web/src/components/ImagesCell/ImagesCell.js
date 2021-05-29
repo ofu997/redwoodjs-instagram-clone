@@ -4,6 +4,24 @@ import Images from 'src/components/Images'
 
 export const QUERY = gql`
   query ($currentUserId: Int!) {
+    user (id: $currentUserId) {
+      id
+      handle
+
+      userLikes {
+        id
+        title
+      }
+
+      images {
+        title
+        url
+        likes
+        userId
+      }
+    }
+
+
 
     images {
       id
@@ -17,22 +35,6 @@ export const QUERY = gql`
         id
       }
     }
-
-    user (id: $currentUserId) {
-      id
-      handle
-      userLikes {
-        id
-        title
-      }
-      images {
-        title
-        url
-        likes
-        userId
-      }
-    }
-
   }
 `
 
