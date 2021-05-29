@@ -7,53 +7,29 @@ import {
   Submit,
 } from '@redwoodjs/forms'
 import { navigate, routes } from '@redwoodjs/router'
-
-
-
-const LOG_IN_MUTATION = gql`
-  mutation LogInMutation($input: SignUpOrInInput!) {
-    loginUser(input: $input) {
-      token
-      user {
-
-        id
-        name
-        email
-        handle
-
-        images {
-          title
-          url
-          likes
-          userId
-        }
-
-      }
-    }
-  }
-`
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from 'src/redux/actions/logActions'
+import { useState } from 'react'
 
 const LogInForm = () => {
-  const [loginUser, { loading, error }] = useMutation(LOG_IN_MUTATION, {
-    onCompleted: ({ loginUser }) => {
-      addMessage('Signed in', { classes: 'rw-flash-success' })
+  const dispatch = useDispatch()
 
-      const { token, user } = loginUser;
-      localStorage.setItem('authToken', JSON.stringify(token));
-      localStorage.setItem('user', JSON.stringify(user));
-      setTimeout(() => {
-        navigate(routes.images())
-      }, 50)
-    },
-    onError: (e) => {
-      console.log(e)
-    },
-    ignoreResults: false,
+  const userLogin = useSelector(state => state.userLogin)
+
+  const [state, setState] = useState({
+    email: '',
+    password: '',
   })
+  // const [password, setPassword] = useState('')
 
-  const handleSignIn = data => {
-    loginUser({ variables: { input: data } })
+  const onChange=e=> {
+    setState({ ...state, [e.target.name]: e.target.value })
   }
+  // const { userInfo } = userLogin
+
+  // const handleSignIn = data => {
+  //   dispatch(login(data.email, data.password))
+  // }
 
   const { addMessage } = useFlash()
 
@@ -62,15 +38,16 @@ const LogInForm = () => {
       <div className="rw-form-wrapper" style={{ display: 'flex', margin: '0 auto', justifyContent: 'center', padding: '4 rem' }}>
         <Form
           style={{ border: '1px solid olive', width: '50%', minWidth: '200px' }}
-          onSubmit={handleSignIn}
+          // onSubmit={handleSignIn}
+          onSubmit={() => dispatch(login(email,password))}
         >
 
-            <FormError
+            {/* <FormError
               error={error}
               loading={loading}
               titleClassName="font-semibold"
               wrapperClassName="bg-red-100 text-red-900 text-sm p-3 rounded"
-            />
+            /> */}
 
             <div
               className='cntr-h'
@@ -84,6 +61,8 @@ const LogInForm = () => {
               </Label>
               <TextField
                 name='email'
+                value={state.email}
+                onChange={onChange}
                 validation={{
                   required: true,
                   pattern: {
@@ -103,6 +82,8 @@ const LogInForm = () => {
               </Label>
               <TextField
                 name='password'
+                value={state.password}
+                onChange={onChange}
                 validation={{ required: true }}
                 placeholder='Password'
                 className="sign-up-input flex cntr-h"

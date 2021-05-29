@@ -8,11 +8,16 @@ import Routes from 'src/Routes'
 import './custom-styles.css'
 import './index.css'
 
+import { Provider } from 'react-redux'
+import store from 'src/redux/store'
+
 ReactDOM.render(
-  <FatalErrorBoundary page={FatalErrorPage}>
-    <RedwoodApolloProvider>
-      <Routes />
-    </RedwoodApolloProvider>
-  </FatalErrorBoundary>,
+  <Provider store={store}>
+    <FatalErrorBoundary page={FatalErrorPage}>
+      <RedwoodApolloProvider>
+        <Routes />
+      </RedwoodApolloProvider>
+    </FatalErrorBoundary>
+  </Provider>,
   document.getElementById('redwood-app')
 )
