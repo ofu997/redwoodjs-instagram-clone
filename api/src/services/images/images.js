@@ -10,7 +10,7 @@ export const image = ({ id }) => {
   })
 }
 
-export const createImage = ({ userId, input }) => {
+export const createImage = ({ input }) => {
   return db.image.create({
     // data: { userId: { connect: { id: {userId} }}, ...input}
     data: input
