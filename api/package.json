@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@redwoodjs/api": "0.31.0",
-    "@redwoodjs/api-server": "0.31.0",
+    "@redwoodjs/api": "0.32.2",
+    "@redwoodjs/api-server": "0.32.2",
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^8.5.1"
   }
