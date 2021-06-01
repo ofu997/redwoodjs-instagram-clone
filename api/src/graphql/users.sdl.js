@@ -8,6 +8,7 @@ export const schema = gql`
     userLikes: [Image]!
     images: [Image]!
     comments: [Comment]!
+    isAdmin: Boolean!
   }
 
   type Query {
@@ -29,6 +30,7 @@ export const schema = gql`
     handle: String!
     email: String!
     password: String!
+    isAdmin: Boolean!
   }
 
   input UpdateUserInput {

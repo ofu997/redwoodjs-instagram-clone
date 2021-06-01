@@ -20,39 +20,45 @@ model Image {
   id    Int    @id @default(autoincrement())
   title String
   url   String
-  likes Int? @default(0)
+  likes Int?   @default(0)
 
   comments Comment[] @relation("1:m. An image has many comments")
 
   likedBy User[] @relation("m:m. Image is liked by users", references: [id])
 
-  user User @relation("1:m. User has many images", fields: [userId], references: [id])
+  user   User @relation("1:m. User has many images", fields: [userId], references: [id])
   userId Int
 }
 
 model Comment {
-  id       Int        @id @default(autoincrement())
-  body     String
+  id   Int    @id @default(autoincrement())
+  body String
 
-  image    Image      @relation("1:m. An image has many comments", fields: [imageId], references: [id])
-  imageId  Int
+  image   Image @relation("1:m. An image has many comments", fields: [imageId], references: [id])
+  imageId Int
 
-  user User @relation("1:m. User has many comments", fields: [posterId], references: [id])
+  user     User @relation("1:m. User has many comments", fields: [posterId], references: [id])
   posterId Int
 }
 
-
-
 model User {
-  id         Int         @id @default(autoincrement())
-  name        String
-  handle String @unique
-  email       String       @unique
-  password         String
+  id       Int     @id @default(autoincrement())
+  name     String
+  handle   String  @unique
+  email    String  @unique
+  password String
+  isAdmin  Boolean @default(false)
 
   userLikes Image[] @relation("m:m. Image is liked by users", references: [id])
 
   images Image[] @relation("1:m. User has many images")
 
   comments Comment[] @relation("1:m. User has many comments")
+}
+
+model RW_DataMigration {
+  version    String   @id
+  name       String
+  startedAt  DateTime
+  finishedAt DateTime
 }
