@@ -9,8 +9,9 @@ export const schema = gql`
     images: [Image]!
     comments: [Comment]!
     isAdmin: Boolean!
+    profilePicUrl: String
+    bio: String
   }
-
   type Query {
     users: [User!]!
     user(id: Int!): User
@@ -19,6 +20,7 @@ export const schema = gql`
     findUserByPassword(password: String!): User
     findUserByEmail(email: String!): User
   }
+
 
   type LoginResponse {
     token: String

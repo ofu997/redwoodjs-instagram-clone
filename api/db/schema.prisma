@@ -17,10 +17,11 @@ generator client {
 // migrations for them.
 
 model Image {
-  id    Int    @id @default(autoincrement())
-  title String
-  url   String
-  likes Int?   @default(0)
+  id        Int      @id @default(autoincrement())
+  title     String
+  url       String
+  likes     Int?     @default(0)
+  createdAt DateTime @default(now())
 
   comments Comment[] @relation("1:m. An image has many comments")
 
@@ -42,12 +43,14 @@ model Comment {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
-  name     String
-  handle   String  @unique
-  email    String  @unique
-  password String
-  isAdmin  Boolean @default(false)
+  id            Int     @id @default(autoincrement())
+  name          String
+  handle        String  @unique
+  email         String  @unique
+  password      String
+  isAdmin       Boolean @default(false)
+  profilePicUrl String?
+  bio           String?
 
   userLikes Image[] @relation("m:m. Image is liked by users", references: [id])
 

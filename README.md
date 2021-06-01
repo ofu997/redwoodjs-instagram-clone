@@ -7,6 +7,8 @@
 After a change in the schema.prisma file, create and apply a migration with the command
 ```yarn rw prisma migrate dev```
 
+[Migrations link](https://www.prisma.io/docs/concepts/components/prisma-migrate)
+
 ## Getting Started
 - [Tutorial](https://redwoodjs.com/tutorial/welcome-to-redwood): getting started and complete overview guide.
 - [Docs](https://redwoodjs.com/docs/introduction): using the Redwood Router, handling assets and files, list of command-line tools, and more.
