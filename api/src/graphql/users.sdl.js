@@ -5,6 +5,7 @@ export const schema = gql`
     handle: String!
     email: String!
     password: String!
+    isAdmin: Boolean!
     userLikes: [Image]!
     images: [Image]!
     comments: [Comment]!
@@ -29,6 +30,7 @@ export const schema = gql`
     handle: String!
     email: String!
     password: String!
+    isAdmin: Boolean!
   }
 
   input UpdateUserInput {
