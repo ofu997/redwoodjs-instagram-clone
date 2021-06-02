@@ -17,11 +17,11 @@ generator client {
 // migrations for them.
 
 model Image {
-  id        Int      @id @default(autoincrement())
+  id        Int    @id @default(autoincrement())
   title     String
   url       String
-  likes     Int?     @default(0)
-  createdAt DateTime @default(now())
+  likes     Int?   @default(0)
+  createdAt String
 
   comments Comment[] @relation("1:m. An image has many comments")
 

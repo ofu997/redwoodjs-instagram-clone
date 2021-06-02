@@ -8,6 +8,7 @@ export const schema = gql`
     likedBy: [User]!
     user: User!
     userId: Int!
+    createdAt: String!
   }
 
   type Query {
