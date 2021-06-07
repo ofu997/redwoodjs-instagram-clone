@@ -1,4 +1,4 @@
-datasource DS {
+datasource db {
   // optionally set multiple providers
   // example: provider = ["sqlite", "postgresql"]
   provider = "sqlite"
