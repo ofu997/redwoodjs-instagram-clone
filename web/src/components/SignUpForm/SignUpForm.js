@@ -6,18 +6,39 @@ import {
   TextAreaField,
   Submit,
 } from '@redwoodjs/forms'
-import { useAuth } from '@redwoodjs/auth'
+import { useMutation, useFlash } from '@redwoodjs/web'
+import { navigate, routes } from '@redwoodjs/router'
+
+const SIGN_UP_MUTATION = gql`
+  mutation SignUpMutation($input: CreateUserInput!) {
+    createUser(input: $input) {
+      id
+    }
+  }
+`
 
 const SignUpForm = () => {
-  const { logIn, logOut, isAuthenticated } = useAuth()
+  const { addMessage } = useFlash()
+
+  const [signIn, { loading, error }] = useMutation(SIGN_UP_MUTATION, {
+    onCompleted: ({ signIn }) => {
+      addMessage('User created', { classes: 'rw-flash-success' })
+
+      setTimeout(() => {
+        navigate(routes.images())
+      }, 50)
+    },
+    onError: (e) => {
+      console.log(e)
+    },
+    ignoreResults: false,
+  })
 
   const handleSignUp = input => {
-    logIn();
-    createUser({ variables: { input } })
+    signIn({ variables: { input } })
   }
 
   return (
-
     <div>
       <div className="rw-form-wrapper" style={{ display: 'flex', margin: '0 auto', justifyContent: 'center', padding: '4 rem' }}>
         <Form
@@ -26,7 +47,8 @@ const SignUpForm = () => {
         >
 
             <FormError
-              // error={error}
+              error={error}
+              loading={loading}
               titleClassName="font-semibold"
               wrapperClassName="bg-red-100 text-red-900 text-sm p-3 rounded"
             />

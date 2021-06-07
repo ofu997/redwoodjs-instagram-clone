@@ -32,7 +32,6 @@ export const schema = gql`
     handle: String!
     email: String!
     password: String!
-    isAdmin: Boolean!
   }
 
   input UpdateUserInput {
