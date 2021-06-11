@@ -7,12 +7,10 @@ import {
   NumberField,
   Submit,
 } from '@redwoodjs/forms'
-// import { PickerInline } from 'filestack-react'
 import { useState } from 'react'
 import {storage} from '../../firebase/firebase'
 
 const FirebaseImageForm = (props) => {
-  // const allInputs = { url: '' }
   const [imageAsFile, setImageAsFile] = useState('')
   const [url, setUrl] = useState('')
 
@@ -29,8 +27,6 @@ const FirebaseImageForm = (props) => {
 
   console.log(imageAsFile)
   const handleImageAsFile = (e) => {
-    // const image = e.target.files[0]
-    // setImageAsFile(imageFile => (image))
     setImageAsFile(e.target.files[0])
   }
 

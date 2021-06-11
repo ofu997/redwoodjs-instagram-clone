@@ -14,7 +14,7 @@ const DELETE_IMAGE_MUTATION = gql`
 
 const UPDATE_LIKE_MUTATION = gql`
   mutation ($id: Int!, $currentUserId: Int!) {
-    updateLikes(id: $imageId, currentUserId: $currentUserId) {
+    updateLikes(id: $id, currentUserId: $currentUserId) {
       likes
     }
   }

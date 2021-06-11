@@ -15,8 +15,13 @@ export const createImage = ({ input }) => {
   const year = now.getFullYear().toString().slice(2);
   const createdAt = `${now.getDate()}d-${now.getMonth() + 1}m-${year}`;
   return db.image.create({
-    // data: { userId: { connect: { id: {userId} }}, ...input}
-    data: { ...input, createdAt }
+    data: {
+      userId: {
+        connect: { id: input.userId }
+      },
+      ...input,
+      createdAt
+    }
   })
 }
 

@@ -19,10 +19,8 @@ export const schema = gql`
   input CreateImageInput {
     title: String!
     url: String!
-    likes: Int
     userId: Int!
-    comments: String
-    likedBy: Int
+
   }
 
   input UpdateImageInput {

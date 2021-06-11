@@ -5,6 +5,8 @@ import FirebaseImageForm from 'src/components/ImageForm/FirebaseImageForm'
 
 import { QUERY } from 'src/components/ImagesCell'
 
+const userId = 7;
+
 const CREATE_IMAGE_MUTATION = gql`
   mutation CreateImageMutation($input: CreateImageInput!) {
     createImage(input: $input) {
@@ -16,14 +18,15 @@ const CREATE_IMAGE_MUTATION = gql`
 const NewImage = () => {
   const { addMessage } = useFlash()
   const [createImage, { loading, error }] = useMutation(CREATE_IMAGE_MUTATION, {
-    onCompleted: () => {
+    onCompleted: ({ createImage }) => {
       navigate(routes.images())
       addMessage('Image created.', { classes: 'rw-flash-success' })
     },
   })
 
   const onSave = (input) => {
-    createImage({ variables: { input } })
+
+    createImage({ variables: { input: { ...input, userId } } })
   }
 
   return (
@@ -32,7 +35,6 @@ const NewImage = () => {
         <h2 className="rw-heading rw-heading-secondary">New Image</h2>
       </header>
       <div className="rw-segment-main">
-        // task: pass in new prop showing logged in status
         <FirebaseImageForm onSave={onSave} loading={loading} error={error} />
       </div>
     </div>
