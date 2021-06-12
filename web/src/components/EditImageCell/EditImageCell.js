@@ -1,6 +1,7 @@
-import { useMutation, useFlash } from '@redwoodjs/web'
+import { useMutation } from '@redwoodjs/web'
 import { navigate, routes } from '@redwoodjs/router'
 import ImageForm from 'src/components/ImageForm'
+import { toast } from '@redwoodjs/web/toast'
 
 export const QUERY = gql`
   query FIND_IMAGE_BY_ID($id: Int!) {
@@ -26,11 +27,10 @@ const UPDATE_IMAGE_MUTATION = gql`
 export const Loading = () => <div>Loading...</div>
 
 export const Success = ({ image }) => {
-  const { addMessage } = useFlash()
   const [updateImage, { loading, error }] = useMutation(UPDATE_IMAGE_MUTATION, {
     onCompleted: () => {
       navigate(routes.images())
-      addMessage('Image updated.', { classes: 'rw-flash-success' })
+      toast.success('Image updated.', { classes: 'rw-flash-success' })
     },
   })
 
