@@ -13,6 +13,7 @@ import { storage } from '../../firebase/firebase'
 const FirebaseImageForm = (props) => {
   const [imageAsFile, setImageAsFile] = useState('')
   const [url, setUrl] = useState(props?.image?.url)
+  const [showSave, setShowSave] = useState(false)
   const userId = props.userId;
 
   const onSubmit = data => {
@@ -52,12 +53,14 @@ const FirebaseImageForm = (props) => {
             console.log(`firebaseurl: ${fireBaseUrl}`)
             setUrl(fireBaseUrl)
           })
+          .then(()=>{
+            setShowSave(true)
+          })
       })
   }
 
   return (
     <div className="rw-form-wrapper">
-      <p>{props.userId}</p>
       <Form onSubmit={onSubmit} error={props.error}>
         <FormError
           error={props.error}
@@ -86,7 +89,13 @@ const FirebaseImageForm = (props) => {
           type='file'
           onChange={handleImageAsFile}
         />
-        <button onClick={handleFirebaseUpload}>Upload</button>
+        <div style={{ marginTop: '50px', maxWidth: '25%' }}>
+          <div className="rw-button rw-button-green rw-button-small" onClick={handleFirebaseUpload}
+            style={{ padding: '15px 30px' }}
+          >
+            <p>Upload</p>
+          </div>
+        </div>
 
         {url && (
           <div>
@@ -122,11 +131,15 @@ const FirebaseImageForm = (props) => {
           </div>
         </div>
 
-        <div className="rw-button-group">
-          <Submit disabled={props.loading} className="rw-button rw-button-blue">
-            Save
-          </Submit>
-        </div>
+        {
+          showSave &&
+          <div className="rw-button-group">
+            <Submit disabled={props.loading} className="rw-button rw-button-blue">
+              Save
+            </Submit>
+          </div>
+        }
+
       </Form>
     </div>
   )
