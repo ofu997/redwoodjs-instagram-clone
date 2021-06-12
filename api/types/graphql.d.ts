@@ -40,6 +40,11 @@ export type CreateImageInput = {
   userId: Scalars['Int'];
 };
 
+export type CreateOrUpdateUserInfo = {
+  bio?: Maybe<Scalars['String']>;
+  profilePicUrl?: Maybe<Scalars['String']>;
+};
+
 export type CreateUserInput = {
   name: Scalars['String'];
   handle: Scalars['String'];
@@ -74,6 +79,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   createComment: Comment;
   createImage: Image;
+  createOrUpdateUserInfo: User;
   createUser: User;
   deleteComment: Comment;
   deleteImage: Image;
@@ -94,6 +100,12 @@ export type MutationCreateCommentArgs = {
 
 export type MutationCreateImageArgs = {
   input: CreateImageInput;
+};
+
+
+export type MutationCreateOrUpdateUserInfoArgs = {
+  id: Scalars['Int'];
+  input: CreateOrUpdateUserInfo;
 };
 
 
@@ -326,6 +338,7 @@ export type ResolversTypes = {
   String: ResolverTypeWrapper<Scalars['String']>;
   CreateCommentInput: CreateCommentInput;
   CreateImageInput: CreateImageInput;
+  CreateOrUpdateUserInfo: CreateOrUpdateUserInfo;
   CreateUserInput: CreateUserInput;
   Date: ResolverTypeWrapper<Scalars['Date']>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
@@ -352,6 +365,7 @@ export type ResolversParentTypes = {
   String: Scalars['String'];
   CreateCommentInput: CreateCommentInput;
   CreateImageInput: CreateImageInput;
+  CreateOrUpdateUserInfo: CreateOrUpdateUserInfo;
   CreateUserInput: CreateUserInput;
   Date: Scalars['Date'];
   DateTime: Scalars['DateTime'];
@@ -419,6 +433,7 @@ export type LoginResponseResolvers<ContextType = any, ParentType extends Resolve
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createComment?: Resolver<ResolversTypes['Comment'], ParentType, ContextType, RequireFields<MutationCreateCommentArgs, 'input'>>;
   createImage?: Resolver<ResolversTypes['Image'], ParentType, ContextType, RequireFields<MutationCreateImageArgs, 'input'>>;
+  createOrUpdateUserInfo?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationCreateOrUpdateUserInfoArgs, 'id' | 'input'>>;
   createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
   deleteComment?: Resolver<ResolversTypes['Comment'], ParentType, ContextType, RequireFields<MutationDeleteCommentArgs, 'id'>>;
   deleteImage?: Resolver<ResolversTypes['Image'], ParentType, ContextType, RequireFields<MutationDeleteImageArgs, 'id'>>;

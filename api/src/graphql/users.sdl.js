@@ -46,10 +46,16 @@ export const schema = gql`
     password: String!
   }
 
+  input CreateOrUpdateUserInfo {
+    bio: String
+    profilePicUrl: String
+  }
+
   type Mutation {
     createUser(input: CreateUserInput!): User!
     updateUser(id: Int!, input: UpdateUserInput!): User!
     deleteUser(id: Int!): User!
+    createOrUpdateUserInfo(id: Int!, input: CreateOrUpdateUserInfo!): User!
 
     updateUserLikes(imageId: Int!, currentUserId: Int!): User!
     loginUser(input: SignUpOrInInput!): LoginResponse

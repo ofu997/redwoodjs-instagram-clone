@@ -28,6 +28,20 @@ export const updateUser = ({ id, input }) => {
   })
 }
 
+export const createOrUpdateUserInfo = ({ id, input }) => {
+  const { bio, profilePicUrl } = input;
+  // const user = db.user.findUnique({
+  //   where: { id }
+  // })
+  // user ?
+  return db.user.update({
+    where: { id },
+    data: {
+      bio, profilePicUrl
+    }
+  })
+}
+
 export const deleteUser = ({ id }) => {
   return db.user.delete({
     where: { id },
