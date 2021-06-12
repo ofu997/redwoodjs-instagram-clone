@@ -11,9 +11,9 @@ const ImagesPage = () => {
       <Header />
       <ImagesLayout>
         {/* if not logged in, should show a carousel or images with fewer details */}
-        {
-          <ImagesCell currentUserId={user.id} />
-        }
+          <ImagesCell
+            currentUserId={user.id}
+          />
       </ImagesLayout>
     </>
   )

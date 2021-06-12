@@ -18,11 +18,9 @@ const SIGN_UP_MUTATION = gql`
 `
 
 const SignUpForm = () => {
-  const { addMessage } = useFlash()
-
   const [signIn, { loading, error }] = useMutation(SIGN_UP_MUTATION, {
-    onCompleted: ({ signIn }) => {
-      addMessage('User created', { classes: 'rw-flash-success' })
+    onCompleted: () => {
+      toast.success('User created', { classes: 'rw-flash-success' })
 
       setTimeout(() => {
         navigate(routes.images())
@@ -42,7 +40,7 @@ const SignUpForm = () => {
     <div>
       <div className="rw-form-wrapper" style={{ display: 'flex', margin: '0 auto', justifyContent: 'center', padding: '4 rem' }}>
         <Form
-          style={{ border: '1px solid olive', width: '50%', minWidth: '200px' }}
+          style={{ border: '1px solid #afeeee', width: '50%', minWidth: '200px', padding: '50px', marginTop: '75px', boxShadow: '12px 12px 2px 1px rgba(0, 0, 255, .2)' }}
           onSubmit={handleSignUp}
         >
 
@@ -67,7 +65,7 @@ const SignUpForm = () => {
                 name='name'
                 validation={{ required: true }}
                 placeholder='Name'
-                className="sign-up-input flex cntr-h"
+                className="rw-input sign-up-input flex cntr-h"
               />
 
               <Label
@@ -81,7 +79,7 @@ const SignUpForm = () => {
                 name='handle'
                 validation={{ required: true }}
                 placeholder='@your_handle'
-                className="sign-up-input flex cntr-h"
+                className="rw-input sign-up-input flex cntr-h"
               />
 
               <Label
@@ -95,7 +93,7 @@ const SignUpForm = () => {
                 name='email'
                 validation={{ required: true }}
                 placeholder='Email'
-                className="sign-up-input flex cntr-h"
+                className="rw-input sign-up-input flex cntr-h"
               />
 
               <Label
@@ -109,7 +107,7 @@ const SignUpForm = () => {
                 name='password'
                 validation={{ required: true }}
                 placeholder='Password'
-                className="sign-up-input flex cntr-h"
+                className="rw-input sign-up-input flex cntr-h"
               />
 
               <div className="flex sign-up-in-btn">

@@ -18,7 +18,7 @@ const Header = () => {
           <Navbar.Collapse id="basic-navbar-nav" className="cntr-v">
               <Navbar.Text>
               {user ? (
-                  <Link to={ routes.userPage({ id: user.id }) }><p>{user.handle}</p></Link>
+                  <Link to={ routes.userPage({ handle: user.handle }) }><p>{user.handle}</p></Link>
                 )
                 : <p>no user yet</p>
               }

@@ -3,16 +3,14 @@ import { Link, routes } from '@redwoodjs/router'
 import Images from 'src/components/Images'
 
 export const QUERY = gql`
-  query ($currentUserId: Int!) {
+  query CurrentUserAndAllImages($currentUserId: Int!) {
     user (id: $currentUserId) {
       id
       handle
-
       userLikes {
         id
         title
       }
-
       images {
         title
         url
@@ -20,8 +18,6 @@ export const QUERY = gql`
         userId
       }
     }
-
-
 
     images {
       id

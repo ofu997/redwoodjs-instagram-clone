@@ -1,10 +1,12 @@
 import User from 'src/components/User/User'
 
 export const QUERY = gql`
-  query UserQuery($id: Int!) {
-    userInfoAndImages: user(id: $id) {
-      id
+  query UserQuery($handle: String!) {
+    userInfoAndImages: findUserByHandle(handle: $handle) {
+      name
       handle
+      profilePicUrl
+      bio
 
       userImages : images {
         id
@@ -20,7 +22,6 @@ export const QUERY = gql`
         likedBy {
           handle
         }
-
       }
 
     }

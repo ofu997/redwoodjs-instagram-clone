@@ -8,7 +8,9 @@ const EditUserInfoPage = props => {
   return (
     <>
       <ImagesLayout>
-        <EditUserInfoCell handle={props.handle} />
+        <EditUserInfoCell
+          handle={props.handle}
+        />
       </ImagesLayout>
     </>
   )

@@ -7,8 +7,7 @@ import {
   Submit,
 } from '@redwoodjs/forms'
 import { navigate, routes } from '@redwoodjs/router'
-
-
+import { toast } from '@redwoodjs/web/toast'
 
 const LOG_IN_MUTATION = gql`
   mutation LogInMutation($input: SignUpOrInInput!) {
@@ -36,7 +35,7 @@ const LOG_IN_MUTATION = gql`
 const LogInForm = () => {
   const [loginUser, { loading, error }] = useMutation(LOG_IN_MUTATION, {
     onCompleted: ({ loginUser }) => {
-      addMessage('Signed in', { classes: 'rw-flash-success' })
+      toast.success('Signed in', { classes: 'rw-flash-success' })
 
       const { token, user } = loginUser;
       localStorage.setItem('authToken', JSON.stringify(token));
@@ -55,13 +54,11 @@ const LogInForm = () => {
     loginUser({ variables: { input: data } })
   }
 
-  const { addMessage } = useFlash()
-
   return (
     <>
       <div className="rw-form-wrapper" style={{ display: 'flex', margin: '0 auto', justifyContent: 'center', padding: '4 rem' }}>
         <Form
-          style={{ border: '1px solid olive', width: '50%', minWidth: '200px' }}
+          style={{ border: '1px solid rgba(0, 0, 255, .2)', width: '50%', minWidth: '200px', padding: '50px', marginTop: '75px', boxShadow: '12px 12px 2px 1px #afeeee' }}
           onSubmit={handleSignIn}
         >
 
@@ -91,7 +88,7 @@ const LogInForm = () => {
                   },
                 }}
                 placeholder='Email'
-                className="sign-up-input flex cntr-h"
+                className="rw-input sign-up-input flex cntr-h"
               />
 
               <Label
@@ -105,7 +102,7 @@ const LogInForm = () => {
                 name='password'
                 validation={{ required: true }}
                 placeholder='Password'
-                className="sign-up-input flex cntr-h"
+                className="rw-input sign-up-input flex cntr-h"
               />
 
               <div className="flex sign-up-in-btn">

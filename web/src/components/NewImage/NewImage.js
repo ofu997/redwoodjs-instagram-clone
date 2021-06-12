@@ -1,11 +1,8 @@
 import { useMutation, useFlash } from '@redwoodjs/web'
 import { navigate, routes } from '@redwoodjs/router'
-// import ImageForm from 'src/components/ImageForm'
 import FirebaseImageForm from 'src/components/ImageForm/FirebaseImageForm'
-
+import { getLoggedInUser } from 'src/functions/GetLoggedInUser'
 import { QUERY } from 'src/components/ImagesCell'
-
-const userId = 7;
 
 const CREATE_IMAGE_MUTATION = gql`
   mutation CreateImageMutation($input: CreateImageInput!) {
@@ -16,16 +13,17 @@ const CREATE_IMAGE_MUTATION = gql`
 `
 
 const NewImage = () => {
-  const { addMessage } = useFlash()
+  const user = getLoggedInUser();
+  const userId = user.id;
+
   const [createImage, { loading, error }] = useMutation(CREATE_IMAGE_MUTATION, {
-    onCompleted: ({ createImage }) => {
+    onCompleted: () => {
       navigate(routes.images())
-      addMessage('Image created.', { classes: 'rw-flash-success' })
+      toast.success('Image created.', { classes: 'rw-flash-success' })
     },
   })
 
   const onSave = (input) => {
-
     createImage({ variables: { input: { ...input, userId } } })
   }
 
@@ -35,7 +33,12 @@ const NewImage = () => {
         <h2 className="rw-heading rw-heading-secondary">New Image</h2>
       </header>
       <div className="rw-segment-main">
-        <FirebaseImageForm onSave={onSave} loading={loading} error={error} />
+        <FirebaseImageForm
+          onSave={onSave}
+          loading={loading}
+          error={error}
+          userId={userId}
+        />
       </div>
     </div>
   )

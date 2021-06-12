@@ -4,7 +4,9 @@ import ImageCell from 'src/components/ImageCell'
 const ImagePage = ({ id }) => {
   return (
     <ImagesLayout>
-      <ImageCell id={id} />
+      <ImageCell
+        id={id}
+      />
     </ImagesLayout>
   )
 }

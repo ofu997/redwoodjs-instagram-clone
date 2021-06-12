@@ -1,7 +1,7 @@
 import { useMutation, useFlash } from '@redwoodjs/web'
 import { Link, routes, navigate } from '@redwoodjs/router'
 import CommentForm from '../CommentForm/CommentForm'
-
+import { toast } from '@redwoodjs/web/toast'
 import { QUERY } from 'src/components/ImagesCell'
 
 const DELETE_IMAGE_MUTATION = gql`
@@ -33,11 +33,10 @@ const checkboxInputTag = (checked) => {
 }
 
 const Image = ({ image }) => {
-  const { addMessage } = useFlash()
   const [deleteImage] = useMutation(DELETE_IMAGE_MUTATION, {
     onCompleted: () => {
       navigate(routes.images())
-      addMessage('Image deleted.', { classes: 'rw-flash-success' })
+      toast.success('Image deleted.', { classes: 'rw-flash-success' })
     },
   })
 

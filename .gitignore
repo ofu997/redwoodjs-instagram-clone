@@ -11,3 +11,5 @@ yarn-error.log
 web/public/mockServiceWorker.js
 
 SampleUsers.txt
+
+.vscode*

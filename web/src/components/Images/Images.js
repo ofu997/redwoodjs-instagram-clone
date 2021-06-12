@@ -3,6 +3,7 @@ import { Link, routes } from '@redwoodjs/router'
 import CommentsCell from 'src/components/CommentsCell'
 
 import { QUERY } from 'src/components/ImagesCell'
+import { toast } from '@redwoodjs/web/toast'
 
 const DELETE_IMAGE_MUTATION = gql`
   mutation DeleteImageMutation($id: Int!) {
@@ -13,7 +14,7 @@ const DELETE_IMAGE_MUTATION = gql`
 `
 
 const UPDATE_LIKE_MUTATION = gql`
-  mutation ($id: Int!, $currentUserId: Int!) {
+  mutation UpdateLikeMutation($id: Int!, $currentUserId: Int!) {
     updateLikes(id: $id, currentUserId: $currentUserId) {
       likes
     }
@@ -21,7 +22,7 @@ const UPDATE_LIKE_MUTATION = gql`
 `
 
 const UPDATE_USER_LIKES_MUTATION = gql`
-  mutation($imageId: Int!, $currentUserId: Int!) {
+  mutation UpdateUserLikesMutation($imageId: Int!, $currentUserId: Int!) {
     updateUserLikes(imageId: $imageId, currentUserId: $currentUserId) {
       userLikes {
         id
@@ -32,7 +33,7 @@ const UPDATE_USER_LIKES_MUTATION = gql`
 
 // we need this for refetching after interactions
 const USER_QUERY = gql`
-  query ($currentUserId: Int!) {
+  query GetUserById($currentUserId: Int!) {
     user (id: $currentUserId) {
       id
       name
@@ -86,11 +87,10 @@ const ImagesList = ({ images, user }) => {
     return <input type="checkbox" checked={checked} disabled />
   }
 
-  const { addMessage } = useFlash()
 
   const [deleteImage] = useMutation(DELETE_IMAGE_MUTATION, {
     onCompleted: () => {
-      addMessage('Image deleted.', { classes: 'rw-flash-success' })
+      toast.success('Image deleted.', { classes: 'rw-flash-success' })
     },
     // This refetches the query on the list page. Read more about other ways to
     // update the cache over here:
@@ -102,7 +102,7 @@ const ImagesList = ({ images, user }) => {
   const [updateLikes] = useMutation(UPDATE_LIKE_MUTATION, {
     onCompleted: () => {
       console.log('[updateLikes] was pressed')
-      addMessage('Likes updated.', { classes: 'rw-flash-success' })
+      toast.success('Likes updated.', { classes: 'rw-flash-success' })
     },
     refetchQueries: [{ query: QUERY }],
     awaitRefetchQueries: true,
@@ -215,4 +215,3 @@ export default ImagesList
 // A mutate function that you can call at any time to execute the mutation
 // An object with fields that represent the current status of the mutation's execution
 // src: https://www.apollographql.com/docs/react/data/mutations/
-

@@ -6,8 +6,11 @@ const UserPage = props => {
   return (
     <>
       <Header />
+      <h1>This is UserPage</h1>
       <Link to={routes.images()}><p>Go back</p></Link>
-      <UserCell id={props.id} />
+      <UserCell
+        handle={props.handle}
+      />
     </>
   )
 }

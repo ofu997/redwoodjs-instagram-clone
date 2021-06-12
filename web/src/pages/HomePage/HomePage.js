@@ -23,7 +23,7 @@ const HomePage = () => {
 
       <h4
         onClick={toggleSignUpLogIn}
-        style={{ display: 'flex', justifyContent: 'center' }}
+        style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}
       >
         {
           showLogInForm? `Don't have an account? Sign Up` : `Already have an account? Log In`

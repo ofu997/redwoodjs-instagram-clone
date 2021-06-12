@@ -4,7 +4,9 @@ import EditImageCell from 'src/components/EditImageCell'
 const EditImagePage = ({ id }) => {
   return (
     <ImagesLayout>
-      <EditImageCell id={id} />
+      <EditImageCell
+        id={id}
+      />
     </ImagesLayout>
   )
 }
