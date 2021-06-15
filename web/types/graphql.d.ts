@@ -397,24 +397,12 @@ export type GetUserById = (
   )> }
 );
 
-export type CurrentUserAndAllImagesVariables = Exact<{
-  currentUserId: Scalars['Int'];
-}>;
+export type AllImagesVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CurrentUserAndAllImages = (
+export type AllImages = (
   { __typename?: 'Query' }
-  & { user?: Maybe<(
-    { __typename?: 'User' }
-    & Pick<User, 'id' | 'handle'>
-    & { userLikes: Array<Maybe<(
-      { __typename?: 'Image' }
-      & Pick<Image, 'id' | 'title'>
-    )>>, images: Array<Maybe<(
-      { __typename?: 'Image' }
-      & Pick<Image, 'title' | 'url' | 'likes' | 'userId'>
-    )>> }
-  )>, images: Array<(
+  & { images: Array<(
     { __typename?: 'Image' }
     & Pick<Image, 'id' | 'title' | 'url' | 'likes'>
     & { comments: Array<Maybe<(

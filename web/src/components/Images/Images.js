@@ -1,9 +1,10 @@
-import { useMutation, useFlash } from '@redwoodjs/web'
+import { useMutation } from '@redwoodjs/web'
 import { Link, routes } from '@redwoodjs/router'
 import CommentsCell from 'src/components/CommentsCell'
 
 import { QUERY } from 'src/components/ImagesCell'
 import { toast } from '@redwoodjs/web/toast'
+import { getLoggedInUser } from '../../functions/GetLoggedInUser'
 
 const DELETE_IMAGE_MUTATION = gql`
   mutation DeleteImageMutation($id: Int!) {
@@ -53,7 +54,8 @@ const USER_QUERY = gql`
   }
 `
 
-const ImagesList = ({ images, user }) => {
+const ImagesList = ({ images }) => {
+  const currentUser = getLoggedInUser();
 
   const MAX_STRING_LENGTH = 150
 
@@ -149,23 +151,22 @@ const ImagesList = ({ images, user }) => {
               <td>{truncate(image.id)}</td>
               <td>{truncate(image.title)}</td>
               <td>
-                <a href={image.url} target="_blank">
-                  <img src={image.url} style={{ maxWidth: '150px' }} />
-                </a>
+                <img src={image.url} style={{ maxWidth: '150px' }} />
               </td>
               <td>{truncate(image.likes)}</td>
+              {currentUser && (
               <td>{/*logic for displaying if user likes this. use useQuery from Apollo */}
-                {image.likedBy.some(item => item.id === user.id) &&
-                  <p>current user: {user.handle} likes this</p>
+                {image.likedBy.some(item => item.id === currentUser.id) &&
+                  <p>current user: {currentUser.handle} likes this</p>
                 }
                 {image.likedBy.map(user => {
                   return <p key={user.id}>user with id: {user.id} likes this</p>
                 })}
               </td>
+              )}
               <td>
                 <button
-                  // onClick={() => incrementLikes(image.id, image.likes)}
-                  onClick={() => incrementLikes(image.id, user.id)}
+                  onClick={() => incrementLikes(image.id, currentUser.id)}
                 >
                   like
                 </button>
@@ -190,7 +191,7 @@ const ImagesList = ({ images, user }) => {
                     Edit
                   </Link>
                   <a
-                    href="#"
+                    href="/"
                     title={'Delete image ' + image.id}
                     className="rw-button rw-button-small rw-button-red"
                     onClick={() => onDeleteClick(image.id)}
