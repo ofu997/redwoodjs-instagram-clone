@@ -306,17 +306,31 @@ export type UpdateImageMutation = (
   ) }
 );
 
-export type DoesnotmatterVariables = Exact<{
+export type FindUserByHandleVariables = Exact<{
   handle: Scalars['String'];
 }>;
 
 
-export type Doesnotmatter = (
+export type FindUserByHandle = (
   { __typename?: 'Query' }
-  & { editUserInfo?: Maybe<(
+  & { userToEdit?: Maybe<(
     { __typename?: 'User' }
     & Pick<User, 'id' | 'name' | 'handle' | 'bio' | 'profilePicUrl'>
   )> }
+);
+
+export type EditUserInfoMutationVariables = Exact<{
+  id: Scalars['Int'];
+  input: CreateOrUpdateUserInfo;
+}>;
+
+
+export type EditUserInfoMutation = (
+  { __typename?: 'Mutation' }
+  & { createOrUpdateUserInfo: (
+    { __typename?: 'User' }
+    & Pick<User, 'id'>
+  ) }
 );
 
 export type DeleteImageMutationVariables = Exact<{
@@ -383,12 +397,12 @@ export type GetUserById = (
   )> }
 );
 
-export type Unnamed_1_Variables = Exact<{
+export type CurrentUserAndAllImagesVariables = Exact<{
   currentUserId: Scalars['Int'];
 }>;
 
 
-export type Unnamed_1_ = (
+export type CurrentUserAndAllImages = (
   { __typename?: 'Query' }
   & { user?: Maybe<(
     { __typename?: 'User' }

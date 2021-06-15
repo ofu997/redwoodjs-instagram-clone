@@ -1,11 +1,11 @@
-import ImagesLayout from 'src/layouts/ImagesLayout'
+import NewImageLayout from 'src/layouts/NewImageLayout'
 import NewImage from 'src/components/NewImage'
 
 const NewImagePage = () => {
   return (
-    <ImagesLayout>
+    <NewImageLayout>
       <NewImage />
-    </ImagesLayout>
+    </NewImageLayout>
   )
 }
 

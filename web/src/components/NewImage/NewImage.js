@@ -1,8 +1,9 @@
 import { useMutation, useFlash } from '@redwoodjs/web'
 import { navigate, routes } from '@redwoodjs/router'
-import FirebaseImageForm from 'src/components/ImageForm/FirebaseImageForm'
+import NewImageForm from 'src/components/ImageForm/NewImageForm'
 import { getLoggedInUser } from 'src/functions/GetLoggedInUser'
 import { QUERY } from 'src/components/ImagesCell'
+import { toast } from '@redwoodjs/web/toast'
 
 const CREATE_IMAGE_MUTATION = gql`
   mutation CreateImageMutation($input: CreateImageInput!) {
@@ -33,7 +34,7 @@ const NewImage = () => {
         <h2 className="rw-heading rw-heading-secondary">New Image</h2>
       </header>
       <div className="rw-segment-main">
-        <FirebaseImageForm
+        <NewImageForm
           onSave={onSave}
           loading={loading}
           error={error}

@@ -17,10 +17,9 @@ const Header = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav" className="cntr-v">
               <Navbar.Text>
-              {user ? (
-                  <Link to={ routes.userPage({ handle: user.handle }) }><p>{user.handle}</p></Link>
+              {user && (
+                  <Link to={ routes.userPage({ handle: user.handle }) }><p>Profile</p></Link>
                 )
-                : <p>no user yet</p>
               }
               </Navbar.Text>
           </Navbar.Collapse>

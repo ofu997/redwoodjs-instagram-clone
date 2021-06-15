@@ -1,17 +1,16 @@
 import { Link, routes } from '@redwoodjs/router'
 import UserCell from '../../components/UserCell'
 import Header from 'src/components/Header/Header'
+import ImagesLayout from 'src/layouts/ImagesLayout'
 
 const UserPage = props => {
   return (
-    <>
+    <ImagesLayout>
       <Header />
-      <h1>This is UserPage</h1>
-      <Link to={routes.images()}><p>Go back</p></Link>
       <UserCell
         handle={props.handle}
       />
-    </>
+    </ImagesLayout>
   )
 }
 

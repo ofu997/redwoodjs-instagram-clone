@@ -30,7 +30,8 @@ const UserInfo = props => {
               minWidth: '100%',
               minHeight: '100%',
               width: 'auto',
-              height: 'auto'
+              height: 'auto',
+              objectFit: 'cover'
             }}
           />
         </section>
@@ -42,6 +43,10 @@ const UserInfo = props => {
             to={routes.editUserInfo({ handle: props.user.handle })}
             title={'Edit user ' + props.user.handle }
             className="rw-button rw-button-small rw-button-blue"
+            style={{
+              width: '25%',
+              margin: '0 auto'
+            }}
           >
             Edit info
           </Link>
