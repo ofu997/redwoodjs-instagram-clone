@@ -14,17 +14,17 @@ const DELETE_IMAGE_MUTATION = gql`
   }
 `
 
-const UPDATE_LIKE_MUTATION = gql`
-  mutation UpdateLikeMutation($id: Int!, $currentUserId: Int!) {
-    updateLikes(id: $id, currentUserId: $currentUserId) {
+const INCREMENT_IMAGE_LIKES_MUTATION = gql`
+  mutation IncrementImageLikesMutation($imageId: Int!, $currentUserId: Int!) {
+    incrementImageLikes(id: $imageId, currentUserId: $currentUserId) {
       likes
     }
   }
 `
 
-const UPDATE_USER_LIKES_MUTATION = gql`
-  mutation UpdateUserLikesMutation($imageId: Int!, $currentUserId: Int!) {
-    updateUserLikes(imageId: $imageId, currentUserId: $currentUserId) {
+const ADD_TO_USER_LIKES_MUTATION = gql`
+  mutation AddToUserLikesMutation($imageId: Int!, $currentUserId: Int!) {
+    addToUserLikes(imageId: $imageId, id: $currentUserId) {
       userLikes {
         id
       }
@@ -32,7 +32,7 @@ const UPDATE_USER_LIKES_MUTATION = gql`
   }
 `
 
-// we need this for refetching after interactions
+// we need this for refetching after interactions. Edit: probably not needed
 const USER_QUERY = gql`
   query GetUserById($currentUserId: Int!) {
     user (id: $currentUserId) {
@@ -56,6 +56,7 @@ const USER_QUERY = gql`
 
 const ImagesList = ({ images }) => {
   const currentUser = getLoggedInUser();
+
 
   const MAX_STRING_LENGTH = 150
 
@@ -101,7 +102,7 @@ const ImagesList = ({ images }) => {
     awaitRefetchQueries: true,
   })
 
-  const [updateLikes] = useMutation(UPDATE_LIKE_MUTATION, {
+  const [incrementImageLikes] = useMutation(INCREMENT_IMAGE_LIKES_MUTATION, {
     onCompleted: () => {
       console.log('[updateLikes] was pressed')
       toast.success('Likes updated.', { classes: 'rw-flash-success' })
@@ -110,11 +111,11 @@ const ImagesList = ({ images }) => {
     awaitRefetchQueries: true,
   })
 
-  const [updateUserLikes] = useMutation(UPDATE_USER_LIKES_MUTATION, {
+  const [addToUserLikes] = useMutation(ADD_TO_USER_LIKES_MUTATION, {
     onCompleted: () => {
       console.log('[updateUserLikes] was pressed')
     },
-    refetchQueries: [{ query: USER_QUERY }],
+    // refetchQueries: [{ query: USER_QUERY }],
     awaitRefetchQueries: true,
   })
 
@@ -124,8 +125,17 @@ const ImagesList = ({ images }) => {
     }
   }
 
-  const incrementLikes = (imageId, userId) => {
+  const incrementLikes = (imageId, currentUserId) => {
     console.log('incrementLikes() pressed')
+    // incrementImageLikes({ variables: { id : imageId,  currentUserId : currentUserId } })
+    // addToUserLikes({ variables: { imageId, id:currentUserId} })
+
+    incrementImageLikes({ variables: { imageId, currentUserId } })
+    addToUserLikes({ variables: { imageId, currentUserId} })
+  }
+
+  const decrementLikes = (imageId, userId) => {
+    console.log('decrementLikes() pressed')
     updateLikes({ variables: { imageId, userId } })
     updateUserLikes({ variables: imageId, userId })
   }
@@ -146,62 +156,72 @@ const ImagesList = ({ images }) => {
           </tr>
         </thead>
         <tbody>
-          {images.map((image) =>
-            <tr key={image.id}>
-              <td>{truncate(image.id)}</td>
-              <td>{truncate(image.title)}</td>
-              <td>
-                <img src={image.url} style={{ maxWidth: '150px' }} />
-              </td>
-              <td>{truncate(image.likes)}</td>
-              {currentUser && (
-              <td>{/*logic for displaying if user likes this. use useQuery from Apollo */}
-                {image.likedBy.some(item => item.id === currentUser.id) &&
-                  <p>current user: {currentUser.handle} likes this</p>
-                }
-                {image.likedBy.map(user => {
-                  return <p key={user.id}>user with id: {user.id} likes this</p>
-                })}
-              </td>
-              )}
-              <td>
+          {images.map((image) => {
+            const currentUserLikesThis = image.likedBy.some(item => item.id === currentUser.id);
+            return (
+              <tr key={image.id}>
+                <td>{truncate(image.id)}</td>
+                <td>{truncate(image.title)}</td>
+                <td>
+                  <img src={image.url} style={{ maxWidth: '150px' }} />
+                </td>
+                <td>{truncate(image.likes)}</td>
+                {currentUser && (
+                <td>{/*logic for displaying if user likes this. use useQuery from Apollo */}
+                  {currentUserLikesThis &&
+                    <p>current user: {currentUser.handle} likes this</p>
+                  }
+                  {image.likedBy.map(user => {
+                    return <p key={user.id}>user with id: {user.id} likes this</p>
+                  })}
+                </td>
+                )}
+                <td>
+                {currentUserLikesThis ?
+                <button
+                  onClick={() => decrementLikes(image.id, currentUser.id)}
+                >
+                  redHeart
+                </button>
+                :
                 <button
                   onClick={() => incrementLikes(image.id, currentUser.id)}
                 >
-                  like
-                </button>
-              </td>
-              <td>
-                <CommentsCell imageId={image.id} />
-              </td>
-              <td>
-                <nav className="rw-table-actions">
-                  <Link
-                    to={routes.image({ id: image.id })}
-                    title={'Show image ' + image.id + ' detail'}
-                    className="rw-button rw-button-small"
-                  >
-                    Show
-                  </Link>
-                  <Link
-                    to={routes.editImage({ id: image.id })}
-                    title={'Edit image ' + image.id}
-                    className="rw-button rw-button-small rw-button-blue"
-                  >
-                    Edit
-                  </Link>
-                  <a
-                    href="/"
-                    title={'Delete image ' + image.id}
-                    className="rw-button rw-button-small rw-button-red"
-                    onClick={() => onDeleteClick(image.id)}
-                  >
-                    Delete
-                  </a>
-                </nav>
-              </td>
-            </tr>
-          )}
+                  blankHeart
+                </button>}
+                </td>
+                <td>
+                  <CommentsCell imageId={image.id} />
+                </td>
+                <td>
+                  <nav className="rw-table-actions">
+                    <Link
+                      to={routes.image({ id: image.id })}
+                      title={'Show image ' + image.id + ' detail'}
+                      className="rw-button rw-button-small"
+                    >
+                      Show
+                    </Link>
+                    <Link
+                      to={routes.editImage({ id: image.id })}
+                      title={'Edit image ' + image.id}
+                      className="rw-button rw-button-small rw-button-blue"
+                    >
+                      Edit
+                    </Link>
+                    <a
+                      href="/"
+                      title={'Delete image ' + image.id}
+                      className="rw-button rw-button-small rw-button-red"
+                      onClick={() => onDeleteClick(image.id)}
+                    >
+                      Delete
+                    </a>
+                  </nav>
+                </td>
+              </tr>
+            )
+          })}
         </tbody>
       </table>
     </div>
