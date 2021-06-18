@@ -5,6 +5,9 @@ import CommentsCell from 'src/components/CommentsCell'
 import { QUERY } from 'src/components/ImagesCell'
 import { toast } from '@redwoodjs/web/toast'
 import { getLoggedInUser } from '../../functions/GetLoggedInUser'
+import authContext from 'src/authContext'
+import jwt_decode from "jwt-decode";
+import { useContext, useState, useEffect } from 'react'
 
 const DELETE_IMAGE_MUTATION = gql`
   mutation DeleteImageMutation($id: Int!) {
@@ -57,6 +60,14 @@ const USER_QUERY = gql`
 const ImagesList = ({ images }) => {
   const currentUser = getLoggedInUser();
 
+  // currentUserByJwt: an extra variable to secure actions on images
+  const { userToken } = useContext(authContext)
+  const [currentUserByJwt, setCurrentUserByJwt] = useState('')
+  useEffect(() => {
+    userToken && (
+      setCurrentUserByJwt(jwt_decode(userToken))
+    )
+  }, [])
 
   const MAX_STRING_LENGTH = 150
 
