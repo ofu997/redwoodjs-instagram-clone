@@ -8,20 +8,25 @@
 // 'src/pages/Admin/BooksPage/BooksPage.js' -> AdminBooksPage
 
 import { Router, Route } from '@redwoodjs/router'
-import UserPage from './pages/UserPage/UserPage'
+// import UserPage from './pages/UserPage/UserPage'
+import authContext from './authContext'
+import { useState } from 'react'
 
 const Routes = () => {
+  const [userToken, setUserToken] = useState('')
 
   return (
     <Router>
-      <Route path="/" page={ImagesPage} name="images" />
-      <Route path="/u/{handle:String}/edit" page={EditUserInfoPage} name="editUserInfo" />
-      <Route path="/u/{handle:String}" page={UserPage} name="userPage" />
-      <Route path="/log" page={HomePage} name='homePage' />
-      <Route path="/images/new" page={NewImagePage} name="newImage" />
-      <Route path="/images/{id:Int}/edit" page={EditImagePage} name="editImage" />
-      <Route path="/images/{id:Int}" page={ImagePage} name="image" />
-      <Route notfound page={NotFoundPage} />
+      <authContext.Provider value={{ userToken, setUserToken }}>
+        <Route path="/" page={ImagesPage} name="images" />
+        <Route path="/u/{handle:String}/edit" page={EditUserInfoPage} name="editUserInfo" />
+        <Route path="/u/{handle:String}" page={UserPage} name="userPage" />
+        <Route path="/log" page={HomePage} name='homePage' />
+        <Route path="/images/new" page={NewImagePage} name="newImage" />
+        <Route path="/images/{id:Int}/edit" page={EditImagePage} name="editImage" />
+        <Route path="/images/{id:Int}" page={ImagePage} name="image" />
+        <Route notfound page={NotFoundPage} />
+      </authContext.Provider>
     </Router>
   )
 }

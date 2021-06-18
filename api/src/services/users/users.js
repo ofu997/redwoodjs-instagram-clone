@@ -89,6 +89,7 @@ export const loginUser = async ({ input }) => {
       {
         id: user.id,
         username: user.email,
+        handle: user.handle
       },
       'my-secret-from-env-file-in-prod',
       {
