@@ -59,3 +59,6 @@ took out of schema.prisma user: image       Image @relation(fields: [likedImages
 
   image:   likedBy User[] @relation("LikedBy", references: [handle])
   author User @relation(fields: [authorId], references: [handle])
+
+update context from children: https://stackoverflow.com/questions/50502664/how-to-update-the-context-value-in-provider-from-the-consumer/50502829
+decode a jwt: https://stackoverflow.com/questions/38552003/how-to-decode-jwt-token-in-javascript-without-using-a-library
