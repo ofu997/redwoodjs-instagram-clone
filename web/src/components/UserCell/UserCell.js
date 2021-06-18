@@ -20,6 +20,7 @@ export const QUERY = gql`
           }
         }
         likedBy {
+          id
           handle
         }
       }

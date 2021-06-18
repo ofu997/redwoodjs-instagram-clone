@@ -1,12 +1,15 @@
-import ImagesList from'src/components/Images/Images'
+import ImagesList from 'src/components/Images/Images'
 import { Link, routes } from '@redwoodjs/router'
 
 const User = ({ infoAndImages }) => {
   const { userImages } = infoAndImages;
   return (
     <>
-      <UserInfo user={infoAndImages} profilePicUrl={infoAndImages.profilePicUrl}/>
-      <ImagesList user={infoAndImages} images={userImages} />
+      <UserInfo user={infoAndImages} />
+      <ImagesList
+        // user={infoAndImages}
+        images={userImages}
+      />
     </>
   )
 }
