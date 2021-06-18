@@ -347,7 +347,7 @@ export type DeleteImageMutation = (
 );
 
 export type IncrementImageLikesMutationVariables = Exact<{
-  id: Scalars['Int'];
+  imageId: Scalars['Int'];
   currentUserId: Scalars['Int'];
 }>;
 
@@ -362,7 +362,7 @@ export type IncrementImageLikesMutation = (
 
 export type AddToUserLikesMutationVariables = Exact<{
   imageId: Scalars['Int'];
-  id: Scalars['Int'];
+  currentUserId: Scalars['Int'];
 }>;
 
 
@@ -484,7 +484,7 @@ export type UserQuery = (
         ) }
       )>>, likedBy: Array<Maybe<(
         { __typename?: 'User' }
-        & Pick<User, 'handle'>
+        & Pick<User, 'id' | 'handle'>
       )>> }
     )>> }
   )> }
