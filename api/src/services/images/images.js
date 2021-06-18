@@ -38,7 +38,7 @@ export const deleteImage = ({ id }) => {
   })
 }
 
-export const updateLikes = ({ id, currentUserId }) => {
+export const incrementImageLikes = ({ id, currentUserId }) => {
   return db.image.update({
     data: {
       likes: {
