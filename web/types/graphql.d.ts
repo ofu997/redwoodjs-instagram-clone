@@ -75,6 +75,7 @@ export type LoginResponse = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  addToUserLikes: User;
   createComment: Comment;
   createImage: Image;
   createOrUpdateUserInfo: User;
@@ -82,12 +83,17 @@ export type Mutation = {
   deleteComment: Comment;
   deleteImage: Image;
   deleteUser: User;
+  incrementImageLikes: Image;
   loginUser?: Maybe<LoginResponse>;
   updateComment: Comment;
   updateImage: Image;
-  updateLikes: Image;
   updateUser: User;
-  updateUserLikes: User;
+};
+
+
+export type MutationAddToUserLikesArgs = {
+  imageId: Scalars['Int'];
+  id: Scalars['Int'];
 };
 
 
@@ -127,6 +133,12 @@ export type MutationDeleteUserArgs = {
 };
 
 
+export type MutationIncrementImageLikesArgs = {
+  id: Scalars['Int'];
+  currentUserId: Scalars['Int'];
+};
+
+
 export type MutationLoginUserArgs = {
   input: SignUpOrInInput;
 };
@@ -144,21 +156,9 @@ export type MutationUpdateImageArgs = {
 };
 
 
-export type MutationUpdateLikesArgs = {
-  id: Scalars['Int'];
-  currentUserId: Scalars['Int'];
-};
-
-
 export type MutationUpdateUserArgs = {
   id: Scalars['Int'];
   input: UpdateUserInput;
-};
-
-
-export type MutationUpdateUserLikesArgs = {
-  imageId: Scalars['Int'];
-  currentUserId: Scalars['Int'];
 };
 
 export type Query = {
@@ -346,29 +346,29 @@ export type DeleteImageMutation = (
   ) }
 );
 
-export type UpdateLikeMutationVariables = Exact<{
+export type IncrementImageLikesMutationVariables = Exact<{
   id: Scalars['Int'];
   currentUserId: Scalars['Int'];
 }>;
 
 
-export type UpdateLikeMutation = (
+export type IncrementImageLikesMutation = (
   { __typename?: 'Mutation' }
-  & { updateLikes: (
+  & { incrementImageLikes: (
     { __typename?: 'Image' }
     & Pick<Image, 'likes'>
   ) }
 );
 
-export type UpdateUserLikesMutationVariables = Exact<{
+export type AddToUserLikesMutationVariables = Exact<{
   imageId: Scalars['Int'];
-  currentUserId: Scalars['Int'];
+  id: Scalars['Int'];
 }>;
 
 
-export type UpdateUserLikesMutation = (
+export type AddToUserLikesMutation = (
   { __typename?: 'Mutation' }
-  & { updateUserLikes: (
+  & { addToUserLikes: (
     { __typename?: 'User' }
     & { userLikes: Array<Maybe<(
       { __typename?: 'Image' }

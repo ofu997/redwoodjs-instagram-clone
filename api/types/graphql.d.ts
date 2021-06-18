@@ -77,6 +77,7 @@ export type LoginResponse = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  addToUserLikes: User;
   createComment: Comment;
   createImage: Image;
   createOrUpdateUserInfo: User;
@@ -84,12 +85,17 @@ export type Mutation = {
   deleteComment: Comment;
   deleteImage: Image;
   deleteUser: User;
+  incrementImageLikes: Image;
   loginUser?: Maybe<LoginResponse>;
   updateComment: Comment;
   updateImage: Image;
-  updateLikes: Image;
   updateUser: User;
-  updateUserLikes: User;
+};
+
+
+export type MutationAddToUserLikesArgs = {
+  imageId: Scalars['Int'];
+  id: Scalars['Int'];
 };
 
 
@@ -129,6 +135,12 @@ export type MutationDeleteUserArgs = {
 };
 
 
+export type MutationIncrementImageLikesArgs = {
+  id: Scalars['Int'];
+  currentUserId: Scalars['Int'];
+};
+
+
 export type MutationLoginUserArgs = {
   input: SignUpOrInInput;
 };
@@ -146,21 +158,9 @@ export type MutationUpdateImageArgs = {
 };
 
 
-export type MutationUpdateLikesArgs = {
-  id: Scalars['Int'];
-  currentUserId: Scalars['Int'];
-};
-
-
 export type MutationUpdateUserArgs = {
   id: Scalars['Int'];
   input: UpdateUserInput;
-};
-
-
-export type MutationUpdateUserLikesArgs = {
-  imageId: Scalars['Int'];
-  currentUserId: Scalars['Int'];
 };
 
 export type Query = {
@@ -431,6 +431,7 @@ export type LoginResponseResolvers<ContextType = any, ParentType extends Resolve
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  addToUserLikes?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationAddToUserLikesArgs, 'imageId' | 'id'>>;
   createComment?: Resolver<ResolversTypes['Comment'], ParentType, ContextType, RequireFields<MutationCreateCommentArgs, 'input'>>;
   createImage?: Resolver<ResolversTypes['Image'], ParentType, ContextType, RequireFields<MutationCreateImageArgs, 'input'>>;
   createOrUpdateUserInfo?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationCreateOrUpdateUserInfoArgs, 'id' | 'input'>>;
@@ -438,12 +439,11 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   deleteComment?: Resolver<ResolversTypes['Comment'], ParentType, ContextType, RequireFields<MutationDeleteCommentArgs, 'id'>>;
   deleteImage?: Resolver<ResolversTypes['Image'], ParentType, ContextType, RequireFields<MutationDeleteImageArgs, 'id'>>;
   deleteUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'id'>>;
+  incrementImageLikes?: Resolver<ResolversTypes['Image'], ParentType, ContextType, RequireFields<MutationIncrementImageLikesArgs, 'id' | 'currentUserId'>>;
   loginUser?: Resolver<Maybe<ResolversTypes['LoginResponse']>, ParentType, ContextType, RequireFields<MutationLoginUserArgs, 'input'>>;
   updateComment?: Resolver<ResolversTypes['Comment'], ParentType, ContextType, RequireFields<MutationUpdateCommentArgs, 'id' | 'input'>>;
   updateImage?: Resolver<ResolversTypes['Image'], ParentType, ContextType, RequireFields<MutationUpdateImageArgs, 'id' | 'input'>>;
-  updateLikes?: Resolver<ResolversTypes['Image'], ParentType, ContextType, RequireFields<MutationUpdateLikesArgs, 'id' | 'currentUserId'>>;
   updateUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'id' | 'input'>>;
-  updateUserLikes?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationUpdateUserLikesArgs, 'imageId' | 'currentUserId'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
