@@ -48,12 +48,12 @@ export const deleteUser = ({ id }) => {
   })
 }
 
-export const updateUserLikes = ({ id, imageId }) => {
+export const addToUserLikes = ({ imageId, id }) => {
   return db.user.update({
     data: {
       userLikes: {
         connect: {
-          imageId: imageId
+          id: imageId
         }
       }
     },
