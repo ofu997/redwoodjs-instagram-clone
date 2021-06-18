@@ -1,4 +1,4 @@
-import { useMutation, useFlash } from '@redwoodjs/web'
+import { useMutation } from '@redwoodjs/web'
 import {
   Form,
   FormError,
@@ -8,6 +8,8 @@ import {
 } from '@redwoodjs/forms'
 import { navigate, routes } from '@redwoodjs/router'
 import { toast } from '@redwoodjs/web/toast'
+import { useContext } from 'react'
+import authContext from 'src/authContext'
 
 const LOG_IN_MUTATION = gql`
   mutation LogInMutation($input: SignUpOrInInput!) {
@@ -33,12 +35,14 @@ const LOG_IN_MUTATION = gql`
 `
 
 const LogInForm = () => {
+  const { setUserToken } = useContext(authContext)
+
   const [loginUser, { loading, error }] = useMutation(LOG_IN_MUTATION, {
     onCompleted: ({ loginUser }) => {
       toast.success('Signed in', { classes: 'rw-flash-success' })
 
       const { token, user } = loginUser;
-      localStorage.setItem('authToken', JSON.stringify(token));
+      setUserToken(token);
       localStorage.setItem('user', JSON.stringify(user));
       setTimeout(() => {
         navigate(routes.images())
@@ -49,6 +53,8 @@ const LogInForm = () => {
     },
     ignoreResults: false,
   })
+
+
 
   const handleSignIn = data => {
     loginUser({ variables: { input: data } })
