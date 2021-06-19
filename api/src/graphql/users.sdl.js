@@ -58,6 +58,7 @@ export const schema = gql`
     createOrUpdateUserInfo(id: Int!, input: CreateOrUpdateUserInfo!): User!
 
     addToUserLikes(imageId: Int!, id: Int!): User!
+    removeFromUserLikes(imageId: Int!, id: Int!): User!
     loginUser(input: SignUpOrInInput!): LoginResponse
   }
 `

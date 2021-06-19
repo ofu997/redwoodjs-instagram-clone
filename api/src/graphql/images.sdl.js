@@ -36,5 +36,6 @@ export const schema = gql`
     deleteImage(id: Int!): Image!
 
     incrementImageLikes(id: Int!, currentUserId: Int!): Image!
+    decrementImageLikes(id: Int!, currentUserId: Int!): Image!
   }
 `

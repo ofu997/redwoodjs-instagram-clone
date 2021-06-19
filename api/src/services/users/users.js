@@ -61,6 +61,19 @@ export const addToUserLikes = ({ imageId, id }) => {
   })
 }
 
+export const removeFromUserLikes = ({ imageId, id }) => {
+  return db.user.update({
+    data: {
+      userLikes: {
+        disconnect: {
+          id: imageId
+        }
+      }
+    },
+    where: { id },
+  })
+}
+
 export const findUserByHandle = ({ handle }) => {
   return db.user.findUnique({
     where: { handle },

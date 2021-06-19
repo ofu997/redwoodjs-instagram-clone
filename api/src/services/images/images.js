@@ -54,6 +54,22 @@ export const incrementImageLikes = ({ id, currentUserId }) => {
   })
 }
 
+export const decrementImageLikes = ({ id, currentUserId }) => {
+  return db.image.update({
+    data: {
+      likes: {
+        decrement: 1
+      },
+      likedBy: {
+        disconnect: {
+          id: currentUserId
+        }
+      }
+    },
+    where: { id },
+  })
+}
+
 export const Image = {
   comments: (_obj, { root }) =>
     db.image.findUnique({ where: { id: root.id } }).comments(),
