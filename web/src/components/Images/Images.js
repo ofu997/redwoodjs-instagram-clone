@@ -25,9 +25,27 @@ const INCREMENT_IMAGE_LIKES_MUTATION = gql`
   }
 `
 
+const DECREMENT_IMAGE_LIKES_MUTATION = gql`
+  mutation DecrementImageLikesMutation($imageId: Int!, $currentUserId: Int!) {
+    decrementImageLikes(id: $imageId, currentUserId: $currentUserId) {
+      likes
+    }
+  }
+`
+
 const ADD_TO_USER_LIKES_MUTATION = gql`
   mutation AddToUserLikesMutation($imageId: Int!, $currentUserId: Int!) {
     addToUserLikes(imageId: $imageId, id: $currentUserId) {
+      userLikes {
+        id
+      }
+    }
+  }
+`
+
+const REMOVE_FROM_USER_LIKES_MUTATION = gql`
+  mutation RemoveFromUserLikesMutation($imageId: Int!, $currentUserId: Int!) {
+    removeFromUserLikes(imageId: $imageId, id: $currentUserId) {
       userLikes {
         id
       }
@@ -115,8 +133,17 @@ const ImagesList = ({ images }) => {
 
   const [incrementImageLikes] = useMutation(INCREMENT_IMAGE_LIKES_MUTATION, {
     onCompleted: () => {
-      console.log('[updateLikes] was pressed')
-      toast.success('Likes updated.', { classes: 'rw-flash-success' })
+      console.log('like button was pressed')
+      toast.success('Likes incremented.', { classes: 'rw-flash-success' })
+    },
+    refetchQueries: [{ query: QUERY }],
+    awaitRefetchQueries: true,
+  })
+
+  const [decrementImageLikes] = useMutation(DECREMENT_IMAGE_LIKES_MUTATION, {
+    onCompleted: () => {
+      console.log('dislike button was pressed')
+      toast.success('Likes decremented.', { classes: 'rw-flash-success' })
     },
     refetchQueries: [{ query: QUERY }],
     awaitRefetchQueries: true,
@@ -124,9 +151,16 @@ const ImagesList = ({ images }) => {
 
   const [addToUserLikes] = useMutation(ADD_TO_USER_LIKES_MUTATION, {
     onCompleted: () => {
-      console.log('[updateUserLikes] was pressed')
+      console.log('added to user likes')
     },
     // refetchQueries: [{ query: USER_QUERY }],
+    awaitRefetchQueries: true,
+  })
+
+  const [removeFromUserLikes] = useMutation(REMOVE_FROM_USER_LIKES_MUTATION, {
+    onCompleted: () => {
+      console.log('removed from user likes')
+    },
     awaitRefetchQueries: true,
   })
 
@@ -142,13 +176,13 @@ const ImagesList = ({ images }) => {
     // addToUserLikes({ variables: { imageId, id:currentUserId} })
 
     incrementImageLikes({ variables: { imageId, currentUserId } })
-    addToUserLikes({ variables: { imageId, currentUserId} })
+    addToUserLikes({ variables: { imageId, currentUserId } })
   }
 
-  const decrementLikes = (imageId, userId) => {
+  const decrementLikes = (imageId, currentUserId) => {
     console.log('decrementLikes() pressed')
-    updateLikes({ variables: { imageId, userId } })
-    updateUserLikes({ variables: imageId, userId })
+    decrementImageLikes({ variables: { imageId, currentUserId } })
+    removeFromUserLikes({ variables: { imageId, currentUserId } })
   }
 
   return (

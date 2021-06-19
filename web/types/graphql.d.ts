@@ -80,11 +80,13 @@ export type Mutation = {
   createImage: Image;
   createOrUpdateUserInfo: User;
   createUser: User;
+  decrementImageLikes: Image;
   deleteComment: Comment;
   deleteImage: Image;
   deleteUser: User;
   incrementImageLikes: Image;
   loginUser?: Maybe<LoginResponse>;
+  removeFromUserLikes: User;
   updateComment: Comment;
   updateImage: Image;
   updateUser: User;
@@ -118,6 +120,12 @@ export type MutationCreateUserArgs = {
 };
 
 
+export type MutationDecrementImageLikesArgs = {
+  id: Scalars['Int'];
+  currentUserId: Scalars['Int'];
+};
+
+
 export type MutationDeleteCommentArgs = {
   id: Scalars['Int'];
 };
@@ -141,6 +149,12 @@ export type MutationIncrementImageLikesArgs = {
 
 export type MutationLoginUserArgs = {
   input: SignUpOrInInput;
+};
+
+
+export type MutationRemoveFromUserLikesArgs = {
+  imageId: Scalars['Int'];
+  id: Scalars['Int'];
 };
 
 
@@ -360,6 +374,20 @@ export type IncrementImageLikesMutation = (
   ) }
 );
 
+export type DecrementImageLikesMutationVariables = Exact<{
+  imageId: Scalars['Int'];
+  currentUserId: Scalars['Int'];
+}>;
+
+
+export type DecrementImageLikesMutation = (
+  { __typename?: 'Mutation' }
+  & { decrementImageLikes: (
+    { __typename?: 'Image' }
+    & Pick<Image, 'likes'>
+  ) }
+);
+
 export type AddToUserLikesMutationVariables = Exact<{
   imageId: Scalars['Int'];
   currentUserId: Scalars['Int'];
@@ -369,6 +397,23 @@ export type AddToUserLikesMutationVariables = Exact<{
 export type AddToUserLikesMutation = (
   { __typename?: 'Mutation' }
   & { addToUserLikes: (
+    { __typename?: 'User' }
+    & { userLikes: Array<Maybe<(
+      { __typename?: 'Image' }
+      & Pick<Image, 'id'>
+    )>> }
+  ) }
+);
+
+export type RemoveFromUserLikesMutationVariables = Exact<{
+  imageId: Scalars['Int'];
+  currentUserId: Scalars['Int'];
+}>;
+
+
+export type RemoveFromUserLikesMutation = (
+  { __typename?: 'Mutation' }
+  & { removeFromUserLikes: (
     { __typename?: 'User' }
     & { userLikes: Array<Maybe<(
       { __typename?: 'Image' }
