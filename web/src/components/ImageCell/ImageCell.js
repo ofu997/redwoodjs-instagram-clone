@@ -11,6 +11,7 @@ export const QUERY = gql`
       url
       likes
       comments {
+        id
         body
         user {
           id

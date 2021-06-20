@@ -1,9 +1,10 @@
-import { useMutation, useFlash } from '@redwoodjs/web'
+import { useMutation } from '@redwoodjs/web'
 import { Link, routes, navigate } from '@redwoodjs/router'
 import CommentForm from 'src/components/CommentForm'
 import { toast } from '@redwoodjs/web/toast'
 import { QUERY } from 'src/components/ImagesCell'
 // import { QUERY } from 'src/components/ImageCell'
+import Comment from 'src/components/Comment/Comment'
 
 const DELETE_IMAGE_MUTATION = gql`
   mutation DeleteImageMutation($id: Int!) {
@@ -77,7 +78,10 @@ const Image = ({ image, user }) => {
               <th>Comments</th>
               <td>
               {image.comments.map(comment => {
-                return(<p>{comment.body} {comment.user.handle} {comment.posterId}</p>)
+                return(
+                  <Comment comment={comment} />
+
+                )
               })}
               </td>
             </tr>
@@ -105,3 +109,4 @@ const Image = ({ image, user }) => {
 }
 
 export default Image
+{/* return(<p>{comment.body} {comment.user.handle} {comment.posterId}</p>) */}

@@ -10,17 +10,6 @@ import { useMutation } from '@redwoodjs/web'
 import { QUERY } from 'src/components/ImagesCell'
 import { useState } from 'react'
 
-// const CREATE_COMMENT_MUTATION = gql`
-//   mutation CreateCommentMutation($input: CreateCommentInput!) {
-//     createComment(input: $input) {
-//       id
-//       body
-//       image
-//       imageId
-//     }
-//   }
-// `
-
 const CREATE_COMMENT_MUTATION = gql`
   mutation CreateCommentMutation($input: CreateCommentInput!) {
     createComment(input: $input) {
