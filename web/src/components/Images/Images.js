@@ -1,7 +1,7 @@
 import { useMutation } from '@redwoodjs/web'
 import { Link, routes } from '@redwoodjs/router'
 import CommentsCell from 'src/components/CommentsCell'
-
+import Comment from 'src/components/Comment'
 import { QUERY } from 'src/components/ImagesCell'
 import { toast } from '@redwoodjs/web/toast'
 import { getLoggedInUser } from '../../functions/GetLoggedInUser'
@@ -54,26 +54,26 @@ const REMOVE_FROM_USER_LIKES_MUTATION = gql`
 `
 
 // we need this for refetching after interactions. Edit: probably not needed
-const USER_QUERY = gql`
-  query GetUserById($currentUserId: Int!) {
-    user (id: $currentUserId) {
-      id
-      name
-      email
-      handle
-      password
+// const USER_QUERY = gql`
+//   query GetUserById($currentUserId: Int!) {
+//     user (id: $currentUserId) {
+//       id
+//       name
+//       email
+//       handle
+//       password
 
-      userLikes {
-        id
-        title
-      }
-      images {
-        id
-        title
-      }
-    }
-  }
-`
+//       userLikes {
+//         id
+//         title
+//       }
+//       images {
+//         id
+//         title
+//       }
+//     }
+//   }
+// `
 
 const ImagesList = ({ images }) => {
   const currentUser = getLoggedInUser();
@@ -236,7 +236,10 @@ const ImagesList = ({ images }) => {
                 </button>}
                 </td>
                 <td>
-                  <CommentsCell imageId={image.id} />
+                {image.comments.map(comment =>
+                    <Comment comment={comment} />
+                  )
+                }
                 </td>
                 <td>
                   <nav className="rw-table-actions">

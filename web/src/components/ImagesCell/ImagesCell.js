@@ -9,6 +9,9 @@ export const QUERY = gql`
       likes
       comments {
         body
+        user {
+          handle
+        }
       }
       likedBy {
         id

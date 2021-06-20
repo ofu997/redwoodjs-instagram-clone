@@ -1,8 +1,8 @@
 import Comment from 'src/components/Comment'
 
 export const QUERY = gql`
-  query CommentsQuery($imageId: Int!) {
-    comment(id: $imageId) {
+  query CommentsQuery{
+    comments {
       id
       body
     }

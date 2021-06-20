@@ -7,6 +7,8 @@ import {
   Submit,
 } from '@redwoodjs/forms'
 import { useMutation } from '@redwoodjs/web'
+import { QUERY } from 'src/components/ImagesCell'
+import { useState } from 'react'
 
 // const CREATE_COMMENT_MUTATION = gql`
 //   mutation CreateCommentMutation($input: CreateCommentInput!) {
@@ -28,11 +30,23 @@ const CREATE_COMMENT_MUTATION = gql`
   }
 `
 
-const CommentForm = ({ imageId }) => {
-  const [createComment, { loading, error }] = useMutation(CREATE_COMMENT_MUTATION)
+const CommentForm = ({ imageId, userId }) => {
+  const [createComment, { loading, error }] = useMutation(CREATE_COMMENT_MUTATION, {
+    onCompleted: () =>
+    {},
+    refetchQueries: [{ query: QUERY }],
+    awaitRefetchQueries: true,
+  })
 
-  const onSubmit = (input) => {
-    createComment({ variables: { input: { imageId, ...input } } })
+  const onSubmit = () => {
+    setBody('')
+    createComment({ variables: { input: { imageId, posterId: userId, body } } })
+  }
+
+  const [body, setBody] = useState('')
+
+  const handleChange = e => {
+    setBody(e.target.value)
   }
 
   return (
@@ -44,11 +58,13 @@ const CommentForm = ({ imageId }) => {
           wrapperClassName="bg-red-100 text-red-900 text-sm p-3 rounded"
         />
 
-        <TextField
+        {/* <TextField
           name="body"
           validation={{ required: true }}
           placeholder="Comment"
-        />
+        /> */}
+
+        <input name='body' value={body} onChange={handleChange} />
         <Submit
           disabled={loading}
         >

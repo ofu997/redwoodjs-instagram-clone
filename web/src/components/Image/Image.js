@@ -1,8 +1,9 @@
 import { useMutation, useFlash } from '@redwoodjs/web'
 import { Link, routes, navigate } from '@redwoodjs/router'
-import CommentForm from '../CommentForm/CommentForm'
+import CommentForm from 'src/components/CommentForm'
 import { toast } from '@redwoodjs/web/toast'
 import { QUERY } from 'src/components/ImagesCell'
+// import { QUERY } from 'src/components/ImageCell'
 
 const DELETE_IMAGE_MUTATION = gql`
   mutation DeleteImageMutation($id: Int!) {
@@ -32,7 +33,7 @@ const checkboxInputTag = (checked) => {
   return <input type="checkbox" checked={checked} disabled />
 }
 
-const Image = ({ image }) => {
+const Image = ({ image, user }) => {
   const [deleteImage] = useMutation(DELETE_IMAGE_MUTATION, {
     onCompleted: () => {
       navigate(routes.images())
@@ -72,9 +73,17 @@ const Image = ({ image }) => {
               <th>Likes</th>
               <td>{image.likes}</td>
             </tr>
+            <tr>
+              <th>Comments</th>
+              <td>
+              {image.comments.map(comment => {
+                return(<p>{comment.body} {comment.user.handle} {comment.posterId}</p>)
+              })}
+              </td>
+            </tr>
           </tbody>
         </table>
-        <CommentForm imageId={image.id} />
+        <CommentForm imageId={image.id} userId={user.id} />
       </div>
       <nav className="rw-button-group">
         <Link

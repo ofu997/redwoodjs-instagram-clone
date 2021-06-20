@@ -280,14 +280,12 @@ export type CreateCommentMutation = (
   ) }
 );
 
-export type CommentsQueryVariables = Exact<{
-  imageId: Scalars['Int'];
-}>;
+export type CommentsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type CommentsQuery = (
   { __typename?: 'Query' }
-  & { comment?: Maybe<(
+  & { comments: Array<(
     { __typename?: 'Comment' }
     & Pick<Comment, 'id' | 'body'>
   )> }
@@ -422,26 +420,6 @@ export type RemoveFromUserLikesMutation = (
   ) }
 );
 
-export type GetUserByIdVariables = Exact<{
-  currentUserId: Scalars['Int'];
-}>;
-
-
-export type GetUserById = (
-  { __typename?: 'Query' }
-  & { user?: Maybe<(
-    { __typename?: 'User' }
-    & Pick<User, 'id' | 'name' | 'email' | 'handle' | 'password'>
-    & { userLikes: Array<Maybe<(
-      { __typename?: 'Image' }
-      & Pick<Image, 'id' | 'title'>
-    )>>, images: Array<Maybe<(
-      { __typename?: 'Image' }
-      & Pick<Image, 'id' | 'title'>
-    )>> }
-  )> }
-);
-
 export type AllImagesVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -453,6 +431,10 @@ export type AllImages = (
     & { comments: Array<Maybe<(
       { __typename?: 'Comment' }
       & Pick<Comment, 'body'>
+      & { user: (
+        { __typename?: 'User' }
+        & Pick<User, 'handle'>
+      ) }
     )>>, likedBy: Array<Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'id'>
