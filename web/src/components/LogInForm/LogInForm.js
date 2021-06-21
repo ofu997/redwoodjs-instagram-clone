@@ -14,22 +14,11 @@ import authContext from 'src/authContext'
 const LOG_IN_MUTATION = gql`
   mutation LogInMutation($input: SignUpOrInInput!) {
     loginUser(input: $input) {
-      token
-      user {
-
-        id
-        name
-        email
-        handle
-
-        images {
-          title
-          url
-          likes
-          userId
-        }
-
-      }
+      id
+      name
+      email
+      handle
+      jwt
     }
   }
 `
@@ -41,8 +30,10 @@ const LogInForm = () => {
     onCompleted: ({ loginUser }) => {
       toast.success('Signed in', { classes: 'rw-flash-success' })
 
-      const { token, user } = loginUser;
-      setUserToken(token);
+      // const { token, user } = loginUser;
+      setUserToken(loginUser.jwt);
+      const { id, handle } = loginUser;
+      const user = { id, handle }
       localStorage.setItem('user', JSON.stringify(user));
       setTimeout(() => {
         navigate(routes.images())

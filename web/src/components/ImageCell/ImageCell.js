@@ -1,5 +1,5 @@
 import Image from 'src/components/Image'
-import { getLoggedInUser } from 'src/functions/getLoggedInUser'
+import { getLoggedInUser } from 'src/functions/GetLoggedInUser'
 
 const user = getLoggedInUser();
 
@@ -16,6 +16,7 @@ export const QUERY = gql`
         user {
           id
           handle
+          jwt
         }
         posterId
       }

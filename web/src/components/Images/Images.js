@@ -1,10 +1,10 @@
-import { useMutation } from '@redwoodjs/web'
+import { useMutation, useQuery } from '@redwoodjs/web'
 import { Link, routes } from '@redwoodjs/router'
 import CommentsCell from 'src/components/CommentsCell'
 import Comment from 'src/components/Comment'
 import { QUERY } from 'src/components/ImagesCell'
 import { toast } from '@redwoodjs/web/toast'
-import { getLoggedInUser } from '../../functions/GetLoggedInUser'
+import { getLoggedInUser } from 'src/functions/GetLoggedInUser'
 import authContext from 'src/authContext'
 import jwt_decode from "jwt-decode";
 import { useContext, useState, useEffect } from 'react'
@@ -54,36 +54,28 @@ const REMOVE_FROM_USER_LIKES_MUTATION = gql`
 `
 
 // we need this for refetching after interactions. Edit: probably not needed
-// const USER_QUERY = gql`
-//   query GetUserById($currentUserId: Int!) {
-//     user (id: $currentUserId) {
-//       id
-//       name
-//       email
-//       handle
-//       password
+const USER_QUERY = gql`
+  query GetUserById($currentUserId: Int!) {
+    user (id: $currentUserId) {
+      id
+      jwt
+    }
+  }
+`
 
-//       userLikes {
-//         id
-//         title
-//       }
-//       images {
-//         id
-//         title
-//       }
-//     }
-//   }
-// `
-
-const ImagesList = ({ images }) => {
+const Images = ({ images }) => {
   const currentUser = getLoggedInUser();
 
-  // currentUserByJwt: an extra variable to secure actions on images
+  const { loading, error, data } = useQuery(USER_QUERY, {
+    variables: { currentUserId: currentUser.id }
+  })
+
+  // currentUserByContext: an extra variable to secure actions on images
   const { userToken } = useContext(authContext)
-  const [currentUserByJwt, setCurrentUserByJwt] = useState('')
+  const [currentUserByContext, setCurrentUserByContext] = useState('')
   useEffect(() => {
     userToken && (
-      setCurrentUserByJwt(jwt_decode(userToken))
+      setCurrentUserByContext(jwt_decode(userToken))
     )
   }, [])
 
@@ -170,23 +162,40 @@ const ImagesList = ({ images }) => {
     }
   }
 
-  const incrementLikes = (imageId, currentUserId) => {
-    console.log('incrementLikes() pressed')
-    // incrementImageLikes({ variables: { id : imageId,  currentUserId : currentUserId } })
-    // addToUserLikes({ variables: { imageId, id:currentUserId} })
+  const handleLikes = (imageId, currentUserId, jwtFromUseQuery, type) => {
+    const decodedJwtFromUseQuery = jwt_decode(jwtFromUseQuery);
+    const decodedIdFromUseQuery = decodedJwtFromUseQuery.id;
 
-    incrementImageLikes({ variables: { imageId, currentUserId } })
-    addToUserLikes({ variables: { imageId, currentUserId } })
+    if (type==="like") {
+      (currentUserId == currentUserByContext.id || currentUserId == decodedIdFromUseQuery)? (
+        console.log('incrementLikes() pressed'),
+        incrementImageLikes({ variables: { imageId, currentUserId } }),
+        addToUserLikes({ variables: { imageId, currentUserId } })
+      )
+      :
+      console.log("Like not permitted!!!")
+    }
+
+    if (type==="dislike") {
+      (currentUserId == currentUserByContext.id || currentUserId == decodedIdFromUseQuery)? (
+        console.log('decrementLikes() pressed'),
+        decrementImageLikes({ variables: { imageId, currentUserId } }),
+        removeFromUserLikes({ variables: { imageId, currentUserId } })
+      )
+      :
+      console.log("Dislike not permitted!!!")
+    }
   }
 
-  const decrementLikes = (imageId, currentUserId) => {
-    console.log('decrementLikes() pressed')
-    decrementImageLikes({ variables: { imageId, currentUserId } })
-    removeFromUserLikes({ variables: { imageId, currentUserId } })
-  }
+  // if (loading) { return <p>Loading...</p>}
+  // if (error) { console.log(error)}
 
   return (
     <div className="rw-segment rw-table-wrapper-responsive">
+    <Console
+      user={currentUserByContext}
+      // jwtFromUseQuery={data.user.jwt}
+    />
       <table className="rw-table">
         <thead style={{ border: '5px solid black' }}>
           <tr>
@@ -224,13 +233,13 @@ const ImagesList = ({ images }) => {
                 <td>
                 {currentUserLikesThis ?
                 <button
-                  onClick={() => decrementLikes(image.id, currentUser.id)}
+                  onClick={() => handleLikes(image.id, currentUser.id, data.user.jwt, "dislike")}
                 >
                   redHeart
                 </button>
                 :
                 <button
-                  onClick={() => incrementLikes(image.id, currentUser.id)}
+                  onClick={() => handleLikes(image.id, currentUser.id, data.user.jwt, "like")}
                 >
                   blankHeart
                 </button>}
@@ -276,7 +285,15 @@ const ImagesList = ({ images }) => {
   )
 }
 
-export default ImagesList
+const Console = props => {
+  console.log((new Date()).toUTCString());
+  console.log(`currentUserByContext is: ${props.user.handle}`)
+  // console.log(`jwt from query is: ${props.jwtFromUseQuery}`)
+  // console.table(props.jwtFromUseQuery)
+  return false;
+}
+
+export default Images
 
 // Show image and edit image are <Link>s, while delete image is an <a>
 

@@ -80,7 +80,6 @@ const Image = ({ image, user }) => {
               {image.comments.map(comment => {
                 return(
                   <Comment comment={comment} />
-
                 )
               })}
               </td>

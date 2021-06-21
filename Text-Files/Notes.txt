@@ -9,7 +9,7 @@ https://www.npmjs.com/package/react-cool-img
 
 pages/ImagesPage: returns <ImagesCell>
 components/imagesCell: return <Images images={images} />, sends to components/Images
-components/images: ImagesList receives images at /images
+components/images: <Images /> receives images at /images
 
 components/CommentsCell:
 export const QUERY = gql`

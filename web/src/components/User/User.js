@@ -1,12 +1,13 @@
-import ImagesList from 'src/components/Images/Images'
+import Images from 'src/components/Images/Images'
 import { Link, routes } from '@redwoodjs/router'
 
 const User = ({ infoAndImages }) => {
   const { userImages } = infoAndImages;
+  console.log('hello from components/user')
   return (
     <>
       <UserInfo user={infoAndImages} />
-      <ImagesList
+      <Images
         // user={infoAndImages}
         images={userImages}
       />
@@ -15,7 +16,6 @@ const User = ({ infoAndImages }) => {
 }
 
 const UserInfo = props => {
-
   return (
     <>
       {/* <p>{props.profilePicUrl}</p> */}

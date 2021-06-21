@@ -7,6 +7,7 @@ export const QUERY = gql`
       handle
       profilePicUrl
       bio
+      jwt
 
       userImages : images {
         id

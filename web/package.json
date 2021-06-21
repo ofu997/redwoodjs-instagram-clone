@@ -17,6 +17,7 @@
     "@redwoodjs/forms": "^0.33.2",
     "@redwoodjs/router": "^0.33.2",
     "@redwoodjs/web": "^0.33.2",
+    "apollo-client": "^2.6.10",
     "filestack-react": "^4.0.0",
     "jwt-decode": "^3.1.2",
     "prop-types": "^15.7.2",
