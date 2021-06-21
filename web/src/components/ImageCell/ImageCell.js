@@ -4,7 +4,7 @@ import { getLoggedInUser } from 'src/functions/GetLoggedInUser'
 const user = getLoggedInUser();
 
 export const QUERY = gql`
-  query FIND_IMAGE_BY_ID($id: Int!) {
+  query FindImageByCellImageCell($id: Int!) {
     image: image(id: $id) {
       id
       title

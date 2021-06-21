@@ -87,39 +87,38 @@ export const findUserByEmail = ({ email }) => {
 }
 
 export const loginUser = async ({ input }) => {
-  // try {
-    const user = await db.user.findUnique({
-      where: { email: input.email },
-    })
-    if (!user) {
-      throw new Error('Invalid User')
+  const user = await db.user.findUnique({
+    where: { email: input.email },
+  })
+  if (!user) {
+    throw new Error('Invalid User')
+  }
+  const passwordMatch = await bcrypt.compare(input.password, user.password)
+  if (!passwordMatch) {
+    throw new Error('Invalid Login')
+  }
+  const token = jwt.sign(
+    {
+      id: user.id,
+      username: user.email,
+      handle: user.handle
+    },
+    'my-secret-from-env-file-in-prod',
+    {
+      // memo: set this longer
+      expiresIn: 30,
     }
-    const passwordMatch = await bcrypt.compare(input.password, user.password)
-    if (!passwordMatch) {
-      throw new Error('Invalid Login')
-    }
-    const token = jwt.sign(
-      {
-        id: user.id,
-        username: user.email,
-        handle: user.handle
-      },
-      'my-secret-from-env-file-in-prod',
-      {
-        expiresIn: '30d', // token will expire in 30days
-      }
-    )
-    return db.user.update({
-      data: {
-        jwt: token
-      },
-      where: { email: input.email }
-    })
-    // return { user, token }
-  // }
-  // catch (e) {
-  //   return e
-  // }
+  )
+  return db.user.update({
+    data: {
+      jwt: token
+    },
+    where: { email: input.email }
+  })
+}
+
+export const logoutUser = ({ id }) => {
+  return
 }
 
 export const findUserByPassword = ({ password }) => {

@@ -85,7 +85,7 @@ export type Mutation = {
   deleteImage: Image;
   deleteUser: User;
   incrementImageLikes: Image;
-  loginUser?: Maybe<LoginResponse>;
+  loginUser: User;
   removeFromUserLikes: User;
   updateComment: Comment;
   updateImage: Image;
@@ -265,7 +265,21 @@ export type User = {
   isAdmin: Scalars['Boolean'];
   profilePicUrl?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
+  jwt?: Maybe<Scalars['String']>;
 };
+
+export type DeleteCommentMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type DeleteCommentMutation = (
+  { __typename?: 'Mutation' }
+  & { deleteComment: (
+    { __typename?: 'Comment' }
+    & Pick<Comment, 'id'>
+  ) }
+);
 
 export type CreateCommentMutationVariables = Exact<{
   input: CreateCommentInput;
@@ -291,12 +305,12 @@ export type CommentsQuery = (
   )> }
 );
 
-export type Find_Image_By_IdVariables = Exact<{
+export type FindImageByIdEditImageCellVariables = Exact<{
   id: Scalars['Int'];
 }>;
 
 
-export type Find_Image_By_Id = (
+export type FindImageByIdEditImageCell = (
   { __typename?: 'Query' }
   & { image?: Maybe<(
     { __typename?: 'Image' }
@@ -356,6 +370,27 @@ export type DeleteImageMutation = (
     { __typename?: 'Image' }
     & Pick<Image, 'id'>
   ) }
+);
+
+export type FindImageByCellImageCellVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type FindImageByCellImageCell = (
+  { __typename?: 'Query' }
+  & { image?: Maybe<(
+    { __typename?: 'Image' }
+    & Pick<Image, 'id' | 'title' | 'url' | 'likes'>
+    & { comments: Array<Maybe<(
+      { __typename?: 'Comment' }
+      & Pick<Comment, 'id' | 'body' | 'posterId'>
+      & { user: (
+        { __typename?: 'User' }
+        & Pick<User, 'id' | 'handle' | 'jwt'>
+      ) }
+    )>> }
+  )> }
 );
 
 export type IncrementImageLikesMutationVariables = Exact<{
@@ -420,6 +455,19 @@ export type RemoveFromUserLikesMutation = (
   ) }
 );
 
+export type GetUserByIdVariables = Exact<{
+  currentUserId: Scalars['Int'];
+}>;
+
+
+export type GetUserById = (
+  { __typename?: 'Query' }
+  & { user?: Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'jwt'>
+  )> }
+);
+
 export type AllImagesVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -430,7 +478,7 @@ export type AllImages = (
     & Pick<Image, 'id' | 'title' | 'url' | 'likes'>
     & { comments: Array<Maybe<(
       { __typename?: 'Comment' }
-      & Pick<Comment, 'body'>
+      & Pick<Comment, 'id' | 'body'>
       & { user: (
         { __typename?: 'User' }
         & Pick<User, 'handle'>
@@ -449,18 +497,10 @@ export type LogInMutationVariables = Exact<{
 
 export type LogInMutation = (
   { __typename?: 'Mutation' }
-  & { loginUser?: Maybe<(
-    { __typename?: 'LoginResponse' }
-    & Pick<LoginResponse, 'token'>
-    & { user?: Maybe<(
-      { __typename?: 'User' }
-      & Pick<User, 'id' | 'name' | 'email' | 'handle'>
-      & { images: Array<Maybe<(
-        { __typename?: 'Image' }
-        & Pick<Image, 'title' | 'url' | 'likes' | 'userId'>
-      )>> }
-    )> }
-  )> }
+  & { loginUser: (
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'name' | 'email' | 'handle' | 'jwt'>
+  ) }
 );
 
 export type CreateImageMutationVariables = Exact<{
@@ -498,7 +538,7 @@ export type UserQuery = (
   { __typename?: 'Query' }
   & { userInfoAndImages?: Maybe<(
     { __typename?: 'User' }
-    & Pick<User, 'name' | 'handle' | 'profilePicUrl' | 'bio'>
+    & Pick<User, 'name' | 'handle' | 'profilePicUrl' | 'bio' | 'jwt'>
     & { userImages: Array<Maybe<(
       { __typename?: 'Image' }
       & Pick<Image, 'id' | 'title' | 'url' | 'likes'>

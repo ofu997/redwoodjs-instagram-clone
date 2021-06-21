@@ -8,6 +8,7 @@ import { getLoggedInUser } from 'src/functions/GetLoggedInUser'
 import authContext from 'src/authContext'
 import jwt_decode from "jwt-decode";
 import { useContext, useState, useEffect } from 'react'
+var jwt = require('jsonwebtoken')
 
 const DELETE_IMAGE_MUTATION = gql`
   mutation DeleteImageMutation($id: Int!) {
@@ -53,7 +54,6 @@ const REMOVE_FROM_USER_LIKES_MUTATION = gql`
   }
 `
 
-// we need this for refetching after interactions. Edit: probably not needed
 const USER_QUERY = gql`
   query GetUserById($currentUserId: Int!) {
     user (id: $currentUserId) {
@@ -145,7 +145,6 @@ const Images = ({ images }) => {
     onCompleted: () => {
       console.log('added to user likes')
     },
-    // refetchQueries: [{ query: USER_QUERY }],
     awaitRefetchQueries: true,
   })
 
@@ -166,35 +165,34 @@ const Images = ({ images }) => {
     const decodedJwtFromUseQuery = jwt_decode(jwtFromUseQuery);
     const decodedIdFromUseQuery = decodedJwtFromUseQuery.id;
 
-    if (type==="like") {
-      (currentUserId == currentUserByContext.id || currentUserId == decodedIdFromUseQuery)? (
-        console.log('incrementLikes() pressed'),
-        incrementImageLikes({ variables: { imageId, currentUserId } }),
-        addToUserLikes({ variables: { imageId, currentUserId } })
-      )
-      :
-      console.log("Like not permitted!!!")
-    }
-
-    if (type==="dislike") {
-      (currentUserId == currentUserByContext.id || currentUserId == decodedIdFromUseQuery)? (
-        console.log('decrementLikes() pressed'),
-        decrementImageLikes({ variables: { imageId, currentUserId } }),
-        removeFromUserLikes({ variables: { imageId, currentUserId } })
-      )
-      :
-      console.log("Dislike not permitted!!!")
-    }
+    (currentUserId == currentUserByContext.id || currentUserId == decodedIdFromUseQuery)?
+      jwt.verify(jwtFromUseQuery, 'my-secret-from-env-file-in-prod', function(err, decoded) {
+        if (err) {
+          toast.error('Please log in again')
+        }
+        else {
+          switch(type) {
+            case "like":
+              console.log('incrementLikes() pressed');
+              incrementImageLikes({ variables: { imageId, currentUserId } });
+              addToUserLikes({ variables: { imageId, currentUserId } });
+              break;
+            case "dislike":
+              console.log('decrementLikes() pressed');
+              decrementImageLikes({ variables: { imageId, currentUserId } });
+              removeFromUserLikes({ variables: { imageId, currentUserId } });
+              break;
+          }
+        }
+      })
+    :
+    toast.error("Impersonation attempt!")
   }
-
-  // if (loading) { return <p>Loading...</p>}
-  // if (error) { console.log(error)}
 
   return (
     <div className="rw-segment rw-table-wrapper-responsive">
     <Console
       user={currentUserByContext}
-      // jwtFromUseQuery={data.user.jwt}
     />
       <table className="rw-table">
         <thead style={{ border: '5px solid black' }}>
@@ -221,7 +219,7 @@ const Images = ({ images }) => {
                 </td>
                 <td>{truncate(image.likes)}</td>
                 {currentUser && (
-                <td>{/*logic for displaying if user likes this. use useQuery from Apollo */}
+                <td>
                   {currentUserLikesThis &&
                     <p>current user: {currentUser.handle} likes this</p>
                   }
@@ -288,8 +286,6 @@ const Images = ({ images }) => {
 const Console = props => {
   console.log((new Date()).toUTCString());
   console.log(`currentUserByContext is: ${props.user.handle}`)
-  // console.log(`jwt from query is: ${props.jwtFromUseQuery}`)
-  // console.table(props.jwtFromUseQuery)
   return false;
 }
 

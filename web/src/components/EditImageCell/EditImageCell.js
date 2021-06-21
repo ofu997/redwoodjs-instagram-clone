@@ -4,7 +4,7 @@ import ImageForm from 'src/components/ImageForm'
 import { toast } from '@redwoodjs/web/toast'
 
 export const QUERY = gql`
-  query FIND_IMAGE_BY_ID($id: Int!) {
+  query FindImageByIdEditImageCell($id: Int!) {
     image: image(id: $id) {
       id
       title
