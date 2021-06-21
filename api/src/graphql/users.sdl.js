@@ -11,6 +11,7 @@ export const schema = gql`
     isAdmin: Boolean!
     profilePicUrl: String
     bio: String
+    jwt: String
   }
   type Query {
     users: [User!]!
@@ -59,6 +60,6 @@ export const schema = gql`
 
     addToUserLikes(imageId: Int!, id: Int!): User!
     removeFromUserLikes(imageId: Int!, id: Int!): User!
-    loginUser(input: SignUpOrInInput!): LoginResponse
+    loginUser(input: SignUpOrInInput!): User!
   }
 `

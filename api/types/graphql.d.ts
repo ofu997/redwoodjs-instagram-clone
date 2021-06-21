@@ -87,7 +87,7 @@ export type Mutation = {
   deleteImage: Image;
   deleteUser: User;
   incrementImageLikes: Image;
-  loginUser?: Maybe<LoginResponse>;
+  loginUser: User;
   removeFromUserLikes: User;
   updateComment: Comment;
   updateImage: Image;
@@ -267,6 +267,7 @@ export type User = {
   isAdmin: Scalars['Boolean'];
   profilePicUrl?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
+  jwt?: Maybe<Scalars['String']>;
 };
 
 
@@ -455,7 +456,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   deleteImage?: Resolver<ResolversTypes['Image'], ParentType, ContextType, RequireFields<MutationDeleteImageArgs, 'id'>>;
   deleteUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'id'>>;
   incrementImageLikes?: Resolver<ResolversTypes['Image'], ParentType, ContextType, RequireFields<MutationIncrementImageLikesArgs, 'id' | 'currentUserId'>>;
-  loginUser?: Resolver<Maybe<ResolversTypes['LoginResponse']>, ParentType, ContextType, RequireFields<MutationLoginUserArgs, 'input'>>;
+  loginUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationLoginUserArgs, 'input'>>;
   removeFromUserLikes?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationRemoveFromUserLikesArgs, 'imageId' | 'id'>>;
   updateComment?: Resolver<ResolversTypes['Comment'], ParentType, ContextType, RequireFields<MutationUpdateCommentArgs, 'id' | 'input'>>;
   updateImage?: Resolver<ResolversTypes['Image'], ParentType, ContextType, RequireFields<MutationUpdateImageArgs, 'id' | 'input'>>;
@@ -498,6 +499,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   isAdmin?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   profilePicUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   bio?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  jwt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

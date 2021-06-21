@@ -35,3 +35,7 @@ export const Comment = {
   user: (_obj, { root }) =>
     db.comment.findUnique({ where: { id: root.id } }).user(),
 }
+
+export const beforeResolver = rules => {
+  rules.skip()
+}

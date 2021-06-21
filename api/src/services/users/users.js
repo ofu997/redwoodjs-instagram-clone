@@ -87,7 +87,7 @@ export const findUserByEmail = ({ email }) => {
 }
 
 export const loginUser = async ({ input }) => {
-  try {
+  // try {
     const user = await db.user.findUnique({
       where: { email: input.email },
     })
@@ -109,10 +109,17 @@ export const loginUser = async ({ input }) => {
         expiresIn: '30d', // token will expire in 30days
       }
     )
-    return { user, token }
-  } catch (e) {
-    return e
-  }
+    return db.user.update({
+      data: {
+        jwt: token
+      },
+      where: { email: input.email }
+    })
+    // return { user, token }
+  // }
+  // catch (e) {
+  //   return e
+  // }
 }
 
 export const findUserByPassword = ({ password }) => {

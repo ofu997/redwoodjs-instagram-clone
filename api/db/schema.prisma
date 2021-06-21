@@ -51,6 +51,7 @@ model User {
   isAdmin       Boolean @default(false)
   profilePicUrl String?
   bio           String?
+  jwt           String?
 
   userLikes Image[] @relation("m:m. Image is liked by users", references: [id])
 
