@@ -8,6 +8,7 @@ import {
 } from '@redwoodjs/forms'
 import { useMutation, useFlash } from '@redwoodjs/web'
 import { navigate, routes } from '@redwoodjs/router'
+import { toast } from '@redwoodjs/web/toast'
 
 const SIGN_UP_MUTATION = gql`
   mutation SignUpMutation($input: CreateUserInput!) {
@@ -17,13 +18,15 @@ const SIGN_UP_MUTATION = gql`
   }
 `
 
-const SignUpForm = () => {
+const SignUpForm = props => {
   const [signIn, { loading, error }] = useMutation(SIGN_UP_MUTATION, {
     onCompleted: () => {
       toast.success('User created', { classes: 'rw-flash-success' })
 
       setTimeout(() => {
-        navigate(routes.images())
+        // navigate(routes.images())
+        props.setShowSignUpForm(false)
+        props.setShowLogInForm(true)
       }, 50)
     },
     onError: (e) => {

@@ -15,7 +15,10 @@ const HomePage = () => {
   return (
     <>
       {showSignUpForm &&
-        <SignUpForm />
+        <SignUpForm
+          setShowSignUpForm={setShowSignUpForm}
+          setShowLogInForm={setShowLogInForm}
+        />
       }
       {showLogInForm &&
         <LogInForm />
