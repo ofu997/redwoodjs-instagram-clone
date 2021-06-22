@@ -61,5 +61,6 @@ export const schema = gql`
     addToUserLikes(imageId: Int!, id: Int!): User!
     removeFromUserLikes(imageId: Int!, id: Int!): User!
     loginUser(input: SignUpOrInInput!): User!
+    logoutUser(id: Int!): User!
   }
 `
