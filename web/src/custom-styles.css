@@ -2,6 +2,15 @@
   normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css
 */
 
+@font-face {
+  font-family: 'Auckland';
+  src: local('AucklandHills'), url(../public/fonts/AucklandHills.ttf);
+}
+
+.branding-font {
+  font-family: Auckland, serif;
+}
+
 .rw-scaffold *,
 .rw-scaffold ::after,
 .rw-scaffold ::before {
@@ -371,4 +380,14 @@
 .cntr-v {
   display: flex;
   align-self: center;
+}
+
+.cntr-v-parent {
+  display: flex;
+  align-items: center;
+}
+.navbarItem {
+  margin: 0 10%;
+  min-width: 100px;
+  text-align: center;
 }

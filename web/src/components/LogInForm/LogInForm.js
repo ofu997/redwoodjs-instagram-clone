@@ -16,6 +16,7 @@ const LOG_IN_MUTATION = gql`
     loginUser(input: $input) {
       id
       handle
+      jwt
     }
   }
 `
@@ -40,8 +41,6 @@ const LogInForm = () => {
     },
     ignoreResults: false,
   })
-
-
 
   const handleSignIn = data => {
     loginUser({ variables: { input: data } })
