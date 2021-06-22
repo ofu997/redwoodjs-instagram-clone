@@ -86,6 +86,7 @@ export type Mutation = {
   deleteUser: User;
   incrementImageLikes: Image;
   loginUser: User;
+  logoutUser: User;
   removeFromUserLikes: User;
   updateComment: Comment;
   updateImage: Image;
@@ -149,6 +150,11 @@ export type MutationIncrementImageLikesArgs = {
 
 export type MutationLoginUserArgs = {
   input: SignUpOrInInput;
+};
+
+
+export type MutationLogoutUserArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -499,7 +505,7 @@ export type LogInMutation = (
   { __typename?: 'Mutation' }
   & { loginUser: (
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'name' | 'email' | 'handle' | 'jwt'>
+    & Pick<User, 'id' | 'handle'>
   ) }
 );
 

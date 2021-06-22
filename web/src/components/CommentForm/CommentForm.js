@@ -9,6 +9,10 @@ import {
 import { useMutation } from '@redwoodjs/web'
 import { QUERY } from 'src/components/ImagesCell'
 import { useState } from 'react'
+import { getLoggedInUser } from 'src/functions/GetLoggedInUser'
+import { toast } from '@redwoodjs/web/toast'
+
+const currentUser = getLoggedInUser();
 
 const CREATE_COMMENT_MUTATION = gql`
   mutation CreateCommentMutation($input: CreateCommentInput!) {
@@ -28,8 +32,11 @@ const CommentForm = ({ imageId, userId }) => {
   })
 
   const onSubmit = () => {
-    setBody('')
-    createComment({ variables: { input: { imageId, posterId: userId, body } } })
+    setBody('');
+    currentUser.id ? (
+      createComment({ variables: { input: { imageId, posterId: userId, body } } })
+    )
+    : toast.error('Must be logged in to comment')
   }
 
   const [body, setBody] = useState('')
@@ -46,12 +53,6 @@ const CommentForm = ({ imageId, userId }) => {
           titleClassName="font-semibold"
           wrapperClassName="bg-red-100 text-red-900 text-sm p-3 rounded"
         />
-
-        {/* <TextField
-          name="body"
-          validation={{ required: true }}
-          placeholder="Comment"
-        /> */}
 
         <input name='body' value={body} onChange={handleChange} />
         <Submit

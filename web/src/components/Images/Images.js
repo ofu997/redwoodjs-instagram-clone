@@ -55,7 +55,7 @@ const REMOVE_FROM_USER_LIKES_MUTATION = gql`
 `
 
 const USER_QUERY = gql`
-  query GetUserById($currentUserId: Int!) {
+  query GetUserJwtById($currentUserId: Int!) {
     user (id: $currentUserId) {
       id
       jwt
@@ -70,12 +70,14 @@ const Images = ({ images }) => {
     variables: { currentUserId: currentUser.id }
   })
 
-  // currentUserByContext: an extra variable to secure actions on images
+  const missingData = (!data || !currentUser.id )? true : false;
+
+  // currentUserJwtByContext: an extra variable to secure actions on images
   const { userToken } = useContext(authContext)
-  const [currentUserByContext, setCurrentUserByContext] = useState('')
+  const [currentUserJwtByContext, setCurrentUserJwtByContext] = useState('')
   useEffect(() => {
     userToken && (
-      setCurrentUserByContext(jwt_decode(userToken))
+      setCurrentUserJwtByContext(jwt_decode(userToken))
     )
   }, [])
 
@@ -163,9 +165,9 @@ const Images = ({ images }) => {
 
   const handleLikes = (imageId, currentUserId, jwtFromUseQuery, type) => {
     const decodedJwtFromUseQuery = jwt_decode(jwtFromUseQuery);
-    const decodedIdFromUseQuery = decodedJwtFromUseQuery.id;
+    const decodedIdFromJwtFromUseQuery = decodedJwtFromUseQuery.id;
 
-    (currentUserId == currentUserByContext.id || currentUserId == decodedIdFromUseQuery)?
+    (currentUserId == currentUserJwtByContext.id || currentUserId == decodedIdFromJwtFromUseQuery)?
       jwt.verify(jwtFromUseQuery, 'my-secret-from-env-file-in-prod', function(err, decoded) {
         if (err) {
           toast.error('Please log in again')
@@ -192,7 +194,7 @@ const Images = ({ images }) => {
   return (
     <div className="rw-segment rw-table-wrapper-responsive">
     <Console
-      user={currentUserByContext}
+      user={currentUserJwtByContext}
     />
       <table className="rw-table">
         <thead style={{ border: '5px solid black' }}>
@@ -238,6 +240,7 @@ const Images = ({ images }) => {
                 :
                 <button
                   onClick={() => handleLikes(image.id, currentUser.id, data.user.jwt, "like")}
+                  disabled={missingData}
                 >
                   blankHeart
                 </button>}
@@ -285,7 +288,7 @@ const Images = ({ images }) => {
 
 const Console = props => {
   console.log((new Date()).toUTCString());
-  console.log(`currentUserByContext is: ${props.user.handle}`)
+  console.log(`currentUserJwtByContext is: ${props.user.handle}`)
   return false;
 }
 
