@@ -90,6 +90,7 @@ export const loginUser = async ({ input }) => {
   const user = await db.user.findUnique({
     where: { email: input.email },
   })
+  const { id, handle, isAdmin } = user
   if (!user) {
     throw new Error('Invalid User')
   }
@@ -99,9 +100,9 @@ export const loginUser = async ({ input }) => {
   }
   const token = jwt.sign(
     {
-      id: user.id,
-      username: user.email,
-      handle: user.handle
+      id,
+      handle,
+      isAdmin,
     },
     'my-secret-from-env-file-in-prod',
     {
@@ -118,7 +119,12 @@ export const loginUser = async ({ input }) => {
 }
 
 export const logoutUser = ({ id }) => {
-  return
+  return db.user.update({
+    data: {
+      jwt: null
+    },
+    where: { id }
+  })
 }
 
 export const findUserByPassword = ({ password }) => {
