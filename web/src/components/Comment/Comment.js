@@ -1,5 +1,6 @@
 import { useMutation } from '@redwoodjs/web'
 import { QUERY } from 'src/components/ImagesCell'
+import { toast } from '@redwoodjs/web/toast'
 
 const DELETE_COMMENT_MUTATION = gql`
   mutation DeleteCommentMutation($id: Int!) {
@@ -17,6 +18,8 @@ const Comment = props => {
     awaitRefetchQueries: true,
   })
 
+  const missingData = !props.user ? true : false;
+
   const handleDelete = id => {
     deleteComment({variables: {id} })
   }
@@ -25,14 +28,20 @@ const Comment = props => {
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <p>{props.comment.id} {props.comment.user.handle}: {props.comment.body}</p>
       <div
-        onClick={() => handleDelete(props.comment.id)}
+        onClick={() => missingData? (
+          toast.error("Must be logged in to delete comment")
+        )
+        : handleDelete(props.comment.id)}
         style={{ padding: '2px', border: '1px solid red', marginLeft: '20px' }}
       >
         delete
       </div>
-      {/* add a deleteComment function here */}
     </div>
   )
+}
+
+Comment.defaultProps = {
+  user: null
 }
 
 export default Comment
