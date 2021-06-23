@@ -58,6 +58,7 @@ const USER_QUERY = gql`
     user (id: $currentUserId) {
       id
       jwt
+      localStoragePassword
       images {
         id
       }
@@ -65,12 +66,17 @@ const USER_QUERY = gql`
   }
 `
 
+const dummyObject = { loading: null, error: null, data: null };
+
 const Images = ({ images }) => {
   const currentUser = getLoggedInUser();
 
-  const { loading, error, data } = useQuery(USER_QUERY, {
-    variables: { currentUserId: currentUser.id }
-  })
+  const { loading, error, data } = currentUser.id ?
+    useQuery(USER_QUERY, {
+      variables: { currentUserId: currentUser.id }
+    })
+    :
+    dummyObject;
 
   const missingData = (!data || !currentUser.id )? true : false;
 
@@ -78,9 +84,9 @@ const Images = ({ images }) => {
   const { userToken } = useContext(authContext)
   const [currentUserJwtByContext, setCurrentUserJwtByContext] = useState('')
   useEffect(() => {
-    userToken && (
+    // userToken && (
       setCurrentUserJwtByContext(jwt_decode(userToken))
-    )
+    // )
   }, [])
 
   const MAX_STRING_LENGTH = 150
@@ -252,6 +258,7 @@ const Images = ({ images }) => {
                     <Comment
                       comment={comment}
                       user={data?.user}
+                      key={comment.id}
                     />
                   )
                 }

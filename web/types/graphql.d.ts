@@ -272,6 +272,7 @@ export type User = {
   profilePicUrl?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
   jwt?: Maybe<Scalars['String']>;
+  localStoragePassword?: Maybe<Scalars['String']>;
 };
 
 export type DeleteCommentMutationVariables = Exact<{
@@ -522,7 +523,7 @@ export type LogInMutation = (
   { __typename?: 'Mutation' }
   & { loginUser: (
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'handle' | 'jwt'>
+    & Pick<User, 'id' | 'handle' | 'jwt' | 'localStoragePassword'>
   ) }
 );
 

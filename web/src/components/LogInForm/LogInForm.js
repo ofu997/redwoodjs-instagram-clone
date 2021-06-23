@@ -17,6 +17,7 @@ const LOG_IN_MUTATION = gql`
       id
       handle
       jwt
+      localStoragePassword
     }
   }
 `
@@ -29,8 +30,8 @@ const LogInForm = () => {
       toast.success('Signed in', { classes: 'rw-flash-success' })
 
       setUserToken(loginUser.jwt);
-      const { id, handle } = loginUser;
-      const user = { id, handle }
+      const { id, handle, localStoragePassword } = loginUser;
+      const user = { id, handle, localStoragePassword }
       localStorage.setItem('user', JSON.stringify(user));
       setTimeout(() => {
         navigate(routes.images())

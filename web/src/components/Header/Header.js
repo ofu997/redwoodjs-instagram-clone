@@ -56,12 +56,11 @@ const Header = () => {
             <Nav
               className="justify-content-end"
               activeKey='/'
-
             >
               <Nav.Item
               >
                 <Nav.Link className="navbarItem ">
-                {user && (
+                {user.id && (
                     <Link to={ routes.userPage({ handle: user.handle }) }><p style={{ margin: '0 auto' }}>Profile</p></Link>
                   )
                 }
@@ -69,8 +68,7 @@ const Header = () => {
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link className="navbarItem">
-                  {user && (
-
+                  {user.id && (
                     <div
                       onClick={() => logoutUser({ variables: { id: user.id } } )}
                     >
