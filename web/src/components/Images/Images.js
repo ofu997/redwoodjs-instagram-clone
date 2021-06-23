@@ -4,13 +4,13 @@ import Comment from 'src/components/Comment'
 import { QUERY } from 'src/components/ImagesCell'
 import { toast } from '@redwoodjs/web/toast'
 import { getLoggedInUser } from 'src/functions/GetLoggedInUser'
-import authContext from 'src/authContext'
 import jwt_decode from "jwt-decode";
-import { useContext, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 var jwt = require('jsonwebtoken')
+import gql from 'graphql-tag'
 
 const DELETE_IMAGE_MUTATION = gql`
-  mutation DeleteImageMutation($id: Int!) {
+  mutation RenamedDeleteImageMutation($id: Int!) {
     deleteImage(id: $id) {
       id
     }
@@ -80,15 +80,6 @@ const Images = ({ images }) => {
 
   const missingData = (!data || !currentUser.id )? true : false;
 
-  // currentUserJwtByContext: an extra variable to secure actions on images
-  const { userToken } = useContext(authContext)
-  const [currentUserJwtByContext, setCurrentUserJwtByContext] = useState('')
-  useEffect(() => {
-    // userToken && (
-      setCurrentUserJwtByContext(jwt_decode(userToken))
-    // )
-  }, [])
-
   const MAX_STRING_LENGTH = 150
 
   const thumbnail = (url) => {
@@ -125,6 +116,9 @@ const Images = ({ images }) => {
   const [deleteImage] = useMutation(DELETE_IMAGE_MUTATION, {
     onCompleted: () => {
       toast.success('Image deleted.', { classes: 'rw-flash-success' })
+    },
+    onError: e => {
+      console.log(e)
     },
     // This refetches the query on the list page. Read more about other ways to
     // update the cache over here:
@@ -175,7 +169,7 @@ const Images = ({ images }) => {
     const decodedJwtFromUseQuery = jwt_decode(jwtFromUseQuery);
     const decodedIdFromJwtFromUseQuery = decodedJwtFromUseQuery.id;
 
-    (currentUserId == currentUserJwtByContext.id || currentUserId == decodedIdFromJwtFromUseQuery)?
+    (currentUserId == decodedIdFromJwtFromUseQuery)?
       jwt.verify(jwtFromUseQuery, 'my-secret-from-env-file-in-prod', function(err, decoded) {
         if (err) {
           toast.error('Please log in again')
@@ -201,9 +195,9 @@ const Images = ({ images }) => {
 
   return (
     <div className="rw-segment rw-table-wrapper-responsive">
-    <Console
+    {/* <Console
       user={currentUserJwtByContext}
-    />
+    /> */}
       <table className="rw-table">
         <thead style={{ border: '5px solid black' }}>
           <tr>
@@ -279,14 +273,14 @@ const Images = ({ images }) => {
                     >
                       Edit
                     </Link>
-                    <a
+                    <div
                       href="/"
                       title={'Delete image ' + image.id}
                       className="rw-button rw-button-small rw-button-red"
                       onClick={() => onDeleteClick(image.id)}
                     >
                       Delete
-                    </a>
+                    </div>
                   </nav>
                 </td>
               </tr>
@@ -298,11 +292,11 @@ const Images = ({ images }) => {
   )
 }
 
-const Console = props => {
-  console.log((new Date()).toUTCString());
-  console.log(`currentUserJwtByContext is: ${props.user.handle}`)
-  return false;
-}
+// const Console = props => {
+//   console.log((new Date()).toUTCString());
+//   console.log(`currentUserJwtByContext is: ${props.user.handle}`)
+//   return false;
+// }
 
 export default Images
 

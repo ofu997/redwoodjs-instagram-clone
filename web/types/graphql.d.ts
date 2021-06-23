@@ -413,6 +413,19 @@ export type FindImageByCellImageCell = (
   )> }
 );
 
+export type RenamedDeleteImageMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type RenamedDeleteImageMutation = (
+  { __typename?: 'Mutation' }
+  & { deleteImage: (
+    { __typename?: 'Image' }
+    & Pick<Image, 'id'>
+  ) }
+);
+
 export type IncrementImageLikesMutationVariables = Exact<{
   imageId: Scalars['Int'];
   currentUserId: Scalars['Int'];
@@ -484,7 +497,7 @@ export type GetUserJwtById = (
   { __typename?: 'Query' }
   & { user?: Maybe<(
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'jwt'>
+    & Pick<User, 'id' | 'jwt' | 'localStoragePassword'>
     & { images: Array<Maybe<(
       { __typename?: 'Image' }
       & Pick<Image, 'id'>

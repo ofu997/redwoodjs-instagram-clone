@@ -31,12 +31,12 @@ const Header = () => {
 
   const [logoutUser, { loading, error }] = useMutation(LOG_OUT_MUTATION, {
     onCompleted: () => {
-      toast.success('Logged out', { classes: 'rw-flash-success' })
+      toast.success('Logged out', { classes: 'rw-flash-success' }),
 
-      localStorage.removeItem('user');
-      setTimeout(() => {
+      localStorage.removeItem('user'),
+      // setTimeout(() => {
         navigate(routes.images())
-      }, 200)
+      // }, 200)
     },
     onError: (e) => {
       console.log(e)
@@ -59,12 +59,12 @@ const Header = () => {
             >
               <Nav.Item
               >
-                <Nav.Link className="navbarItem ">
+                {/* <Nav.Link className="navbarItem "> */}
                 {user.id && (
-                    <Link to={ routes.userPage({ handle: user.handle }) }><p style={{ margin: '0 auto' }}>Profile</p></Link>
+                    <Link className="navbarItem" to={ routes.userPage({ handle: user.handle }) }><p style={{ margin: '0 auto' }}>Profile</p></Link>
                   )
                 }
-                </Nav.Link>
+                {/* </Nav.Link> */}
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link className="navbarItem">
