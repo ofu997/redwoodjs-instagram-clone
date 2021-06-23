@@ -274,6 +274,7 @@ export type User = {
   profilePicUrl?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
   jwt?: Maybe<Scalars['String']>;
+  localStoragePassword?: Maybe<Scalars['String']>;
 };
 
 
@@ -507,6 +508,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   profilePicUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   bio?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   jwt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  localStoragePassword?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

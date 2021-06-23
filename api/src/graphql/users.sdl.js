@@ -12,7 +12,9 @@ export const schema = gql`
     profilePicUrl: String
     bio: String
     jwt: String
+    localStoragePassword: String
   }
+
   type Query {
     users: [User!]!
     user(id: Int!): User
@@ -21,7 +23,6 @@ export const schema = gql`
     findUserByPassword(password: String!): User
     findUserByEmail(email: String!): User
   }
-
 
   type LoginResponse {
     token: String

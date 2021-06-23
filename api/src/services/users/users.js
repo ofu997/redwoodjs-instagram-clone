@@ -110,9 +110,23 @@ export const loginUser = async ({ input }) => {
       expiresIn: 30,
     }
   )
+
+  const generatePassword = () => {
+    let length=15, result = "",
+    charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789`~!@#$%^&*()-_=+[]\{}|;':,./<>?";
+
+    for (let i=0, n = charset.length; i < length; i++) {
+      result += charset.charAt(Math.floor(Math.random() * n));
+    }
+    return result;
+  };
+
+  const localStoragePassword = generatePassword();
+
   return db.user.update({
     data: {
-      jwt: token
+      jwt: token,
+      localStoragePassword,
     },
     where: { email: input.email }
   })
