@@ -15,11 +15,13 @@ import { useMutation } from '@redwoodjs/web'
 
 const Header = () => {
   const [user, setUser] = useState({ });
+  const [change, setChange] = useState(false);
 
   useEffect(() => {
     const localStorageUser = getLoggedInUser();
     setUser(localStorageUser);
-  }, [])
+    // setChange(!change)
+  }, [change])
 
   const LOG_OUT_MUTATION = gql`
     mutation LogOutMutation($id: Int!) {
@@ -37,6 +39,8 @@ const Header = () => {
       setTimeout(() => {
         navigate(routes.images())
       }, 200)
+
+      setChange(!change)
     },
     onError: (e) => {
       console.log(e)
@@ -59,9 +63,9 @@ const Header = () => {
             >
               <Nav.Item
               >
-                <Nav.Link className="navbarItem ">
+                <Nav.Link href={routes.userPage({ handle: user.handle })} className="navbarItem ">
                 {user.id && (
-                    <Link to={ routes.userPage({ handle: user.handle }) }><p style={{ margin: '0 auto' }}>Profile</p></Link>
+                    <p style={{ margin: '0 auto' }}>Profile</p>
                   )
                 }
                 </Nav.Link>
