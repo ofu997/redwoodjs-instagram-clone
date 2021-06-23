@@ -1,6 +1,5 @@
 import { useMutation, useQuery } from '@redwoodjs/web'
 import { Link, routes } from '@redwoodjs/router'
-import CommentsCell from 'src/components/CommentsCell'
 import Comment from 'src/components/Comment'
 import { QUERY } from 'src/components/ImagesCell'
 import { toast } from '@redwoodjs/web/toast'
@@ -59,6 +58,9 @@ const USER_QUERY = gql`
     user (id: $currentUserId) {
       id
       jwt
+      images {
+        id
+      }
     }
   }
 `
@@ -247,7 +249,10 @@ const Images = ({ images }) => {
                 </td>
                 <td>
                 {image.comments.map(comment =>
-                    <Comment comment={comment} />
+                    <Comment
+                      comment={comment}
+                      user={data?.user}
+                    />
                   )
                 }
                 </td>

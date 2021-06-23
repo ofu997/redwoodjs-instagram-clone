@@ -7,10 +7,14 @@ export const QUERY = gql`
       title
       url
       likes
+      userId
+      createdAt
       comments {
         id
         body
+        imageId
         user {
+          id
           handle
         }
       }

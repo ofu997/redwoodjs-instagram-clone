@@ -365,6 +365,19 @@ export type EditUserInfoMutation = (
   ) }
 );
 
+export type LogOutMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type LogOutMutation = (
+  { __typename?: 'Mutation' }
+  & { logoutUser: (
+    { __typename?: 'User' }
+    & Pick<User, 'id'>
+  ) }
+);
+
 export type DeleteImageMutationVariables = Exact<{
   id: Scalars['Int'];
 }>;
@@ -461,16 +474,20 @@ export type RemoveFromUserLikesMutation = (
   ) }
 );
 
-export type GetUserByIdVariables = Exact<{
+export type GetUserJwtByIdVariables = Exact<{
   currentUserId: Scalars['Int'];
 }>;
 
 
-export type GetUserById = (
+export type GetUserJwtById = (
   { __typename?: 'Query' }
   & { user?: Maybe<(
     { __typename?: 'User' }
     & Pick<User, 'id' | 'jwt'>
+    & { images: Array<Maybe<(
+      { __typename?: 'Image' }
+      & Pick<Image, 'id'>
+    )>> }
   )> }
 );
 
@@ -481,13 +498,13 @@ export type AllImages = (
   { __typename?: 'Query' }
   & { images: Array<(
     { __typename?: 'Image' }
-    & Pick<Image, 'id' | 'title' | 'url' | 'likes'>
+    & Pick<Image, 'id' | 'title' | 'url' | 'likes' | 'userId' | 'createdAt'>
     & { comments: Array<Maybe<(
       { __typename?: 'Comment' }
-      & Pick<Comment, 'id' | 'body'>
+      & Pick<Comment, 'id' | 'body' | 'imageId'>
       & { user: (
         { __typename?: 'User' }
-        & Pick<User, 'handle'>
+        & Pick<User, 'id' | 'handle'>
       ) }
     )>>, likedBy: Array<Maybe<(
       { __typename?: 'User' }
@@ -505,7 +522,7 @@ export type LogInMutation = (
   { __typename?: 'Mutation' }
   & { loginUser: (
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'handle'>
+    & Pick<User, 'id' | 'handle' | 'jwt'>
   ) }
 );
 

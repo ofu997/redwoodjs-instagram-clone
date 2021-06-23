@@ -108,4 +108,3 @@ const Image = ({ image, user }) => {
 }
 
 export default Image
-{/* return(<p>{comment.body} {comment.user.handle} {comment.posterId}</p>) */}
