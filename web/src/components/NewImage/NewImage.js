@@ -1,4 +1,4 @@
-import { useMutation, useFlash } from '@redwoodjs/web'
+import { useMutation } from '@redwoodjs/web'
 import { navigate, routes } from '@redwoodjs/router'
 import NewImageForm from 'src/components/ImageForm/NewImageForm'
 import { getLoggedInUser } from 'src/functions/GetLoggedInUser'

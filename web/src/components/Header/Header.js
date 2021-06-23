@@ -2,26 +2,20 @@ import
 {
   Navbar,
   Nav,
-  NavDropdown,
-  Form,
-  FormControl,
-  Button
 } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
-import { Link, navigate, routes } from '@redwoodjs/router';
+import { navigate, routes } from '@redwoodjs/router';
 import { getLoggedInUser } from 'src/functions/GetLoggedInUser'
 import { toast } from '@redwoodjs/web/dist/toast';
 import { useMutation } from '@redwoodjs/web'
 
 const Header = () => {
   const [user, setUser] = useState({ });
-  const [change, setChange] = useState(false);
 
   useEffect(() => {
     const localStorageUser = getLoggedInUser();
     setUser(localStorageUser);
-    // setChange(!change)
-  }, [change])
+  }, [])
 
   const LOG_OUT_MUTATION = gql`
     mutation LogOutMutation($id: Int!) {
@@ -37,10 +31,9 @@ const Header = () => {
 
       localStorage.removeItem('user');
       setTimeout(() => {
-        navigate(routes.images())
+        navigate(routes.homePage())
+        // navigate(routes.images()) prefer this route slightly, but has errors
       }, 200)
-
-      setChange(!change)
     },
     onError: (e) => {
       console.log(e)
@@ -71,15 +64,19 @@ const Header = () => {
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item>
+                {user.id ? (
                 <Nav.Link className="navbarItem">
-                  {user.id && (
-                    <div
-                      onClick={() => logoutUser({ variables: { id: user.id } } )}
-                    >
-                      <p style={{ color: '#0d6efd' }}>Log out</p>
-                    </div>
-                  )}
+                  <div
+                    onClick={() => logoutUser({ variables: { id: user.id } } )}
+                  >
+                    <p style={{ color: '#0d6efd' }}>Log out</p>
+                  </div>
                 </Nav.Link>
+                ) : (
+                  <Nav.Link href={routes.homePage()} className="navbarItem">
+                    <p style={{ color: '#0d6efd' }}>Log in</p>
+                  </Nav.Link>
+                )}
               </Nav.Item>
             </Nav>
           </Navbar.Collapse>

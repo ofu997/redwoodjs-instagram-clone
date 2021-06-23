@@ -484,7 +484,7 @@ export type GetUserJwtById = (
   { __typename?: 'Query' }
   & { user?: Maybe<(
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'jwt'>
+    & Pick<User, 'id' | 'jwt' | 'localStoragePassword'>
     & { images: Array<Maybe<(
       { __typename?: 'Image' }
       & Pick<Image, 'id'>

@@ -4,9 +4,7 @@ import Comment from 'src/components/Comment'
 import { QUERY } from 'src/components/ImagesCell'
 import { toast } from '@redwoodjs/web/toast'
 import { getLoggedInUser } from 'src/functions/GetLoggedInUser'
-import authContext from 'src/authContext'
 import jwt_decode from "jwt-decode";
-import { useContext, useState, useEffect } from 'react'
 var jwt = require('jsonwebtoken')
 
 const DELETE_IMAGE_MUTATION = gql`
@@ -80,15 +78,6 @@ const Images = ({ images }) => {
 
   const missingData = (!data || !currentUser.id )? true : false;
 
-  // currentUserJwtByContext: an extra variable to secure actions on images
-  const { userToken } = useContext(authContext)
-  const [currentUserJwtByContext, setCurrentUserJwtByContext] = useState('')
-  useEffect(() => {
-    // userToken && (
-      setCurrentUserJwtByContext(jwt_decode(userToken))
-    // )
-  }, [])
-
   const MAX_STRING_LENGTH = 150
 
   const thumbnail = (url) => {
@@ -120,7 +109,6 @@ const Images = ({ images }) => {
   const checkboxInputTag = (checked) => {
     return <input type="checkbox" checked={checked} disabled />
   }
-
 
   const [deleteImage] = useMutation(DELETE_IMAGE_MUTATION, {
     onCompleted: () => {
@@ -175,7 +163,7 @@ const Images = ({ images }) => {
     const decodedJwtFromUseQuery = jwt_decode(jwtFromUseQuery);
     const decodedIdFromJwtFromUseQuery = decodedJwtFromUseQuery.id;
 
-    (currentUserId == currentUserJwtByContext.id || currentUserId == decodedIdFromJwtFromUseQuery)?
+    (currentUserId == decodedIdFromJwtFromUseQuery)?
       jwt.verify(jwtFromUseQuery, 'my-secret-from-env-file-in-prod', function(err, decoded) {
         if (err) {
           toast.error('Please log in again')
@@ -201,9 +189,6 @@ const Images = ({ images }) => {
 
   return (
     <div className="rw-segment rw-table-wrapper-responsive">
-    <Console
-      user={currentUserJwtByContext}
-    />
       <table className="rw-table">
         <thead style={{ border: '5px solid black' }}>
           <tr>
@@ -296,12 +281,6 @@ const Images = ({ images }) => {
       </table>
     </div>
   )
-}
-
-const Console = props => {
-  console.log((new Date()).toUTCString());
-  console.log(`currentUserJwtByContext is: ${props.user.handle}`)
-  return false;
 }
 
 export default Images
