@@ -135,7 +135,8 @@ export const loginUser = async ({ input }) => {
 export const logoutUser = ({ id }) => {
   return db.user.update({
     data: {
-      jwt: null
+      jwt: null,
+      localStoragePassword: null
     },
     where: { id }
   })
