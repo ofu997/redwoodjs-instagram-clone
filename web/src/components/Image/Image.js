@@ -77,11 +77,11 @@ const Image = ({ image, user }) => {
             <tr>
               <th>Comments</th>
               <td>
-              {image.comments.map(comment => {
-                return(
-                  <Comment comment={comment} />
-                )
-              })}
+              {image.comments.map(comment =>
+                <Comment
+                  comment={comment}
+                />
+              )}
               </td>
             </tr>
           </tbody>

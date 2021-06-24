@@ -21,7 +21,16 @@ const Comment = props => {
   const missingData = !props.user ? true : false;
 
   const handleDelete = id => {
-    deleteComment({variables: {id} })
+    // comment posterId = userId (check LS and uQ match)
+    // image belongs to user
+    (
+      ( props.comment.user.id === props.LSuser.id && props.LSuser.localStoragePassword === props.user.localStoragePassword )
+      ||
+      props.user.images.some(image => image.id === props.comment.imageId)
+    ) ?
+      deleteComment({variables: {id} })
+      :
+      toast.error("Invalid credentials!")
   }
 
   return (
