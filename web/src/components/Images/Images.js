@@ -68,15 +68,16 @@ const dummyObject = { loading: null, error: null, data: null };
 
 const Images = ({ images }) => {
   const currentUser = getLoggedInUser();
+  const currentUserId = currentUser.id;
 
-  const { loading, error, data } = currentUser.id ?
+  const { loading, error, data } = currentUserId ?
     useQuery(USER_QUERY, {
-      variables: { currentUserId: currentUser.id }
+      variables: { currentUserId }
     })
     :
     dummyObject;
 
-  const missingData = (!data || !currentUser.id )? true : false;
+  const missingData = (!data || !currentUserId )? true : false;
 
   const MAX_STRING_LENGTH = 150
 
@@ -159,13 +160,9 @@ const Images = ({ images }) => {
     }
   }
 
-  const handleLikes = (imageId, currentUserId, localStoragePassword, jwtFromUseQuery, type) => {
-    // Not ideal because currentUser object can be manipulated in LS
-    // currentUser.id is used to query from graphQL, and if the user with the id has an unexpired jwt, the actions are valid
-    // (currentUserId == decodedIdFromJwtFromUseQuery)?
-
-    ( localStoragePassword === data.user.localStoragePassword ) ?
-    jwt.verify(jwtFromUseQuery, 'my-secret-from-env-file-in-prod', function(err, decoded) {
+  const handleLikes = (imageId, type) => {
+    ( currentUser.localStoragePassword === data.user.localStoragePassword ) ?
+    jwt.verify(data.user.jwt, 'my-secret-from-env-file-in-prod', function(err, decoded) {
       if (err) {
         toast.error('Please log in again')
       }
@@ -205,7 +202,7 @@ const Images = ({ images }) => {
         </thead>
         <tbody>
           {images.map((image) => {
-            const currentUserLikesThis = image.likedBy.some(item => item.id === currentUser.id);
+            const currentUserLikesThis = image.likedBy.some(item => item.id === currentUserId);
             return (
               <tr key={image.id}>
                 <td>{truncate(image.id)}</td>
@@ -227,13 +224,13 @@ const Images = ({ images }) => {
                 <td>
                 {currentUserLikesThis ?
                 <button
-                  onClick={() => handleLikes(image.id, currentUser.id, currentUser.localStoragePassword, data.user.jwt, "dislike")}
+                  onClick={() => handleLikes(image.id, "dislike")}
                 >
                   redHeart
                 </button>
                 :
                 <button
-                  onClick={() => handleLikes(image.id, currentUser.id, currentUser.localStoragePassword, data.user.jwt, "like")}
+                  onClick={() => handleLikes(image.id, "like")}
                   disabled={missingData}
                 >
                   blankHeart
@@ -245,6 +242,7 @@ const Images = ({ images }) => {
                       comment={comment}
                       user={data?.user}
                       key={comment.id}
+                      LSuser={currentUser}
                     />
                   )
                 }
