@@ -14,3 +14,6 @@ SampleUsers.txt
 Notes.txt
 
 .vscode*
+
+web/types/graphql.d.ts
+api/types/graphql.d.ts
