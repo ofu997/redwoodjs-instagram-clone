@@ -30,10 +30,10 @@ const Header = () => {
       toast.success('Logged out', { classes: 'rw-flash-success' })
 
       localStorage.removeItem('user');
-      setTimeout(() => {
-        navigate(routes.homePage())
-        // navigate(routes.images()) prefer this route slightly, but has errors
-      }, 200)
+      // setTimeout(() => {
+        // navigate(routes.homePage())
+        navigate(routes.images()) // prefer this route slightly, but has errors
+      // }, 200)
     },
     onError: (e) => {
       console.log(e)

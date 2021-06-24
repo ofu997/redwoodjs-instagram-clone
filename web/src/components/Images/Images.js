@@ -64,14 +64,28 @@ const USER_QUERY = gql`
   }
 `
 
-const dummyObject = { loading: null, error: null, data: null };
+const dummyObject = { loading: 5,
+  error: null,
+  data: {
+    user: {
+      id: 1,
+      handle: "@dummy_user",
+      jwt: {jwt: "dummyJwt"},
+      localStoragePassword: "dummyPassword",
+      images: {
+        id: "4"
+      }
+    }
+  }
+};
 
 const Images = ({ images }) => {
   const currentUser = getLoggedInUser();
 
   const { loading, error, data } = currentUser.id ?
     useQuery(USER_QUERY, {
-      variables: { currentUserId: currentUser.id }
+      variables: { currentUserId: currentUser.id },
+      returnPartialData: true
     })
     :
     dummyObject;
@@ -189,6 +203,11 @@ const Images = ({ images }) => {
   }
 
   return (
+    <>
+    <Console
+      user={data.user}
+      loading={loading}
+    />
     <div className="rw-segment rw-table-wrapper-responsive">
       <table className="rw-table">
         <thead style={{ border: '5px solid black' }}>
@@ -281,10 +300,18 @@ const Images = ({ images }) => {
         </tbody>
       </table>
     </div>
+    </>
   )
 }
 
 export default Images
+
+const Console = props => {
+  // console.log(`id: ${props.user.id}  ${props.user.handle}  `)
+  console.table(props.user)
+  console.log(props.loading)
+  return false;
+}
 
 // Show image and edit image are <Link>s, while delete image is an <a>
 
