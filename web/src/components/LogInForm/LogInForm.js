@@ -8,8 +8,6 @@ import {
 } from '@redwoodjs/forms'
 import { navigate, routes } from '@redwoodjs/router'
 import { toast } from '@redwoodjs/web/toast'
-import { useContext } from 'react'
-import authContext from 'src/authContext'
 
 const LOG_IN_MUTATION = gql`
   mutation LogInMutation($input: SignUpOrInInput!) {
@@ -23,13 +21,11 @@ const LOG_IN_MUTATION = gql`
 `
 
 const LogInForm = () => {
-  const { setUserToken } = useContext(authContext)
 
   const [loginUser, { loading, error }] = useMutation(LOG_IN_MUTATION, {
     onCompleted: ({ loginUser }) => {
       toast.success('Signed in', { classes: 'rw-flash-success' })
 
-      setUserToken(loginUser.jwt);
       const { id, handle, localStoragePassword } = loginUser;
       const user = { id, handle, localStoragePassword }
       localStorage.setItem('user', JSON.stringify(user));

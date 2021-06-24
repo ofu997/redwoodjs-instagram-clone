@@ -159,30 +159,31 @@ const Images = ({ images }) => {
     }
   }
 
-  const handleLikes = (imageId, currentUserId, jwtFromUseQuery, type) => {
-    const decodedJwtFromUseQuery = jwt_decode(jwtFromUseQuery);
-    const decodedIdFromJwtFromUseQuery = decodedJwtFromUseQuery.id;
+  const handleLikes = (imageId, currentUserId, localStoragePassword, jwtFromUseQuery, type) => {
+    // Not ideal because currentUser object can be manipulated in LS
+    // currentUser.id is used to query from graphQL, and if the user with the id has an unexpired jwt, the actions are valid
+    // (currentUserId == decodedIdFromJwtFromUseQuery)?
 
-    (currentUserId == decodedIdFromJwtFromUseQuery)?
-      jwt.verify(jwtFromUseQuery, 'my-secret-from-env-file-in-prod', function(err, decoded) {
-        if (err) {
-          toast.error('Please log in again')
+    ( localStoragePassword === data.user.localStoragePassword ) ?
+    jwt.verify(jwtFromUseQuery, 'my-secret-from-env-file-in-prod', function(err, decoded) {
+      if (err) {
+        toast.error('Please log in again')
+      }
+      else {
+        switch(type) {
+          case "like":
+            console.log('incrementLikes() pressed');
+            incrementImageLikes({ variables: { imageId, currentUserId } });
+            addToUserLikes({ variables: { imageId, currentUserId } });
+            break;
+          case "dislike":
+            console.log('decrementLikes() pressed');
+            decrementImageLikes({ variables: { imageId, currentUserId } });
+            removeFromUserLikes({ variables: { imageId, currentUserId } });
+            break;
         }
-        else {
-          switch(type) {
-            case "like":
-              console.log('incrementLikes() pressed');
-              incrementImageLikes({ variables: { imageId, currentUserId } });
-              addToUserLikes({ variables: { imageId, currentUserId } });
-              break;
-            case "dislike":
-              console.log('decrementLikes() pressed');
-              decrementImageLikes({ variables: { imageId, currentUserId } });
-              removeFromUserLikes({ variables: { imageId, currentUserId } });
-              break;
-          }
-        }
-      })
+      }
+    })
     :
     toast.error("Impersonation attempt!")
   }
@@ -226,13 +227,13 @@ const Images = ({ images }) => {
                 <td>
                 {currentUserLikesThis ?
                 <button
-                  onClick={() => handleLikes(image.id, currentUser.id, data.user.jwt, "dislike")}
+                  onClick={() => handleLikes(image.id, currentUser.id, currentUser.localStoragePassword, data.user.jwt, "dislike")}
                 >
                   redHeart
                 </button>
                 :
                 <button
-                  onClick={() => handleLikes(image.id, currentUser.id, data.user.jwt, "like")}
+                  onClick={() => handleLikes(image.id, currentUser.id, currentUser.localStoragePassword, data.user.jwt, "like")}
                   disabled={missingData}
                 >
                   blankHeart
