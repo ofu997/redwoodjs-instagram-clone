@@ -1,6 +1,7 @@
 import { useMutation } from '@redwoodjs/web'
 import { QUERY } from 'src/components/ImagesCell'
 import { toast } from '@redwoodjs/web/toast'
+import jwt from 'jsonwebtoken'
 
 const DELETE_COMMENT_MUTATION = gql`
   mutation DeleteCommentMutation($id: Int!) {
@@ -28,9 +29,16 @@ const Comment = props => {
       ||
       props.user.images.some(image => image.id === props.comment.imageId)
     ) ?
-      deleteComment({variables: {id} })
-      :
-      toast.error("Invalid credentials!")
+      jwt.verify(props.user.jwt, 'my-secret-from-env-file-in-prod', function(err) {
+        if (err) {
+          toast.error('Please log in again')
+        }
+        else {
+          deleteComment({variables: {id} })
+        }
+      })
+    :
+    toast.error("Invalid credentials!")
   }
 
   return (

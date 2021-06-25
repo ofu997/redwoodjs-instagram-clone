@@ -8,6 +8,7 @@ import jwt_decode from "jwt-decode";
 var jwt = require('jsonwebtoken')
 import { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
+import ImageModal from 'src/components/ImageModal'
 
 const DELETE_IMAGE_MUTATION = gql`
   mutation DeleteImageMutation($id: Int!) {
@@ -58,6 +59,7 @@ const USER_QUERY = gql`
     user (id: $currentUserId) {
       id
       jwt
+      isAdmin
       localStoragePassword
       images {
         id
@@ -194,6 +196,8 @@ const Images = ({ images }) => {
     toast.error("Impersonation attempt!")
   }
 
+
+
   return (
     <div className="rw-segment rw-table-wrapper-responsive">
       <table className="rw-table">
@@ -212,6 +216,9 @@ const Images = ({ images }) => {
         <tbody>
           {images.map((image) => {
             const currentUserLikesThis = image.likedBy.some(item => item.id === currentUserId);
+            const userIsValidAndOwnsImage =
+              Boolean((currentUser.localStoragePassword === data?.user.localStoragePassword)
+              && data?.user.images.some(queriedImage => queriedImage.id === image.id));
             return (
               <tr key={image.id}>
                 <td>{truncate(image.id)}</td>
@@ -253,50 +260,52 @@ const Images = ({ images }) => {
                       key={comment.id}
                       LSuser={currentUser}
                     />
-                  )
-                }
+                )}
                 </td>
                 <td>
                   <nav className="rw-table-actions">
-                    {/* <Link
+                    <Link
                       to={routes.image({ id: image.id })}
                       title={'Show image ' + image.id + ' detail'}
                       className="rw-button rw-button-small"
                     >
                       Show
-                    </Link> */}
+                    </Link>
                     <Button variant="primary" onClick={() => handleShow(image)}>
                       Launch vertically centered modal: {image.title}
                     </Button>
-
-
-
-                    <Link
-                      to={routes.editImage({ id: image.id })}
-                      title={'Edit image ' + image.id}
-                      className="rw-button rw-button-small rw-button-blue"
-                    >
-                      Edit
-                    </Link>
-                    <a
-                      href="/"
-                      title={'Delete image ' + image.id}
-                      className="rw-button rw-button-small rw-button-red"
-                      onClick={() => onDeleteClick(image.id)}
-                    >
-                      Delete
-                    </a>
+                    {userIsValidAndOwnsImage && (
+                        <Link
+                          to={routes.editImage({ id: image.id })}
+                          title={'Edit image ' + image.id}
+                          className="rw-button rw-button-small rw-button-blue"
+                        >
+                          Edit
+                        </Link>
+                    )}
+                    {(userIsValidAndOwnsImage || data?.user.isAdmin) && (
+                      <a
+                        href="/"
+                        title={'Delete image ' + image.id}
+                        className="rw-button rw-button-small rw-button-red"
+                        onClick={() => onDeleteClick(image.id)}
+                      >
+                        Delete
+                      </a>
+                    )}
                   </nav>
                 </td>
               </tr>
             )
           })}
           <ImageModal
-                      show={modalShow}
-                      onHide={() => setModalShow(false)}
-                      image={activeItem}
-                      data={data}
-                      currentUser={currentUser}
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            image={activeItem}
+            data={data}
+            // missingData={missingData}
+            // handleLikes={handleLikes}
+            // onDeleteClick={onDeleteClick}
           />
         </tbody>
       </table>
@@ -306,134 +315,7 @@ const Images = ({ images }) => {
 
 export default Images
 
-const ImageModal = props => {
-  const currentUser = getLoggedInUser();
-  const currentUserId = currentUser.id;
-  // const currentUserLikesThis = props.image.likedBy.some(item => item.id === currentUserId);
-  const missingData = (!data || !currentUserId )? true : false;
-  const truncate = (text) => {
-    let output = text
-    if (text && text.length > MAX_STRING_LENGTH) {
-      output = output.substring(0, MAX_STRING_LENGTH) + '...'
-    }
-    return output
-  }
 
-  const MAX_STRING_LENGTH = 150
-
-  const USER_QUERY = gql`
-  query GetUserJwtById($currentUserId: Int!) {
-    user (id: $currentUserId) {
-      id
-      jwt
-      localStoragePassword
-      images {
-        id
-      }
-    }
-  }
-`
-
-  const dummyObject = { loading: null, error: null, data: null };
-  const { data } = currentUserId ?
-  useQuery(USER_QUERY, {
-    variables: { currentUserId }
-  })
-  :
-  dummyObject;
-
-
-  return(
-  <Modal
-    {...props}
-    size="lg"
-    aria-labelledby="contained-modal-title-vcenter"
-    centered
-  >
-
-                <tr key={props.image.id}>
-                <td>{truncate(props.image.id)}</td>
-                <td>{truncate(props.image.title)}</td>
-                <td>
-                  <img src={props.image.url} style={{ maxWidth: '150px' }} />
-                </td>
-                {/* <td>{truncate(props.image.likes)}</td>
-                {currentUser && (
-                <td>
-                  {currentUserLikesThis &&
-                    <p>current user: {currentUser.handle} likes this</p>
-                  }
-                  {props.image.likedBy.map(user => {
-                    return <p key={user.id}>user with id: {user.id} likes this</p>
-                  })}
-                </td>
-                )}
-                <td>
-                {currentUserLikesThis ?
-                <button
-                  onClick={() => handleLikes(props.image.id, "dislike")}
-                >
-                  redHeart
-                </button>
-                :
-                <button
-                  onClick={() => handleLikes(props.image.id, "like")}
-                  disabled={missingData}
-                >
-                  blankHeart
-                </button>}
-                </td>
-                <td>
-                {props.image.comments.map(comment =>
-                    <Comment
-                      comment={comment}
-                      user={data?.user}
-                      key={comment.id}
-                      LSuser={currentUser}
-                    />
-                  )
-                }
-                </td> */}
-                <td>
-                  <nav className="rw-table-actions">
-                    {/* <Link
-                      to={routes.image({ id: image.id })}
-                      title={'Show image ' + image.id + ' detail'}
-                      className="rw-button rw-button-small"
-                    >
-                      Show
-                    </Link> */}
-                    {/* <Button variant="primary" onClick={() => setModalShow(true)}>
-                      Launch vertically centered modal
-                    </Button>
-
-                    <ImageModal
-                      show={modalShow}
-                      onHide={() => setModalShow(false)}
-
-                    /> */}
-
-                    <Link
-                      to={routes.editImage({ id: props.image.id })}
-                      title={'Edit image ' + props.image.id}
-                      className="rw-button rw-button-small rw-button-blue"
-                    >
-                      Edit
-                    </Link>
-                    <a
-                      href="/"
-                      title={'Delete image ' + props.image.id}
-                      className="rw-button rw-button-small rw-button-red"
-                      onClick={() => onDeleteClick(props.image.id)}
-                    >
-                      Delete
-                    </a>
-                  </nav>
-                </td>
-              </tr>
-  </Modal>
-  )
-}
 
 // Show image and edit image are <Link>s, while delete image is an <a>
 
