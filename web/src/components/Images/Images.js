@@ -72,6 +72,12 @@ const Images = ({ images }) => {
   const currentUser = getLoggedInUser();
   const currentUserId = currentUser.id;
   const [modalShow, setModalShow] = useState(false);
+  const [activeItem, setActiveItem] = useState('')
+
+  const handleShow = item => {
+    setActiveItem(item);
+    setModalShow(true);
+  }
 
   const { loading, error, data } = currentUserId ?
     useQuery(USER_QUERY, {
@@ -259,18 +265,11 @@ const Images = ({ images }) => {
                     >
                       Show
                     </Link> */}
-                    <Button variant="primary" onClick={() => setModalShow(true)}>
-                      Launch vertically centered modal
+                    <Button variant="primary" onClick={() => handleShow(image)}>
+                      Launch vertically centered modal: {image.title}
                     </Button>
 
-                    <ImageModal
-                      show={modalShow}
-                      onHide={() => setModalShow(false)}
-                      image={image}
-                      data={data}
-                      currentUser={currentUser}
-                      curr
-                    />
+
 
                     <Link
                       to={routes.editImage({ id: image.id })}
@@ -292,6 +291,13 @@ const Images = ({ images }) => {
               </tr>
             )
           })}
+          <ImageModal
+                      show={modalShow}
+                      onHide={() => setModalShow(false)}
+                      image={activeItem}
+                      data={data}
+                      currentUser={currentUser}
+          />
         </tbody>
       </table>
     </div>
@@ -303,7 +309,7 @@ export default Images
 const ImageModal = props => {
   const currentUser = getLoggedInUser();
   const currentUserId = currentUser.id;
-  const currentUserLikesThis = props.image.likedBy.some(item => item.id === currentUserId);
+  // const currentUserLikesThis = props.image.likedBy.some(item => item.id === currentUserId);
   const missingData = (!data || !currentUserId )? true : false;
   const truncate = (text) => {
     let output = text
