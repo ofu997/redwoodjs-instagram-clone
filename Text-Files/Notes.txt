@@ -62,3 +62,5 @@ took out of schema.prisma user: image       Image @relation(fields: [likedImages
 
 update context from children: https://stackoverflow.com/questions/50502664/how-to-update-the-context-value-in-provider-from-the-consumer/50502829
 decode a jwt: https://stackoverflow.com/questions/38552003/how-to-decode-jwt-token-in-javascript-without-using-a-library
+
+can't map property of undefined: https://www.debuggr.io/react-map-of-undefined/

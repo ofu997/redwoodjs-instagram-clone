@@ -8,119 +8,116 @@ import jwt_decode from "jwt-decode";
 var jwt = require('jsonwebtoken')
 import { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
+import CommentForm from 'src/components/CommentForm'
 
 const ImageModal = props => {
+  const { data, image, handleLikes, deleteClick, setActiveItem, setModalShow } = props;
+  const obj = { data, image }
   const currentUser = getLoggedInUser();
   const currentUserId = currentUser.id;
-  const currentUserLikesThis = props.image?.likedBy?.some(item => item.id === currentUserId);
-  // const missingData = (!data || !currentUserId )? true : false;
+  const currentUserLikesThis = image?.likedBy?.some(item => item.id === currentUserId);
   const truncate = (text) => {
     let output = text
-    if (text && text.length > MAX_STRING_LENGTH) {
-      output = output.substring(0, MAX_STRING_LENGTH) + '...'
+    if (text && text.length >150) {
+      output = output.substring(0, 150) + '...'
     }
     return output
   }
 
-  // const { loading, error, data } = currentUserId ?
-  //   useQuery(MODAL_USER_QUERY, {
-  //     variables: { currentUserId }
-  //   })
-  //   :
-  //   dummyObject;
-
-  const MAX_STRING_LENGTH = 150
-
-  const MODAL_USER_QUERY = gql`
-  query ModalGetUserJwtById($currentUserId: Int!) {
-    user (id: $currentUserId) {
-      id
-      jwt
-      localStoragePassword
-      images {
-        id
-      }
-    }
+  const triggerRefresh = () => {
+    setRefresh(!refresh);
   }
-`
-  // const dummyObject = { loading: null, error: null, data: null };
-  return(
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-    <table>
-      <tbody>
 
-        <tr key={props.image.id}>
-          <td>{truncate(props.image.id)}</td>
-          <td>{truncate(props.image.title)}</td>
-          <td>
-            <img src={props.image.url} style={{ maxWidth: '150px' }} />
-          </td>
-          {/* <td>{truncate(props.image.likes)}</td>
-                  {currentUser && (
-                  <td>
-                    {currentUserLikesThis &&
-                      <p>current user: {currentUser.handle} likes this</p>
-                    }
-                    {props.image.likedBy.map(user => {
-                      return <p key={user.id}>user with id: {user.id} likes this</p>
-                    })}
-                  </td>
-                  )}
-                  <td>
-                  {currentUserLikesThis ?
-                  <button
-                    onClick={() => handleLikes(props.image.id, "dislike")}
-                  >
-                    redHeart
-                  </button>
-                  :
-                  <button
-                    onClick={() => handleLikes(props.image.id, "like")}
-                    disabled={missingData}
-                  >
-                    blankHeart
-                  </button>}
-                  </td>
-                  <td>
-                  {props.image.comments.map(comment =>
-                      <Comment
-                        comment={comment}
-                        user={data?.user}
-                        key={comment.id}
-                        LSuser={currentUser}
-                      />
-                    )
-                  }
-                  </td> */}
-          <td>
-            <nav className="rw-table-actions">
-              <Link
-                to={routes.editImage({ id: props.image.id })}
-                title={'Edit image ' + props.image.id}
-                className="rw-button rw-button-small rw-button-blue"
-              >
-                Edit
-              </Link>
-              <a
-                href="/"
-                title={'Delete image ' + props.image.id}
-                className="rw-button rw-button-small rw-button-red"
-                onClick={() => onDeleteClick(props.image.id)}
-              >
-                Delete
-              </a>
-            </nav>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    </Modal>
+  const forceUpdateHandler = () => {
+    forceUpdate();
+  }
+
+  return(
+    <>
+      <Console obj={obj} />
+      <Modal
+        {...props}
+        size="xl"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+      <table>
+        <tbody>
+          <tr style={{ minHeight: '400px' }}>
+            <td>{truncate(image?.id)}</td>
+            <td>{truncate(image?.title)}</td>
+            <td>
+              <img src={image?.url} style={{ maxWidth: '150px' }} />
+            </td>
+            <td>{truncate(image?.likes)}</td>
+            {currentUser && (
+            <td>
+              {currentUserLikesThis &&
+                <p>current user: {currentUser.handle} likes this</p>
+              }
+              {image?.likedBy && image?.likedBy.map(modalUser => {
+                return <p key={modalUser.id}>user with id: {modalUser.id} likes this</p>
+              })}
+            </td>
+            )}
+            <td>
+            {currentUserLikesThis ?
+            <button
+              onClick={() => { handleLikes(image?.id, "dislike"); setModalShow(false); setTimeout(()=>{setActiveItem(image)}, 1000), setTimeout(()=>{setModalShow(true)}, 1000) }}
+            >
+              redHeart
+            </button>
+            :
+            <button
+              onClick={() => { handleLikes(image?.id, "like"); setActiveItem(image) }}
+              disabled={props.missingdata}
+            >
+              blankHeart
+            </button>}
+            </td>
+            <td>
+              {image?.comments &&image?.comments.map(modalComment =>
+                <Comment
+                  comment={modalComment}
+                  user={data?.user}
+                  key={modalComment.id}
+                  LSuser={currentUser}
+                />
+              )
+            }
+            <CommentForm imageId={image.id} userId={currentUserId} />
+            </td>
+            <td>
+              <nav className="rw-table-actions">
+                <Link
+                  to={routes.editImage({ id: image?.id })}
+                  title={'Edit image ' + image?.id}
+                  className="rw-button rw-button-small rw-button-blue"
+                >
+                  Edit
+                </Link>
+                <a
+                  href="/"
+                  title={'Delete image ' + image?.id}
+                  className="rw-button rw-button-small rw-button-red"
+                  onClick={() => deleteClick(image?.id)}
+                >
+                  Delete
+                </a>
+              </nav>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </Modal>
+    </>
   )
+}
+
+const Console = props => {
+  console.log('obj according to modal: ')
+  console.table(props.obj)
+  return false;
 }
 
 export default ImageModal

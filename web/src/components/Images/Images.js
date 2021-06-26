@@ -6,9 +6,10 @@ import { toast } from '@redwoodjs/web/toast'
 import { getLoggedInUser } from 'src/functions/GetLoggedInUser'
 import jwt_decode from "jwt-decode";
 var jwt = require('jsonwebtoken')
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import ImageModal from 'src/components/ImageModal'
+import CommentForm from 'src/components/CommentForm'
 
 const DELETE_IMAGE_MUTATION = gql`
   mutation DeleteImageMutation($id: Int!) {
@@ -74,7 +75,7 @@ const Images = ({ images }) => {
   const currentUser = getLoggedInUser();
   const currentUserId = currentUser.id;
   const [modalShow, setModalShow] = useState(false);
-  const [activeItem, setActiveItem] = useState('')
+  const [activeItem, setActiveItem] = useState([])
 
   const handleShow = item => {
     setActiveItem(item);
@@ -196,8 +197,6 @@ const Images = ({ images }) => {
     toast.error("Impersonation attempt!")
   }
 
-
-
   return (
     <div className="rw-segment rw-table-wrapper-responsive">
       <table className="rw-table">
@@ -261,6 +260,7 @@ const Images = ({ images }) => {
                       LSuser={currentUser}
                     />
                 )}
+                <CommentForm imageId={image.id} userId={currentUserId} />
                 </td>
                 <td>
                   <nav className="rw-table-actions">
@@ -301,11 +301,15 @@ const Images = ({ images }) => {
           <ImageModal
             show={modalShow}
             onHide={() => setModalShow(false)}
+
             image={activeItem}
             data={data}
-            // missingData={missingData}
-            // handleLikes={handleLikes}
-            // onDeleteClick={onDeleteClick}
+            missingdata={missingData}
+            handleLikes={handleLikes}
+            deleteClick={onDeleteClick}
+            setActiveItem={setActiveItem}
+            setModalShow={setModalShow}
+            handleShow={handleShow}
           />
         </tbody>
       </table>
