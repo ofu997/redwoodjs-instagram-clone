@@ -1,3 +1,7 @@
+# Memofolio
+
+An Instagram clone.
+
 # Redwood
 
 > **WARNING:** RedwoodJS software has not reached a stable version 1.0 and should not be considered suitable for production use. In the "make it work; make it right; make it fast" paradigm, Redwood is in the later stages of the "make it work" phase.
