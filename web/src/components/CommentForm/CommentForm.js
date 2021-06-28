@@ -3,6 +3,7 @@ import {
   FormError,
   Label,
   TextField,
+  FieldError,
   TextAreaField,
   Submit,
 } from '@redwoodjs/forms'
@@ -32,17 +33,17 @@ const CommentForm = ({ imageId, userId }) => {
   })
 
   const onSubmit = () => {
-    setBody('');
+    setContent('');
     currentUser.id ? (
-      createComment({ variables: { input: { imageId, posterId: userId, body } } })
+      createComment({ variables: { input: { imageId, posterId: userId, body: content } } })
     )
     : toast.error('Must be logged in to comment')
   }
 
-  const [body, setBody] = useState('')
+  const [content, setContent] = useState('')
 
   const handleChange = e => {
-    setBody(e.target.value)
+    setContent(e.target.value)
   }
 
   return (
@@ -54,11 +55,22 @@ const CommentForm = ({ imageId, userId }) => {
           wrapperClassName="bg-red-100 text-red-900 text-sm p-3 rounded"
         />
 
-        <input name='body' value={body} onChange={handleChange} />
+        {/* <input name='body' value={body} onChange={handleChange} /> */}
+        <TextField
+          name='content'
+          value={content}
+          onChange={handleChange}
+          errorClassName="rw-input rw-input-error"
+          validation={{ required: true }}
+          style={{ border: '1px solid black' }}
+        />
+        <FieldError name="content" className="rw-field-error" />
+
+
         <Submit
           disabled={loading}
         >
-          <p style={{ backgroundColor: 'gray', color: 'white', padding: 5, fontSize: '0.9rem' }}>
+          <p style={{ color: 'black', padding: 5, fontSize: '0.9rem' }}>
             Comment
           </p>
         </Submit>

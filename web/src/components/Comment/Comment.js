@@ -43,7 +43,7 @@ const Comment = props => {
 
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
-      <p>{props.comment.id} {props.comment.user.handle}: {props.comment.body}</p>
+      <p>{props.comment.user.handle}: {props.comment.body}</p>
       <div
         onClick={() => missingData? (
           toast.error("Must be logged in to delete comment")

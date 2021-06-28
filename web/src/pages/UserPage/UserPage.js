@@ -5,12 +5,14 @@ import ImagesLayout from 'src/layouts/ImagesLayout'
 
 const UserPage = props => {
   return (
-    <ImagesLayout>
+    <>
       <Header />
-      <UserCell
-        handle={props.handle}
-      />
-    </ImagesLayout>
+      <ImagesLayout>
+        <UserCell
+          handle={props.handle}
+        />
+      </ImagesLayout>
+    </>
   )
 }
 
