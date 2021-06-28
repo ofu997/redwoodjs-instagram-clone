@@ -1,40 +1,23 @@
-import { useMutation, useQuery } from '@redwoodjs/web'
 import { Link, routes } from '@redwoodjs/router'
 import Comment from 'src/components/Comment'
-import { QUERY } from 'src/components/ImagesCell'
-import { toast } from '@redwoodjs/web/toast'
 import { getLoggedInUser } from 'src/functions/GetLoggedInUser'
-import jwt_decode from "jwt-decode";
-var jwt = require('jsonwebtoken')
-import { useState } from 'react'
-import { Button, Modal } from 'react-bootstrap'
+import { Modal } from 'react-bootstrap'
 import CommentForm from 'src/components/CommentForm'
 
 const ImageModal = props => {
-  const { data, image, handleLikes, deleteClick, setActiveItem, setModalShow } = props;
-  const obj = { data, image }
+  const { data, imageId, images, handleLikes, deleteClick } = props;
+  const image = images.find(x => x.id === imageId)
   const currentUser = getLoggedInUser();
   const currentUserId = currentUser.id;
   const currentUserLikesThis = image?.likedBy?.some(item => item.id === currentUserId);
-  const truncate = (text) => {
-    let output = text
-    if (text && text.length >150) {
-      output = output.substring(0, 150) + '...'
-    }
-    return output
-  }
-
-  const triggerRefresh = () => {
-    setRefresh(!refresh);
-  }
-
-  const forceUpdateHandler = () => {
-    forceUpdate();
-  }
+  const userIsValidAndOwnsImage =
+    Boolean((currentUser.localStoragePassword === data?.user.localStoragePassword)
+    && data?.user.images.some(x => x.id === imageId));
 
   return(
     <>
-      <Console obj={obj} />
+      <Console
+      />
       <Modal
         {...props}
         size="xl"
@@ -44,12 +27,12 @@ const ImageModal = props => {
       <table>
         <tbody>
           <tr style={{ minHeight: '400px' }}>
-            <td>{truncate(image?.id)}</td>
-            <td>{truncate(image?.title)}</td>
+            <td>{image?.id}</td>
+            <td>{image?.title}</td>
             <td>
               <img src={image?.url} style={{ maxWidth: '150px' }} />
             </td>
-            <td>{truncate(image?.likes)}</td>
+            <td>{image?.likes}</td>
             {currentUser && (
             <td>
               {currentUserLikesThis &&
@@ -63,13 +46,13 @@ const ImageModal = props => {
             <td>
             {currentUserLikesThis ?
             <button
-              onClick={() => { handleLikes(image?.id, "dislike"); setModalShow(false); setTimeout(()=>{setActiveItem(image)}, 1000), setTimeout(()=>{setModalShow(true)}, 1000) }}
+              onClick={() => handleLikes(image.id, "dislike") }
             >
               redHeart
             </button>
             :
             <button
-              onClick={() => { handleLikes(image?.id, "like"); setActiveItem(image) }}
+              onClick={() => handleLikes(image.id, "like")}
               disabled={props.missingdata}
             >
               blankHeart
@@ -85,10 +68,11 @@ const ImageModal = props => {
                 />
               )
             }
-            <CommentForm imageId={image.id} userId={currentUserId} />
+            <CommentForm imageId={image?.id} userId={currentUserId} />
             </td>
             <td>
               <nav className="rw-table-actions">
+              {userIsValidAndOwnsImage && (
                 <Link
                   to={routes.editImage({ id: image?.id })}
                   title={'Edit image ' + image?.id}
@@ -96,6 +80,8 @@ const ImageModal = props => {
                 >
                   Edit
                 </Link>
+              )}
+              {(userIsValidAndOwnsImage || data?.user.isAdmin) && (
                 <a
                   href="/"
                   title={'Delete image ' + image?.id}
@@ -104,6 +90,7 @@ const ImageModal = props => {
                 >
                   Delete
                 </a>
+              )}
               </nav>
             </td>
           </tr>
@@ -115,8 +102,6 @@ const ImageModal = props => {
 }
 
 const Console = props => {
-  console.log('obj according to modal: ')
-  console.table(props.obj)
   return false;
 }
 

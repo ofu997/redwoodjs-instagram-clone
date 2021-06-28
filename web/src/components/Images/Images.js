@@ -4,10 +4,9 @@ import Comment from 'src/components/Comment'
 import { QUERY } from 'src/components/ImagesCell'
 import { toast } from '@redwoodjs/web/toast'
 import { getLoggedInUser } from 'src/functions/GetLoggedInUser'
-import jwt_decode from "jwt-decode";
 var jwt = require('jsonwebtoken')
-import { useState, useEffect } from 'react'
-import { Button, Modal } from 'react-bootstrap'
+import { useState } from 'react'
+import { Button } from 'react-bootstrap'
 import ImageModal from 'src/components/ImageModal'
 import CommentForm from 'src/components/CommentForm'
 
@@ -69,7 +68,7 @@ const USER_QUERY = gql`
   }
 `
 
-const dummyObject = { loading: null, error: null, data: null };
+const dummyObject = { error: null, data: null };
 
 const Images = ({ images }) => {
   const currentUser = getLoggedInUser();
@@ -77,12 +76,12 @@ const Images = ({ images }) => {
   const [modalShow, setModalShow] = useState(false);
   const [activeItem, setActiveItem] = useState([])
 
-  const handleShow = item => {
-    setActiveItem(item);
+  const handleShow = id => {
+    setActiveItem(id);
     setModalShow(true);
   }
 
-  const { loading, error, data } = currentUserId ?
+  const { error, data } = currentUserId ?
     useQuery(USER_QUERY, {
       variables: { currentUserId }
     })
@@ -93,34 +92,12 @@ const Images = ({ images }) => {
 
   const MAX_STRING_LENGTH = 150
 
-  const thumbnail = (url) => {
-    const parts = url.split('/')
-    parts.splice(3, 0, 'resize=width:100')
-    return parts.join('/')
-  }
-
   const truncate = (text) => {
     let output = text
     if (text && text.length > MAX_STRING_LENGTH) {
       output = output.substring(0, MAX_STRING_LENGTH) + '...'
     }
     return output
-  }
-
-  const jsonTruncate = (obj) => {
-    return truncate(JSON.stringify(obj, null, 2))
-  }
-
-  const timeTag = (datetime) => {
-    return (
-      <time dateTime={datetime} title={datetime}>
-        {new Date(datetime).toUTCString()}
-      </time>
-    )
-  }
-
-  const checkboxInputTag = (checked) => {
-    return <input type="checkbox" checked={checked} disabled />
   }
 
   const [deleteImage] = useMutation(DELETE_IMAGE_MUTATION, {
@@ -199,6 +176,7 @@ const Images = ({ images }) => {
 
   return (
     <div className="rw-segment rw-table-wrapper-responsive">
+      {error && <h1>Cannot find user at this moment</h1>}
       <table className="rw-table">
         <thead style={{ border: '5px solid black' }}>
           <tr>
@@ -271,7 +249,7 @@ const Images = ({ images }) => {
                     >
                       Show
                     </Link>
-                    <Button variant="primary" onClick={() => handleShow(image)}>
+                    <Button variant="primary" onClick={() => handleShow(image.id)}>
                       Launch vertically centered modal: {image.title}
                     </Button>
                     {userIsValidAndOwnsImage && (
@@ -298,21 +276,20 @@ const Images = ({ images }) => {
               </tr>
             )
           })}
-          <ImageModal
-            show={modalShow}
-            onHide={() => setModalShow(false)}
-
-            image={activeItem}
-            data={data}
-            missingdata={missingData}
-            handleLikes={handleLikes}
-            deleteClick={onDeleteClick}
-            setActiveItem={setActiveItem}
-            setModalShow={setModalShow}
-            handleShow={handleShow}
-          />
         </tbody>
       </table>
+        <ImageModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+
+          imageId={activeItem}
+          data={data}
+          missingdata={missingData}
+          handleLikes={handleLikes}
+          deleteClick={onDeleteClick}
+          handleShow={handleShow}
+          images={images}
+        />
     </div>
   )
 }
