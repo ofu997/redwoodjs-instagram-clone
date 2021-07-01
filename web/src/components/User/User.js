@@ -8,7 +8,6 @@ const User = ({ infoAndImages }) => {
     <>
       <UserInfo user={infoAndImages} />
       <Images
-        // user={infoAndImages}
         images={userImages}
       />
     </>
@@ -18,7 +17,6 @@ const User = ({ infoAndImages }) => {
 const UserInfo = props => {
   return (
     <>
-      {/* <p>{props.profilePicUrl}</p> */}
       <div style={{ display: 'flex', justifyContent: 'space-around', alignContent: 'center', minHeight: '100px', maxHeight: '20%', backgroundColor: '#F5F5F5' }}>
         <section
           style={{

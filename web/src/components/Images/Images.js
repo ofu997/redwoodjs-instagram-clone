@@ -275,21 +275,21 @@ const Images = ({ images }) => {
                 </td>
               </tr>
             )
-          })}
+          }).reverse()}
         </tbody>
       </table>
-        <ImageModal
-          show={modalShow}
-          onHide={() => setModalShow(false)}
+      <ImageModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
 
-          imageId={activeItem}
-          data={data}
-          missingdata={missingData}
-          handleLikes={handleLikes}
-          deleteClick={onDeleteClick}
-          handleShow={handleShow}
-          images={images}
-        />
+        imageId={activeItem}
+        data={data}
+        missingData={missingData}
+        handleLikes={handleLikes}
+        deleteClick={onDeleteClick}
+        handleShow={handleShow}
+        images={images}
+      />
     </div>
   )
 }

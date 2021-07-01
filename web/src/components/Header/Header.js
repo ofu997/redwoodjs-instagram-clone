@@ -69,12 +69,12 @@ const Header = () => {
                   <div
                     onClick={() => logoutUser({ variables: { id: user.id } } )}
                   >
-                    <p style={{ color: '#0d6efd' }}>Log out</p>
+                    <p>Log out</p>
                   </div>
                 </Nav.Link>
                 ) : (
                   <Nav.Link href={routes.homePage()} className="navbarItem">
-                    <p style={{ color: '#0d6efd' }}>Log in</p>
+                    <p>Log in</p>
                   </Nav.Link>
                 )}
               </Nav.Item>
