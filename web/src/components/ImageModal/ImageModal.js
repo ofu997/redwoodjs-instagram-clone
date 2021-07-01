@@ -5,7 +5,7 @@ import { Modal } from 'react-bootstrap'
 import CommentForm from 'src/components/CommentForm'
 
 const ImageModal = props => {
-  const { data, imageId, images, handleLikes, deleteClick } = props;
+  const { data, imageId, images, missingData, handleLikes, deleteClick } = props;
   const image = images.find(x => x.id === imageId)
   const currentUser = getLoggedInUser();
   const currentUserId = currentUser.id;
@@ -19,7 +19,9 @@ const ImageModal = props => {
       <Console
       />
       <Modal
-        {...props}
+        // {...props}. Only need show and onHide
+        show={props.show}
+        onHide={props.onHide}
         size="xl"
         aria-labelledby="contained-modal-title-vcenter"
         centered
@@ -53,7 +55,7 @@ const ImageModal = props => {
             :
             <button
               onClick={() => handleLikes(image.id, "like")}
-              disabled={props.missingdata}
+              disabled={props.missingData}
             >
               blankHeart
             </button>}
