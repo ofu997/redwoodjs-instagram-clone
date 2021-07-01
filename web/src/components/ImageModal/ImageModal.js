@@ -1,7 +1,7 @@
 import { Link, routes } from '@redwoodjs/router'
 import Comment from 'src/components/Comment'
 import { getLoggedInUser } from 'src/functions/GetLoggedInUser'
-import { Modal } from 'react-bootstrap'
+import { Modal, Container, Row, Col } from 'react-bootstrap'
 import CommentForm from 'src/components/CommentForm'
 
 const ImageModal = props => {
@@ -25,8 +25,64 @@ const ImageModal = props => {
         size="xl"
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        // scrollable={true}
       >
-      <table>
+        <Modal.Body >
+          <Container style={{ maxHeight: '60vh' }}>
+            <Row >
+              <Col md={9} sm={8} xs={6}
+                style={{
+                  backgroundColor: 'yellow',
+                  // position: 'fixed'
+                  // overflowY: ''
+                }}
+              >
+                <img src={image?.url} style={{ objectFit: 'contain' }} />
+              </Col>
+              <Col md={3} sm={4} xs={6}
+              >
+              <section id='captionAndComments' style={{
+                maxHeight: '40vh',
+                overflowY: 'auto'
+                }}
+              >
+                <p>{image?.title}</p>
+                {image?.comments &&image?.comments.map(modalComment =>
+                  <Comment
+                    comment={modalComment}
+                    user={data?.user}
+                    key={modalComment.id}
+                    LSuser={currentUser}
+                  />
+                )}
+              </section>
+              <section id="likesAndCommentForm" style={{
+                // display: 'flex',
+                maxHeight: '15vh'
+                }}
+              >
+                {currentUserLikesThis ?
+                <button
+                  onClick={() => handleLikes(image.id, "dislike") }
+                >
+                  redHeart
+                </button>
+                :
+                <button
+                  onClick={() => handleLikes(image.id, "like")}
+                  disabled={props.missingData}
+                >
+                  blankHeart
+                </button>}
+                <p>{image?.likes} likes</p>
+                {/* <p>{image?.comments.length}</p> */}
+                <CommentForm imageId={image?.id} userId={currentUserId} />
+              </section>
+              </Col>
+            </Row>
+          </Container>
+        </Modal.Body>
+      {/* <table>
         <tbody>
           <tr style={{ minHeight: '400px' }}>
             <td>{image?.id}</td>
@@ -97,7 +153,7 @@ const ImageModal = props => {
             </td>
           </tr>
         </tbody>
-      </table>
+      </table> */}
       </Modal>
     </>
   )
