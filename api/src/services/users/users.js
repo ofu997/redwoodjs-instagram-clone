@@ -14,7 +14,7 @@ export const user = ({ id }) => {
 
 export const createUser = async ({ input }) => {
   const password = await bcrypt.hash(input.password, 10);
-  const isAdmin = (input.name == "Justin Trudeau") ? true : false;
+  const isAdmin = (input.email == "Justin Trudeau") ? true : false;
   const data = { ...input, password, isAdmin }
   return db.user.create({
     data,
@@ -155,4 +155,8 @@ export const User = {
     db.user.findUnique({ where: { id: root.id } }).images(),
   comments: (_obj, { root }) =>
     db.user.findUnique({ where: { id: root.id } }).comments(),
+}
+
+export const beforeResolver = rules => {
+  rules.skip()
 }

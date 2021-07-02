@@ -78,3 +78,7 @@ export const Image = {
   user: (_obj, { root }) =>
     db.image.findUnique({ where: { id: root.id } }).user(),
 }
+
+export const beforeResolver = rules => {
+  rules.skip()
+}

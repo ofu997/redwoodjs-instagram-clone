@@ -391,3 +391,86 @@
   min-width: 100px;
   text-align: center;
 }
+
+#comment-input {
+  border: 1px solid gray;
+  line-height: 20px;
+
+  display: block;
+  margin-top: 0.25rem;
+  width: 70%;
+  padding: 0.25rem;
+  border-width: 1px;
+  /* border-color: #e2e8f0; */
+  /* color: #4a5568; */
+  border-radius: 0.25rem;
+  outline: none;
+}
+
+#commentform-input-and-button {
+  display: flex;
+}
+
+/* ImageModal */
+
+#miniProfPicAndHandle {
+  max-height: 5vh;
+  display: flex;
+  justify-content: space-evenly;
+  align-content: center;
+  margin-bottom: 20px;
+}
+
+#miniProfPic img {
+  border-radius: 50%;
+  /* width: 20px;
+  height: 20px;
+  width: auto;
+  height: auto; */
+  object-fit: cover;
+  max-width: 45px;
+  height: 45px;
+}
+
+#miniProfPic {
+  width: 20px;
+  height: 20px;
+}
+
+#caption {
+  max-height: 15vh;
+  overflow-y: auto;
+  border-bottom: 1px solid gray;
+}
+
+#comments-box {
+  max-height: 15vh;
+  overflow-y: auto;
+}
+
+.flex {
+  display: flex;
+}
+
+.block {
+  display: block;
+}
+
+.comment-icon {
+  max-height: 20px;
+}
+
+
+.like-and-comment-icons {
+  margin-right: 50px;
+}
+
+
+.like-and-comment-icons p {
+  margin-bottom: 0px;
+}
+
+#image-modal-right-column {
+  /* align-content: space-between;
+  flex-direction: column; */
+}

@@ -28,8 +28,8 @@ const UserInfo = props => {
             src={props.user.profilePicUrl}
             style={{
               borderRadius: '50%',
-              minWidth: '100%',
-              minHeight: '100%',
+              minWidth: '90%',
+              minHeight: '90%',
               width: 'auto',
               height: 'auto',
               objectFit: 'cover'

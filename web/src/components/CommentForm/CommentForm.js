@@ -48,32 +48,34 @@ const CommentForm = ({ imageId, userId }) => {
 
   return (
     <div>
-      <Form className="mt-4 w-full" onSubmit={onSubmit}>
+      <Form className="w-full" onSubmit={onSubmit}>
         <FormError
           error={error}
           titleClassName="font-semibold"
           wrapperClassName="bg-red-100 text-red-900 text-sm p-3 rounded"
         />
+        <div id='commentform-input-and-button'>
+          <TextField
+            name='content'
+            value={content}
+            onChange={handleChange}
+            // className='rw-input'
+            errorClassName="rw-input rw-input-error"
+            validation={{ required: true }}
+            id="comment-input"
+            // style={{ border: '1px solid black' }}
+          />
+          <FieldError name="content" className="rw-field-error" />
 
-        {/* <input name='body' value={body} onChange={handleChange} /> */}
-        <TextField
-          name='content'
-          value={content}
-          onChange={handleChange}
-          errorClassName="rw-input rw-input-error"
-          validation={{ required: true }}
-          style={{ border: '1px solid black' }}
-        />
-        <FieldError name="content" className="rw-field-error" />
 
-
-        <Submit
-          disabled={loading}
-        >
-          <p style={{ color: 'black', padding: 5, fontSize: '0.9rem' }}>
-            Comment
-          </p>
-        </Submit>
+          <Submit
+            disabled={loading}
+          >
+            <p style={{ color: 'black', padding: 5, fontSize: '0.9rem', backgroundColor: '#e3fbe3', border: '1px solid gray', borderRadius: '5%', margin: '5px' }}>
+              Comment
+            </p>
+          </Submit>
+        </div>
 
 
       </Form>

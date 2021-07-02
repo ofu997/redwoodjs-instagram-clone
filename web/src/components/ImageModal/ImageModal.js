@@ -26,11 +26,12 @@ const ImageModal = props => {
         aria-labelledby="contained-modal-title-vcenter"
         centered
         // scrollable={true}
+        style={{ minHeight: '75vh', maxHeight: '90vh', minWidth: '75vw', maxWidth: '90vw' }}
       >
         <Modal.Body >
-          <Container style={{ maxHeight: '60vh' }}>
+          <Container style={{ height: 800 }}>
             <Row >
-              <Col md={9} sm={8} xs={6}
+              <Col md={8} sm={7} xs={6}
                 style={{
                   backgroundColor: 'yellow',
                   // position: 'fixed'
@@ -39,14 +40,27 @@ const ImageModal = props => {
               >
                 <img src={image?.url} style={{ objectFit: 'contain' }} />
               </Col>
-              <Col md={3} sm={4} xs={6}
+              <Col md={4} sm={5} xs={6}
+                // id='image-modal-right-column'
+                className='d-flex'
               >
-              <section id='captionAndComments' style={{
-                maxHeight: '40vh',
-                overflowY: 'auto'
-                }}
+              <article
+              style={{ alignSelf: 'flex-start' }}
               >
-                <p>{image?.title}</p>
+                <section id='miniProfPicAndHandle'>
+                {image?.user.profilePicUrl && (
+                  <div id='miniProfPic'>
+                    <img src={image?.user.profilePicUrl} />
+                  </div>
+                )}
+                  <p>{image?.user.handle}</p>
+                </section>
+                <section id='caption'>
+                  <div>
+                    <p>{image?.title}</p>
+                  </div>
+                </section>
+                <section id='comments-box'>
                 {image?.comments &&image?.comments.map(modalComment =>
                   <Comment
                     comment={modalComment}
@@ -55,29 +69,37 @@ const ImageModal = props => {
                     LSuser={currentUser}
                   />
                 )}
-              </section>
-              <section id="likesAndCommentForm" style={{
-                // display: 'flex',
-                maxHeight: '15vh'
-                }}
+                </section>
+              </article>
+              <article
+              style={{ alignSelf: 'flex-end' }}
               >
-                {currentUserLikesThis ?
-                <button
-                  onClick={() => handleLikes(image.id, "dislike") }
-                >
-                  redHeart
-                </button>
-                :
-                <button
-                  onClick={() => handleLikes(image.id, "like")}
-                  disabled={props.missingData}
-                >
-                  blankHeart
-                </button>}
-                <p>{image?.likes} likes</p>
-                {/* <p>{image?.comments.length}</p> */}
-                <CommentForm imageId={image?.id} userId={currentUserId} />
-              </section>
+                <section id="icons-and-comment-form">
+                  <div className='flex'>
+                    <div className='block like-and-comment-icons'>
+                      {currentUserLikesThis ?
+                      <button
+                        onClick={() => handleLikes(image.id, "dislike") }
+                      >
+                        <img src="https://img.icons8.com/color/20/000000/like--v3.png"/>
+                      </button>
+                      :
+                      <button
+                        onClick={() => handleLikes(image.id, "like")}
+                        disabled={props.missingData}
+                      >
+                        <img src="https://img.icons8.com/ios/20/000000/like--v1.png"/>
+                      </button>}
+                      <p>{image?.likes} likes</p>
+                    </div>
+                    <div className='block like-and-comment-icons'>
+                      <img src="https://img.icons8.com/ios/20/000000/speech-bubble--v1.png" className='comment-icon' />
+                      <p>{image?.comments.length}</p>
+                    </div>
+                  </div>
+                  <CommentForm imageId={image?.id} userId={currentUserId} />
+                </section>
+              </article>
               </Col>
             </Row>
           </Container>
