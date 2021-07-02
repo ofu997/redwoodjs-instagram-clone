@@ -25,27 +25,23 @@ const ImageModal = props => {
         size="xl"
         aria-labelledby="contained-modal-title-vcenter"
         centered
-        // scrollable={true}
-        style={{ minHeight: '75vh', maxHeight: '90vh', minWidth: '75vw', maxWidth: '90vw' }}
+        style={{ maxHeight: '90vh', minWidth: '75vw', maxWidth: '90vw' }}
       >
         <Modal.Body >
-          <Container style={{ height: 800 }}>
-            <Row >
+          <Container>
+            <Row
+            >
               <Col md={8} sm={7} xs={6}
                 style={{
                   backgroundColor: 'yellow',
-                  // position: 'fixed'
-                  // overflowY: ''
                 }}
               >
-                <img src={image?.url} style={{ objectFit: 'contain' }} />
+                <div id='modal-image-container'>
+                  <img src={image?.url} id='modal-image' style={{ objectFit: 'contain' }} />
+                </div>
               </Col>
-              <Col md={4} sm={5} xs={6}
-                // id='image-modal-right-column'
-                className='d-flex'
-              >
+              <Col md={4} sm={5} xs={6}>
               <article
-              style={{ alignSelf: 'flex-start' }}
               >
                 <section id='miniProfPicAndHandle'>
                 {image?.user.profilePicUrl && (
@@ -72,7 +68,7 @@ const ImageModal = props => {
                 </section>
               </article>
               <article
-              style={{ alignSelf: 'flex-end' }}
+              style={{ position: 'absolute', bottom: '16px' }}
               >
                 <section id="icons-and-comment-form">
                   <div className='flex'>
@@ -104,78 +100,6 @@ const ImageModal = props => {
             </Row>
           </Container>
         </Modal.Body>
-      {/* <table>
-        <tbody>
-          <tr style={{ minHeight: '400px' }}>
-            <td>{image?.id}</td>
-            <td>{image?.title}</td>
-            <td>
-              <img src={image?.url} style={{ maxWidth: '150px' }} />
-            </td>
-            <td>{image?.likes}</td>
-            {currentUser && (
-            <td>
-              {currentUserLikesThis &&
-                <p>current user: {currentUser.handle} likes this</p>
-              }
-              {image?.likedBy && image?.likedBy.map(modalUser => {
-                return <p key={modalUser.id}>user with id: {modalUser.id} likes this</p>
-              })}
-            </td>
-            )}
-            <td>
-            {currentUserLikesThis ?
-            <button
-              onClick={() => handleLikes(image.id, "dislike") }
-            >
-              redHeart
-            </button>
-            :
-            <button
-              onClick={() => handleLikes(image.id, "like")}
-              disabled={props.missingData}
-            >
-              blankHeart
-            </button>}
-            </td>
-            <td>
-              {image?.comments &&image?.comments.map(modalComment =>
-                <Comment
-                  comment={modalComment}
-                  user={data?.user}
-                  key={modalComment.id}
-                  LSuser={currentUser}
-                />
-              )
-            }
-            <CommentForm imageId={image?.id} userId={currentUserId} />
-            </td>
-            <td>
-              <nav className="rw-table-actions">
-              {userIsValidAndOwnsImage && (
-                <Link
-                  to={routes.editImage({ id: image?.id })}
-                  title={'Edit image ' + image?.id}
-                  className="rw-button rw-button-small rw-button-blue"
-                >
-                  Edit
-                </Link>
-              )}
-              {(userIsValidAndOwnsImage || data?.user.isAdmin) && (
-                <a
-                  href="/"
-                  title={'Delete image ' + image?.id}
-                  className="rw-button rw-button-small rw-button-red"
-                  onClick={() => deleteClick(image?.id)}
-                >
-                  Delete
-                </a>
-              )}
-              </nav>
-            </td>
-          </tr>
-        </tbody>
-      </table> */}
       </Modal>
     </>
   )

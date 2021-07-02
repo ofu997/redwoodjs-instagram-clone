@@ -353,20 +353,22 @@
     padding-bottom: 0;
   }
 }
+
 .flex {
   display: flex;
 }
+
 .cntr-h {
-  /* display: flex;
-  justify-content: center; */
   margin: 0 auto;
   justify-content: center;
 }
+
 .sign-up-input {
   border-bottom: 1px solid gray;
   border-radius: 2px;
   width: 90%;
 }
+
 .sign-up-in-btn {
   margin: 20px;
   justify-content: center;
@@ -395,14 +397,11 @@
 #comment-input {
   border: 1px solid gray;
   line-height: 20px;
-
   display: block;
   margin-top: 0.25rem;
   width: 70%;
   padding: 0.25rem;
   border-width: 1px;
-  /* border-color: #e2e8f0; */
-  /* color: #4a5568; */
   border-radius: 0.25rem;
   outline: none;
 }
@@ -423,10 +422,6 @@
 
 #miniProfPic img {
   border-radius: 50%;
-  /* width: 20px;
-  height: 20px;
-  width: auto;
-  height: auto; */
   object-fit: cover;
   max-width: 45px;
   height: 45px;
@@ -465,12 +460,13 @@
   margin-right: 50px;
 }
 
-
 .like-and-comment-icons p {
   margin-bottom: 0px;
 }
 
-#image-modal-right-column {
-  /* align-content: space-between;
-  flex-direction: column; */
+#modal-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
 }
