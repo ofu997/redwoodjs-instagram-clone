@@ -8,23 +8,19 @@
 // 'src/pages/Admin/BooksPage/BooksPage.js' -> AdminBooksPage
 
 import { Router, Route } from '@redwoodjs/router'
-import { useState } from 'react'
 
-const Routes = () => {
-  const [userToken, setUserToken] = useState('')
+const Routes = () =>
+  <Router>
+    <Route path="/" page={ImagesPage} name="images" />
+    <Route path="/u/{handle:String}/edit" page={EditUserInfoPage} name="editUserInfo" />
+    <Route path="/u/{handle:String}" page={UserPage} name="userPage" />
+    <Route path="/login" page={HomePage} name='homePage' />
+    <Route path="/memos/new" page={NewImagePage} name="newImage" />
+    <Route path="/memos/{id:Int}/edit" page={EditImagePage} name="editImage" />
+    <Route path="/memos/{id:Int}" page={ImagePage} name="image" />
+    <Route notfound page={NotFoundPage} />
+  </Router>
 
-  return (
-    <Router>
-      <Route path="/" page={ImagesPage} name="images" />
-      <Route path="/u/{handle:String}/edit" page={EditUserInfoPage} name="editUserInfo" />
-      <Route path="/u/{handle:String}" page={UserPage} name="userPage" />
-      <Route path="/log" page={HomePage} name='homePage' />
-      <Route path="/images/new" page={NewImagePage} name="newImage" />
-      <Route path="/images/{id:Int}/edit" page={EditImagePage} name="editImage" />
-      <Route path="/images/{id:Int}" page={ImagePage} name="image" />
-      <Route notfound page={NotFoundPage} />
-    </Router>
-  )
-}
+
 
 export default Routes

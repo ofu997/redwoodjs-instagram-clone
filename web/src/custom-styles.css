@@ -418,6 +418,8 @@
   justify-content: space-evenly;
   align-content: center;
   margin-bottom: 20px;
+  /* padding: 20px;
+  border-bottom: 1px solid gray; */
 }
 
 #miniProfPic img {
@@ -436,6 +438,7 @@
   max-height: 15vh;
   overflow-y: auto;
   border-bottom: 1px solid gray;
+  border-top: 1px solid gray;
 }
 
 #comments-box {

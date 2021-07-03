@@ -2,6 +2,12 @@
 
 An Instagram clone.
 
+Preview: 
+
+<img  
+src="https://firebasestorage.googleapis.com/v0/b/social-media-redwood.appspot.com/o/images%2FOpera%20Snapshot_2021-07-03_134411_localhost.png?alt=media&token=3ef18ffa-1d07-42c0-a3be-624bb51a5946"
+width="400" />
+
 # Redwood
 
 > **WARNING:** RedwoodJS software has not reached a stable version 1.0 and should not be considered suitable for production use. In the "make it work; make it right; make it fast" paradigm, Redwood is in the later stages of the "make it work" phase.
