@@ -250,7 +250,7 @@ const Images = ({ images }) => {
                       Show
                     </Link>
                     <Button variant="primary" onClick={() => handleShow(image.id)}>
-                      Launch vertically centered modal: {image.title}
+                      Launch vertically centered modal
                     </Button>
                     {userIsValidAndOwnsImage && (
                         <Link

@@ -26,21 +26,25 @@ const ImageModal = props => {
         aria-labelledby="contained-modal-title-vcenter"
         centered
         style={{ maxHeight: '90vh', minWidth: '75vw', maxWidth: '90vw' }}
+        id='modal'
       >
         <Modal.Body >
           <Container>
             <Row
             >
-              <Col md={8} sm={7} xs={6}
+              <Col md={8}
                 style={{
                   backgroundColor: 'yellow',
                 }}
+                id='left-column'
               >
                 <div id='modal-image-container'>
                   <img src={image?.url} id='modal-image' style={{ objectFit: 'contain' }} />
                 </div>
               </Col>
-              <Col md={4} sm={5} xs={6}>
+              <Col md={4}
+              id='right-column'
+              >
               <article
               >
                 <section id='miniProfPicAndHandle'>
@@ -68,7 +72,8 @@ const ImageModal = props => {
                 </section>
               </article>
               <article
-              style={{ position: 'absolute', bottom: '16px' }}
+              // style={{ position: 'absolute', bottom: '16px' }}
+              id='article-of-icons-and-comment-form'
               >
                 <section id="icons-and-comment-form">
                   <div className='flex'>

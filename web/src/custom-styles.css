@@ -470,3 +470,43 @@
   align-items: center;
   min-height: 60vh;
 }
+
+/* new stuff */
+
+@media (min-width: 614px) {
+  #article-of-icons-and-comment-form {
+    position: absolute;
+    bottom: 16px;
+  }
+}
+
+/* @media (min-width: 492px) {
+
+
+  #right-column {
+    min-height: 20vh;
+    height: 30vh;
+    margin-top: 10px;
+  }
+
+  #left-column {
+    height: 30vh;
+
+  }
+
+  #right-column section {
+    margin-top: 10px;
+  }
+} */
+
+@media (min-width: 360px) {
+  /* #left-column {
+    height: 25vh;
+  }
+  #right-column {
+    height: 25vh;
+  } */
+  #article-of-icons-and-comment-form {
+    position: 'relative'
+  }
+}
