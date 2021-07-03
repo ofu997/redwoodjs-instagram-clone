@@ -4,6 +4,7 @@ import {
   FieldError,
   Label,
   TextField,
+  TextAreaField,
   Submit,
 } from '@redwoodjs/forms'
 import { useState } from 'react'
@@ -17,7 +18,9 @@ const NewImageForm = (props) => {
   const userId = props.userId;
 
   const onSubmit = data => {
-    const dataWithUrlUserId = Object.assign(data, { url }, { userId })
+    const dataWithCaption = { ...data, title:data.caption }
+    delete dataWithCaption.caption;
+    const dataWithUrlUserId = Object.assign(dataWithCaption, { url }, { userId })
     props.onSave(dataWithUrlUserId)
   }
 
@@ -76,20 +79,19 @@ const NewImageForm = (props) => {
         />
 
         <Label
-          name="title"
+          name="caption"
           className="rw-label"
           errorClassName="rw-label rw-label-error"
         >
-          Title
+          Caption
         </Label>
-        <TextField
-          name="title"
+        <TextAreaField
+          name="caption"
           defaultValue={props.image?.title}
           className="rw-input"
           errorClassName="rw-input rw-input-error"
-          validation={{ required: true }}
         />
-        <FieldError name="title" className="rw-field-error" />
+        <FieldError name="caption" className="rw-field-error" />
 
         <Label
           name="select"
@@ -110,10 +112,9 @@ const NewImageForm = (props) => {
 
         {showUpload &&
           <div style={{ marginTop: '50px', maxWidth: '25%' }}>
-            <div className="rw-button rw-button-green rw-button-small" onClick={handleFirebaseUpload}
-              style={{ padding: '15px 30px' }}
+            <div className="rw-button-group rw-button rw-button-green" onClick={handleFirebaseUpload}
             >
-              <p>Upload</p>
+              Upload
             </div>
           </div>
         }

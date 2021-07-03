@@ -1,13 +1,13 @@
-import ImagesLayout from 'src/layouts/ImagesLayout'
+import NewImageLayout from 'src/layouts/NewImageLayout'
 import EditImageCell from 'src/components/EditImageCell'
 
 const EditImagePage = ({ id }) => {
   return (
-    <ImagesLayout>
+    <NewImageLayout>
       <EditImageCell
         id={id}
       />
-    </ImagesLayout>
+    </NewImageLayout>
   )
 }
 

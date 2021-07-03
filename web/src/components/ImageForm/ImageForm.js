@@ -9,7 +9,8 @@ import {
 
 const ImageForm = (props) => {
   const onSubmit = (data) => {
-    props.onSave(data, props?.image?.id)
+    const dataToSave = { title : data.caption }
+    props.onSave(dataToSave, props?.image?.id)
   }
 
   return (
@@ -23,20 +24,20 @@ const ImageForm = (props) => {
         />
 
         <Label
-          name="title"
+          name="caption"
           className="rw-label"
           errorClassName="rw-label rw-label-error"
         >
-          Title
+          Caption
         </Label>
         <TextField
-          name="title"
+          name="caption"
           defaultValue={props.image?.title}
           className="rw-input"
           errorClassName="rw-input rw-input-error"
           validation={{ required: true }}
         />
-        <FieldError name="title" className="rw-field-error" />
+        <FieldError name="caption" className="rw-field-error" />
         <div className="rw-button-group">
           <Submit disabled={props.loading} className="rw-button rw-button-blue">
             Save

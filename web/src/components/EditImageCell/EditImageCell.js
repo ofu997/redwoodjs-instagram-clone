@@ -42,7 +42,7 @@ export const Success = ({ image }) => {
     <div className="rw-segment">
       <header className="rw-segment-header">
         <h2 className="rw-heading rw-heading-secondary">
-          Edit Image {image.id}
+          Edit memo
         </h2>
       </header>
       <div className="rw-segment-main">

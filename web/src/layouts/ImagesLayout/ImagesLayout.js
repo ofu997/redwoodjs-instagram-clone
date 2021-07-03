@@ -12,7 +12,7 @@ const ImagesLayout = (props) => {
           </Link>
         </h1> */}
         <Link to={routes.newImage()} className="rw-button rw-button-green">
-          <div className="rw-button-icon">+</div> New Image
+          <div className="rw-button-icon">+</div> New Memo
         </Link>
       </header>
       <main className="rw-main">{props.children}</main>

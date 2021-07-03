@@ -34,7 +34,7 @@ const ImageModal = props => {
             >
               <Col md={8}
                 style={{
-                  backgroundColor: 'yellow',
+                  // backgroundColor: 'yellow',
                 }}
                 id='left-column'
               >

@@ -101,10 +101,9 @@ const EditUserInfoForm = props => {
         }
         {showUpload &&
           <div style={{ marginTop: '50px', maxWidth: '25%' }}>
-            <div className="rw-button rw-button-green rw-button-small" onClick={handleFirebaseUpload}
-              style={{ padding: '15px 30px' }}
+            <div className="rw-button-group rw-button rw-button-green" onClick={handleFirebaseUpload}
             >
-              <p>Upload</p>
+              Upload
             </div>
           </div>
         }

@@ -8,7 +8,7 @@ const NewImageLayout = ({ children }) => {
       <header className="rw-header">
         <h1 className="rw-heading rw-heading-primary">
           <Link to={routes.images()} className="rw-link">
-            Images
+            Memos
           </Link>
         </h1>
       </header>
