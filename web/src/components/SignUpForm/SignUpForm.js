@@ -3,6 +3,7 @@ import {
   FormError,
   Label,
   TextField,
+  FieldError,
   TextAreaField,
   Submit,
 } from '@redwoodjs/forms'
@@ -66,10 +67,16 @@ const SignUpForm = props => {
               </Label>
               <TextField
                 name='name'
-                validation={{ required: true }}
+                validation={{
+                  required: true,
+                  pattern: {
+                    value: /^[a-zA-Z0-9_]{2,30}$/,
+                  }
+                }}
                 placeholder='Name'
                 className="rw-input sign-up-input flex cntr-h"
               />
+              <FieldError name='name' className="rw-field-error" />
 
               <Label
                 name="handle"
@@ -80,10 +87,15 @@ const SignUpForm = props => {
               </Label>
               <TextField
                 name='handle'
-                validation={{ required: true }}
+                validation={{ required: true,
+                  pattern: {
+                    value: /^[a-zA-Z0-9_]{2,30}$/,
+                  }
+                }}
                 placeholder='@your_handle'
                 className="rw-input sign-up-input flex cntr-h"
               />
+              <FieldError name='handle' className="rw-field-error" />
 
               <Label
                 name="email"
@@ -94,7 +106,11 @@ const SignUpForm = props => {
               </Label>
               <TextField
                 name='email'
-                validation={{ required: true }}
+                validation={{ required: true,
+                  pattern: {
+                    value: /[^@]+@[^\.]+\..+/,
+                  },
+                }}
                 placeholder='Email'
                 className="rw-input sign-up-input flex cntr-h"
               />
