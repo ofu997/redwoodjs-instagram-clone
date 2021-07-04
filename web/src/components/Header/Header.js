@@ -31,7 +31,7 @@ const Header = () => {
 
       localStorage.removeItem('user');
       setTimeout(() => {
-        navigate(routes.homePage())
+        navigate(routes.handleUsersPage())
         // navigate(routes.images()) prefer this route slightly, but has errors
       }, 200)
     },
@@ -54,6 +54,11 @@ const Header = () => {
               className="justify-content-end"
               activeKey='/'
             >
+              <Nav.Item>
+                <Nav.Link href={routes.newImage()}>
+                  <img src="https://img.icons8.com/ios/20/000000/plus-2-math.png"/>
+                </Nav.Link>
+              </Nav.Item>
               <Nav.Item
               >
                 <Nav.Link href={routes.userPage({ handle: user.handle })} className="navbarItem ">
@@ -65,15 +70,15 @@ const Header = () => {
               </Nav.Item>
               <Nav.Item>
                 {user.id ? (
-                <Nav.Link className="navbarItem">
-                  <div
-                    onClick={() => logoutUser({ variables: { id: user.id } } )}
-                  >
-                    <p>Log out</p>
-                  </div>
-                </Nav.Link>
+                  <Nav.Link className="navbarItem">
+                    <div
+                      onClick={() => logoutUser({ variables: { id: user.id } } )}
+                    >
+                      <p>Log out</p>
+                    </div>
+                  </Nav.Link>
                 ) : (
-                  <Nav.Link href={routes.homePage()} className="navbarItem">
+                  <Nav.Link href={routes.handleUsersPage()} className="navbarItem">
                     <p>Log in</p>
                   </Nav.Link>
                 )}

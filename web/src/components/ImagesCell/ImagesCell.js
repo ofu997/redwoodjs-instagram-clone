@@ -29,6 +29,12 @@ export const QUERY = gql`
   }
 `
 
+export const Loading = () => <h2 className='branding-font'>Loading...</h2>
+
+export const Empty = () => <h2 className='branding-font'>Empty</h2>
+
+export const Failure = ({ error }) => <h2 className='branding-font'>Error: {error.message}</h2>
+
 export const Success = ({ images }) => {
   return <Images images={images} />
 }

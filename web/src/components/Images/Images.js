@@ -171,7 +171,7 @@ const Images = ({ images }) => {
       }
     })
     :
-    toast.error("Impersonation attempt!")
+    toast.error("Invalid credentials")
   }
 
   return (

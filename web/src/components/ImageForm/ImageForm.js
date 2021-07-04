@@ -3,7 +3,7 @@ import {
   FormError,
   FieldError,
   Label,
-  TextField,
+  TextAreaField,
   Submit,
 } from '@redwoodjs/forms'
 
@@ -30,7 +30,7 @@ const ImageForm = (props) => {
         >
           Caption
         </Label>
-        <TextField
+        <TextAreaField
           name="caption"
           defaultValue={props.image?.title}
           className="rw-input"

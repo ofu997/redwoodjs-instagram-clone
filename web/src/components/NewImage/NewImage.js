@@ -29,7 +29,7 @@ const NewImage = () => {
   }
 
   return (
-    <div className="rw-segment">
+    <div className="rw-segment margin-new-or-edit-image-component">
       <header className="rw-segment-header">
         <h2 className="rw-heading rw-heading-secondary">New Memo</h2>
       </header>
