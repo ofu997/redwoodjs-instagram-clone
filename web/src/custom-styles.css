@@ -68,8 +68,8 @@
   padding: 1rem 2rem 1rem 2rem;
 }
 .rw-main {
-  margin-left: 1rem;
-  margin-right: 1rem;
+  /* margin-left: 1rem;
+  margin-right: 1rem; */
   padding-bottom: 1rem;
 }
 .rw-segment {
@@ -408,6 +408,16 @@
 
 #commentform-input-and-button {
   display: flex;
+}
+
+/* edit image cell */
+
+.margin-new-or-edit-image-component {
+  margin: 15px 15px;
+}
+
+#image-for-edit-image-cell {
+  margin: 0 auto;
 }
 
 /* ImageModal */

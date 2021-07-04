@@ -2,6 +2,7 @@ import { useMutation } from '@redwoodjs/web'
 import { navigate, routes } from '@redwoodjs/router'
 import ImageForm from 'src/components/ImageForm'
 import { toast } from '@redwoodjs/web/toast'
+import EditImage from 'src/components/EditImage'
 
 export const QUERY = gql`
   query FindImageByIdEditImageCell($id: Int!) {
@@ -39,20 +40,11 @@ export const Success = ({ image }) => {
   }
 
   return (
-    <div className="rw-segment">
-      <header className="rw-segment-header">
-        <h2 className="rw-heading rw-heading-secondary">
-          Edit memo
-        </h2>
-      </header>
-      <div className="rw-segment-main">
-        <ImageForm
-          image={image}
-          onSave={onSave}
-          error={error}
-          loading={loading}
-        />
-      </div>
-    </div>
+    <EditImage
+      image={image}
+      onSave={onSave}
+      error={error}
+      loading={loading}
+    />
   )
 }
