@@ -14,7 +14,7 @@ const Routes = () =>
     <Route path="/" page={ImagesPage} name="images" />
     <Route path="/u/{handle:String}/edit" page={EditUserInfoPage} name="editUserInfo" />
     <Route path="/u/{handle:String}" page={UserPage} name="userPage" />
-    <Route path="/login" page={HomePage} name='homePage' />
+    <Route path="/login" page={HandleUsersPage} name='handleUsersPage' />
     <Route path="/memos/new" page={NewImagePage} name="newImage" />
     <Route path="/memos/{id:Int}/edit" page={EditImagePage} name="editImage" />
     <Route path="/memos/{id:Int}" page={ImagePage} name="image" />
