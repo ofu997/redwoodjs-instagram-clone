@@ -4,11 +4,9 @@ import {
   Label,
   TextField,
   FieldError,
-  TextAreaField,
   Submit,
 } from '@redwoodjs/forms'
-import { useMutation, useFlash } from '@redwoodjs/web'
-import { navigate, routes } from '@redwoodjs/router'
+import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 const SIGN_UP_MUTATION = gql`
@@ -25,7 +23,6 @@ const SignUpForm = props => {
       toast.success('User created', { classes: 'rw-flash-success' })
 
       setTimeout(() => {
-        // navigate(routes.images())
         props.setShowSignUpForm(false)
         props.setShowLogInForm(true)
       }, 50)
@@ -92,7 +89,7 @@ const SignUpForm = props => {
                     value: /^[a-zA-Z0-9_]{2,30}$/,
                   }
                 }}
-                placeholder='@your_handle'
+                placeholder='your_handle'
                 className="rw-input sign-up-input flex cntr-h"
               />
               <FieldError name='handle' className="rw-field-error" />

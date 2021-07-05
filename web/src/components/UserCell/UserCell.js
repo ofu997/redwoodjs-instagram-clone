@@ -31,11 +31,11 @@ export const QUERY = gql`
   }
 `
 
-export const Loading = () => <div>Loading...</div>
+export const Loading = () => <h2 className='branding-font'>Loading...</h2>
 
-export const Empty = () => <div>Empty</div>
+export const Empty = () => <h2 className='branding-font'div>No memos</h2>
 
-export const Failure = ({ error }) => <div>Error: {error.message}</div>
+export const Failure = ({ error }) => <h2 className='branding-font'div>Error: {error.message}</h2>
 
 export const Success = ({ userInfoAndImages }) => {
   return <User infoAndImages={userInfoAndImages} />

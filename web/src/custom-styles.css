@@ -394,6 +394,8 @@
   text-align: center;
 }
 
+/* comment components */
+
 #comment-input {
   border: 1px solid gray;
   line-height: 20px;
@@ -408,6 +410,46 @@
 
 #commentform-input-and-button {
   display: flex;
+}
+
+#comment-x-box {
+  margin-left: 20px;
+    height: 22px;
+    width: 22px;
+    /* background-color: #FA6900;  */
+    background-color: white;
+    border-radius: 4px;
+    border: 1px solid red;
+    position: relative;
+    background: #fafafa;
+    padding: 0px 5px;
+
+  /* color: black;
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+
+  border: 1px solid red; */
+}
+
+
+
+#comment-x-box:after {
+     position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /* content: "\274c";  */
+    content: "\2573";
+    font-size: 11px;
+    color: black;
+    line-height: 22px;
+    text-align: center;
 }
 
 /* edit image cell */
@@ -522,4 +564,13 @@
   #article-of-icons-and-comment-form {
     position: 'relative'
   }
+}
+
+/* createdAt */
+#created-at {
+  margin: 10px 0px;
+}
+
+.rc-font-size {
+  font-size: 0.8rem;
 }

@@ -43,15 +43,14 @@ const Comment = props => {
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', fontSize: '0.9rem' }}>
-      <p>{props.comment.user.handle}: {props.comment.body}</p>
+      <p className='rc-font-size'>{props.comment.user.handle}: {props.comment.body}</p>
       <div
         onClick={() => missingData? (
           toast.error("Must be logged in to delete comment")
         )
         : handleDelete(props.comment.id)}
-        style={{ padding: '2px', border: '1px solid red', marginLeft: '20px' }}
+        id='comment-x-box'
       >
-        <p>delete</p>
       </div>
     </div>
   )

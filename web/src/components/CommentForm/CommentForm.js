@@ -1,10 +1,8 @@
 import {
   Form,
   FormError,
-  Label,
   TextField,
   FieldError,
-  TextAreaField,
   Submit,
 } from '@redwoodjs/forms'
 import { useMutation } from '@redwoodjs/web'
@@ -59,11 +57,9 @@ const CommentForm = ({ imageId, userId }) => {
             name='content'
             value={content}
             onChange={handleChange}
-            // className='rw-input'
             errorClassName="rw-input rw-input-error"
             validation={{ required: true }}
             id="comment-input"
-            // style={{ border: '1px solid black' }}
           />
           <FieldError name="content" className="rw-field-error" />
 
@@ -71,7 +67,7 @@ const CommentForm = ({ imageId, userId }) => {
           <Submit
             disabled={loading}
           >
-            <p style={{ color: 'black', padding: 5, fontSize: '0.9rem', backgroundColor: '#e3fbe3', border: '1px solid gray', borderRadius: '5%', margin: '5px' }}>
+            <p style={{ color: '#0095f6', padding: 5, fontSize: '0.9rem', border: '1px solid gray', borderRadius: '5%', margin: '5px' }}>
               Comment
             </p>
           </Submit>

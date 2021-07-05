@@ -19,13 +19,16 @@ const ImageModal = props => {
       <Console
       />
       <Modal
-        // {...props}. Only need show and onHide
         show={props.show}
         onHide={props.onHide}
+        dialogClassName="modal-90w"
         size="xl"
         aria-labelledby="contained-modal-title-vcenter"
         centered
-        style={{ maxHeight: '90vh', minWidth: '75vw', maxWidth: '90vw' }}
+        style={{ maxHeight: '90vh', 
+          // minWidth: '85vw', 
+          // maxWidth: '95vw' 
+        }}
         id='modal'
       >
         <Modal.Body >
@@ -56,9 +59,7 @@ const ImageModal = props => {
                   <p>{image?.user.handle}</p>
                 </section>
                 <section id='caption'>
-                  <div>
-                    <p>{image?.title}</p>
-                  </div>
+                    <p className='rc-font-size'>{image?.title}</p>
                 </section>
                 <section id='comments-box'>
                 {image?.comments &&image?.comments.map(modalComment =>
@@ -72,8 +73,7 @@ const ImageModal = props => {
                 </section>
               </article>
               <article
-              // style={{ position: 'absolute', bottom: '16px' }}
-              id='article-of-icons-and-comment-form'
+                id='article-of-icons-and-comment-form'
               >
                 <section id="icons-and-comment-form">
                   <div className='flex'>
@@ -98,6 +98,7 @@ const ImageModal = props => {
                       <p>{image?.comments.length}</p>
                     </div>
                   </div>
+                  <p id='created-at' className='rc-font-size'>{image?.createdAt}</p>
                   <CommentForm imageId={image?.id} userId={currentUserId} />
                 </section>
               </article>
