@@ -13,6 +13,7 @@ export const user = ({ id }) => {
 }
 
 export const createUser = async ({ input }) => {
+  input.handle = '@'+input.handle;
   const password = await bcrypt.hash(input.password, 10);
   const isAdmin = (input.email == "Justin Trudeau") ? true : false;
   const data = { ...input, password, isAdmin }
