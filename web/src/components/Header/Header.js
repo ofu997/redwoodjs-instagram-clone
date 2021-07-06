@@ -56,12 +56,12 @@ const Header = () => {
             >
               <Nav.Item>
                 <Nav.Link href={routes.newImage()}>
-                  <img src="https://img.icons8.com/ios/20/000000/plus-2-math.png"/>
+                  <img src="https://img.icons8.com/ios/20/000000/plus-2-math.png" className='cntr-h' />
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item
               >
-                <Nav.Link href={routes.userPage({ handle: user.handle })} className="navbarItem ">
+                <Nav.Link href={routes.userPage({ handle: user.handle })} className="navbarItem">
                 {user.id && (
                     <p style={{ margin: '0 auto' }}>Profile</p>
                   )

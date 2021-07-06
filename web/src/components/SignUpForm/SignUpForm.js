@@ -67,7 +67,7 @@ const SignUpForm = props => {
                 validation={{
                   required: true,
                   pattern: {
-                    value: /^[a-zA-Z0-9_]{2,30}$/,
+                    value: /^[a-zA-Z0-9_ ]{2,30}$/,
                   }
                 }}
                 placeholder='Name'
