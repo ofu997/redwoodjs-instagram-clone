@@ -24,10 +24,13 @@ const Comment = props => {
   const handleDelete = id => {
     // comment posterId = userId (check LS and uQ match)
     // image belongs to user
+    // isAdmin
     (
       ( props.comment.user.id === props.LSuser.id && props.LSuser.localStoragePassword === props.user.localStoragePassword )
       ||
       props.user.images.some(image => image.id === props.comment.imageId)
+      ||
+      ( props.user.isAdmin && props.LSuser.localStoragePassword === props.user.localStoragePassword )
     ) ?
       jwt.verify(props.user.jwt, 'my-secret-from-env-file-in-prod', function(err) {
         if (err) {
@@ -44,14 +47,22 @@ const Comment = props => {
   return (
     <div style={{ display: 'flex', alignItems: 'center', fontSize: '0.9rem' }}>
       <p className='rc-font-size'>{props.comment.user.handle}: {props.comment.body}</p>
-      <div
-        onClick={() => missingData? (
-          toast.error("Must be logged in to delete comment")
-        )
-        : handleDelete(props.comment.id)}
-        id='comment-x-box'
-      >
-      </div>
+      {(
+        ( props.comment.user.id === props.LSuser.id && props.LSuser.localStoragePassword === props.user?.localStoragePassword )
+        ||
+        props.user?.images.some(image => image.id === props.comment.imageId)
+        ||
+        ( props.user?.isAdmin && props.LSuser.localStoragePassword === props.user?.localStoragePassword )
+      ) && (
+        <div
+          onClick={() => missingData? (
+            toast.error("Must be logged in to delete comment")
+          )
+          : handleDelete(props.comment.id)}
+          id='comment-x-box'
+        >
+        </div>
+      )}
     </div>
   )
 }
