@@ -25,6 +25,7 @@ const Header = () => {
     }
   `
 
+
   const [logoutUser, { loading, error }] = useMutation(LOG_OUT_MUTATION, {
     onCompleted: () => {
       toast.success('Logged out', { classes: 'rw-flash-success' })
@@ -56,15 +57,19 @@ const Header = () => {
             >
               <Nav.Item>
                 <Nav.Link href={routes.newImage()}>
+                {user.id &&
                   <img src="https://img.icons8.com/ios/20/000000/plus-2-math.png" className='cntr-h' />
+                }
                 </Nav.Link>
               </Nav.Item>
-              <Nav.Item
-              >
+              <Nav.Item>
                 <Nav.Link href={routes.userPage({ handle: user.handle })} className="navbarItem">
-                {user.id && (
-                    <p style={{ margin: '0 auto' }}>Profile</p>
-                  )
+                {user.profilePicUrl ?
+                  (<div className='header-profile-pic'>
+                    <img src={user.profilePicUrl} />
+                  </div>)
+                  :
+                  (user.id && <img src="https://img.icons8.com/ios/20/000000/user-male-circle.png" />)
                 }
                 </Nav.Link>
               </Nav.Item>
