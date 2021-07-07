@@ -2,6 +2,7 @@ import { navigate, routes } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
 import toast from 'react-hot-toast'
 import EditUserInfoForm from 'src/components/UserForms/EditUserInfoForm'
+import { getLoggedInUser } from 'src/functions/GetLoggedInUser'
 
 export const QUERY = gql`
   query findUserByHandle($handle: String!) {
@@ -11,6 +12,8 @@ export const QUERY = gql`
       handle
       bio
       profilePicUrl
+
+      localStoragePassword
     }
   }
 `
@@ -32,6 +35,7 @@ export const Failure = ({ error }) => (
 )
 
 export const Success = ({ userToEdit }) => {
+  const LSuser = getLoggedInUser();
   const [editUserInfo, {loading, error}] = useMutation(EDIT_USER_INFO_MUTATION, {
     onCompleted: () => {
       navigate( routes.userPage({handle: userToEdit.handle}) )
@@ -45,6 +49,7 @@ export const Success = ({ userToEdit }) => {
 
   return(
     <>
+    {LSuser.localStoragePassword === userToEdit.localStoragePassword ? (
       <div className="rw-segment">
         <div className="rw-segment-main">
           <EditUserInfoForm
@@ -55,6 +60,10 @@ export const Success = ({ userToEdit }) => {
           />
         </div>
       </div>
+    )
+    : (
+      <h2 className='branding-font'>Invalid credentials</h2>
+    )}
     </>
   )
 }
