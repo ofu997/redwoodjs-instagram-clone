@@ -416,27 +416,13 @@
   margin-left: 20px;
     height: 22px;
     width: 22px;
-    /* background-color: #FA6900;  */
     background-color: white;
     border-radius: 4px;
     border: 1px solid red;
     position: relative;
     background: #fafafa;
     padding: 0px 5px;
-
-  /* color: black;
-  font-family: 'Helvetica', 'Arial', sans-serif;
-  font-size: 1em;
-  font-weight: bold;
-  text-align: center;
-  width: 20px;
-  height: 20px;
-  border-radius: 3px;
-
-  border: 1px solid red; */
 }
-
-
 
 #comment-x-box:after {
      position: absolute;
@@ -444,7 +430,6 @@
     bottom: 0;
     left: 0;
     right: 0;
-    /* content: "\274c";  */
     content: "\2573";
     font-size: 11px;
     color: black;
@@ -462,6 +447,52 @@
   margin: 0 auto;
 }
 
+/* user page */
+
+#user-info-content {
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+  min-height: 100px;
+  max-height: 20%;
+  background-color: #f5f5f5;
+}
+
+#user-page-profile-pic {
+  display: flex;
+  justify-content: space-evenly;
+  align-content: center;
+  padding: 20px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  overflow:hidden;
+  width: 200px;
+  height: 200px;
+}
+
+#user-page-profile-pic img {
+  border-radius: 50%;
+  width: auto;
+  height: auto;
+  min-width: 90%;
+  min-height: 90%;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+#user-page-user-info {
+  width: 50%;
+}
+
+#user-page-user-info h1 {
+  text-align: center;
+}
+
+#edit-info-link {
+  width: 25%;
+  margin: 20px auto;
+}
 /* ImageModal */
 
 #miniProfPicAndHandle {
@@ -470,20 +501,13 @@
   justify-content: space-evenly;
   align-content: center;
   margin-bottom: 20px;
-  /* padding: 20px;
-  border-bottom: 1px solid gray; */
 }
 
-#miniProfPic img {
+#miniProfPicAndHandle img {
   border-radius: 50%;
   object-fit: cover;
   max-width: 45px;
   height: 45px;
-}
-
-#miniProfPic {
-  width: 20px;
-  height: 20px;
 }
 
 #caption {
@@ -498,10 +522,6 @@
   overflow-y: auto;
 }
 
-.flex {
-  display: flex;
-}
-
 .block {
   display: block;
 }
@@ -509,7 +529,6 @@
 .comment-icon {
   max-height: 20px;
 }
-
 
 .like-and-comment-icons {
   margin-right: 50px;
@@ -526,7 +545,7 @@
   min-height: 60vh;
 }
 
-/* new stuff */
+/* right column stuff */
 
 @media (min-width: 614px) {
   #article-of-icons-and-comment-form {
@@ -535,38 +554,12 @@
   }
 }
 
-/* @media (min-width: 492px) {
-
-
-  #right-column {
-    min-height: 20vh;
-    height: 30vh;
-    margin-top: 10px;
-  }
-
-  #left-column {
-    height: 30vh;
-
-  }
-
-  #right-column section {
-    margin-top: 10px;
-  }
-} */
-
 @media (min-width: 360px) {
-  /* #left-column {
-    height: 25vh;
-  }
-  #right-column {
-    height: 25vh;
-  } */
   #article-of-icons-and-comment-form {
     position: 'relative'
   }
 }
 
-/* createdAt */
 #created-at {
   margin: 10px 0px;
 }
@@ -574,3 +567,12 @@
 .rc-font-size {
   font-size: 0.8rem;
 }
+
+
+.header-profile-pic img {
+  border-radius: 50%;
+  object-fit: cover;
+  max-width: 20px;
+  height: 20px;
+}
+

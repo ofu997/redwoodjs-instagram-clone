@@ -14,8 +14,8 @@ const LOG_IN_MUTATION = gql`
     loginUser(input: $input) {
       id
       handle
-      jwt
       localStoragePassword
+      profilePicUrl
     }
   }
 `
@@ -26,8 +26,8 @@ const LogInForm = () => {
     onCompleted: ({ loginUser }) => {
       toast.success('Signed in', { classes: 'rw-flash-success' })
 
-      const { id, handle, localStoragePassword } = loginUser;
-      const user = { id, handle, localStoragePassword }
+      const { id, handle, localStoragePassword, profilePicUrl } = loginUser;
+      const user = { id, handle, localStoragePassword, profilePicUrl }
       localStorage.setItem('user', JSON.stringify(user));
       setTimeout(() => {
         navigate(routes.images())

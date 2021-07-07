@@ -8,6 +8,7 @@ export const QUERY = gql`
       profilePicUrl
       bio
       jwt
+      localStoragePassword
 
       userImages : images {
         id

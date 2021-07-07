@@ -25,9 +25,9 @@ const ImageModal = props => {
         size="xl"
         aria-labelledby="contained-modal-title-vcenter"
         centered
-        style={{ maxHeight: '90vh', 
-          // minWidth: '85vw', 
-          // maxWidth: '95vw' 
+        style={{ maxHeight: '90vh',
+          // minWidth: '85vw',
+          // maxWidth: '95vw'
         }}
         id='modal'
       >
@@ -52,9 +52,7 @@ const ImageModal = props => {
               >
                 <section id='miniProfPicAndHandle'>
                 {image?.user.profilePicUrl && (
-                  <div id='miniProfPic'>
                     <img src={image?.user.profilePicUrl} />
-                  </div>
                 )}
                   <p>{image?.user.handle}</p>
                 </section>
