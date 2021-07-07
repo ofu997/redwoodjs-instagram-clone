@@ -62,7 +62,7 @@ export const Success = ({ userToEdit }) => {
       </div>
     )
     : (
-      <h2 className='branding-font'>Invalid credentials</h2>
+      <h3 className='branding-font'>Womp womp...invalid credentials</h3>
     )}
     </>
   )
