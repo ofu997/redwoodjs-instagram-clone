@@ -110,7 +110,7 @@ const EditUserInfoForm = props => {
 
         {profilePicUrl && (
           <div style={{ maxWidth: '25%' }}>
-            <img src={profilePicUrl} style={{ display: 'block', margin: '2rem 0' }} />
+            <img src={profilePicUrl} style={{ display: 'block', margin: '2rem 0', objectFit: 'contain' }} height='300' />
             <div
               onClick={() => {
                 setProfilePicUrl(null)
