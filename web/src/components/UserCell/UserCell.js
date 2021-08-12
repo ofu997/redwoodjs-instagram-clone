@@ -15,6 +15,10 @@ export const QUERY = gql`
         title
         url
         likes
+        user {
+          handle
+          profilePicUrl
+        }
         comments {
           id
           body

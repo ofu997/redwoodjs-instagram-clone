@@ -6,7 +6,7 @@ import { toast } from '@redwoodjs/web/toast'
 import { getLoggedInUser } from 'src/functions/GetLoggedInUser'
 var jwt = require('jsonwebtoken')
 import { useState } from 'react'
-import { Button } from 'react-bootstrap'
+import { Button, Card } from 'react-bootstrap'
 import ImageModal from 'src/components/ImageModal'
 import CommentForm from 'src/components/CommentForm'
 
@@ -175,28 +175,58 @@ const Images = ({ images }) => {
   }
 
   return (
-    <div className="rw-segment rw-table-wrapper-responsive">
+    <>
       {error && <h1>Cannot find user at this moment</h1>}
-      <table className="rw-table">
-        <thead style={{ border: '5px solid black' }}>
-          <tr>
-            <th>Id</th>
-            <th>Title</th>
-            <th style={{ width: 150 }}></th>
-            <th>Likes</th>
-            <th>Which users like this</th>
-            <th style={{ width: 150 }}></th>
-            <th>Comments</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
+      <div id='cardContainer' className='flex flexWrapWrap justifyContentSE'>
           {images.map((image) => {
             const currentUserLikesThis = image.likedBy.some(item => item.id === currentUserId);
             const userIsValidAndOwnsImage =
               Boolean((currentUser.localStoragePassword === data?.user.localStoragePassword)
               && data?.user.images.some(queriedImage => queriedImage.id === image.id));
             return (
+              <Card
+                className='card'
+                key={image.id}
+              >
+                <div id='cardPicHandle' className='flex'>
+                  <div className='header-profile-pic' style={{ marginLeft:20 }}>
+                    <img src={image.user?.profilePicUrl} />
+                  </div>
+                  <p style={{ marginLeft:20 }}>{image.user?.handle}</p>
+                </div>
+              </Card>
+            )
+          }).reverse()}
+          </div>
+      <ImageModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+
+        imageId={activeItem}
+        data={data}
+        missingData={missingData}
+        handleLikes={handleLikes}
+        deleteClick={onDeleteClick}
+        handleShow={handleShow}
+        images={images}
+      />
+    </>
+  )
+}
+
+export default Images
+
+
+
+// Show image and edit image are <Link>s, while delete image is an <a>
+
+// useMutation returns a tuple that includes:
+// A mutate function that you can call at any time to execute the mutation
+// An object with fields that represent the current status of the mutation's execution
+// src: https://www.apollographql.com/docs/react/data/mutations/
+
+
+ {/*}
               <tr key={image.id}>
                 <td>{truncate(image.id)}</td>
                 <td>{truncate(image.title)}</td>
@@ -274,33 +304,4 @@ const Images = ({ images }) => {
                   </nav>
                 </td>
               </tr>
-            )
-          }).reverse()}
-        </tbody>
-      </table>
-      <ImageModal
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-
-        imageId={activeItem}
-        data={data}
-        missingData={missingData}
-        handleLikes={handleLikes}
-        deleteClick={onDeleteClick}
-        handleShow={handleShow}
-        images={images}
-      />
-    </div>
-  )
-}
-
-export default Images
-
-
-
-// Show image and edit image are <Link>s, while delete image is an <a>
-
-// useMutation returns a tuple that includes:
-// A mutate function that you can call at any time to execute the mutation
-// An object with fields that represent the current status of the mutation's execution
-// src: https://www.apollographql.com/docs/react/data/mutations/
+              */}
