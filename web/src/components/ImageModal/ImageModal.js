@@ -60,7 +60,7 @@ const ImageModal = props => {
                     <p className='rc-font-size'>{image?.title}</p>
                 </section>
                 <section id='comments-box'>
-                {image?.comments &&image?.comments.map(modalComment =>
+                {image?.comments && image?.comments.map(modalComment =>
                   <Comment
                     comment={modalComment}
                     user={data?.user}

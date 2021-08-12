@@ -77,7 +77,7 @@ const Image = ({ image, user }) => {
             <tr>
               <th>Comments</th>
               <td>
-              {image.comments.map(comment =>
+              {image.comments && image.comments.map(comment =>
                 <Comment
                   comment={comment}
                 />
