@@ -1,7 +1,11 @@
 import { db } from 'src/lib/db'
 
 export const images = () => {
-  return db.image.findMany()
+  return db.image.findMany({
+    orderBy : {
+      id : 'desc'
+    }
+  })
 }
 
 export const image = ({ id }) => {
@@ -12,8 +16,8 @@ export const image = ({ id }) => {
 
 export const createImage = ({ input }) => {
   const now = new Date()
-  const monthNames = ['Jan', 'Feb', 'Mar', 
-    'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 
+  const monthNames = ['Jan', 'Feb', 'Mar',
+    'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept',
     'Oct', 'Nov', 'Dec']
   const year = `'${now.getFullYear().toString().slice(2)}`;
   const createdAt = `${now.getDate()} ${monthNames[now.getMonth()]} ${year}`;

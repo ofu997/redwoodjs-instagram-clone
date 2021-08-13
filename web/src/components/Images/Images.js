@@ -195,18 +195,13 @@ const Images = ({ images }) => {
                       : <img src="https://img.icons8.com/ios/20/000000/user-male-circle.png" />
                     }
                   </div>
-                  <p style={{ marginLeft: 10 }}>{image.user?.handle}</p>
+                  <p style={{ marginLeft: 10, fontWeight: 500 }}>{image.user?.handle}</p>
                 </div>
-                {/* <Card.Img src={image.url} />
-                <p>hi</p> */}
                 <img src={image.url}
                   className='cardImg'
                   onClick={() => handleShow(image.id)}
                 />
                 <Card.Body id='cardBody' bsPrefix='div'>
-                {/* <article
-                  id='article-of-icons-and-comment-form'
-                > */}
                   <section id="icons-and-comment-form">
                     <div className='flex'>
                       <div className='block like-and-comment-icons'>
@@ -231,18 +226,14 @@ const Images = ({ images }) => {
                       </div>
                     </div>
                     <div className='flex' style={{ marginTop : 5 }}>
-                      <p><strong>{image.user.handle}</strong></p>
-                      <p style={{ marginLeft : 10 }}>{truncate(image.title)}</p>
+                      <p><strong>{image.user.handle}</strong>  {truncate(image.title)}</p>
                     </div>
                     <p id='created-at' className='rc-font-size'>{image?.createdAt}</p>
-                    {/* <CommentForm imageId={image?.id} userId={currentUserId} /> */}
                   </section>
-                {/* </article> */}
                 </Card.Body>
-                {/* <CommentForm imageId={image?.id} userId={currentUserId} /> */}
               </Card>
             )
-          }).reverse()}
+          })}
           </div>
       <ImageModal
         show={modalShow}

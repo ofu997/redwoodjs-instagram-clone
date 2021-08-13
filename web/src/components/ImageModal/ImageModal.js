@@ -26,8 +26,6 @@ const ImageModal = props => {
         aria-labelledby="contained-modal-title-vcenter"
         centered
         style={{ maxHeight: '90vh',
-          // minWidth: '85vw',
-          // maxWidth: '95vw'
         }}
         id='modal'
       >
@@ -36,9 +34,6 @@ const ImageModal = props => {
             <Row
             >
               <Col md={8}
-                style={{
-                  // backgroundColor: 'yellow',
-                }}
                 id='left-column'
               >
                 <div id='modal-image-container'>
@@ -46,60 +41,62 @@ const ImageModal = props => {
                 </div>
               </Col>
               <Col md={4}
-              id='right-column'
+                id='right-column'
               >
-              <article
-              >
-                <section id='miniProfPicAndHandle'>
-                {image?.user.profilePicUrl && (
-                    <img src={image?.user.profilePicUrl} />
-                )}
-                  <p>{image?.user.handle}</p>
-                </section>
-                <section id='caption'>
-                    <p className='rc-font-size'>{image?.title}</p>
-                </section>
-                <section id='comments-box'>
-                {image?.comments && image?.comments.map(modalComment =>
-                  <Comment
-                    comment={modalComment}
-                    user={data?.user}
-                    key={modalComment.id}
-                    LSuser={currentUser}
-                  />
-                )}
-                </section>
-              </article>
-              <article
-                id='article-of-icons-and-comment-form'
-              >
-                <section id="icons-and-comment-form">
-                  <div className='flex'>
-                    <div className='block like-and-comment-icons'>
-                      {currentUserLikesThis ?
-                      <button
-                        onClick={() => handleLikes(image.id, "dislike") }
-                      >
-                        <img src="https://img.icons8.com/color/20/000000/like--v3.png"/>
-                      </button>
-                      :
-                      <button
-                        onClick={() => handleLikes(image.id, "like")}
-                        disabled={props.missingData}
-                      >
-                        <img src="https://img.icons8.com/ios/20/000000/like--v1.png"/>
-                      </button>}
-                      <p>{image?.likes} likes</p>
+                <article
+                >
+                  <section id='miniProfPicAndHandle'>
+                  {image?.user.profilePicUrl && (
+                      <img src={image?.user.profilePicUrl} />
+                  )}
+                    <p>{image?.user.handle}</p>
+                  </section>
+                  {image?.title && (
+                    <section id='caption'>
+                      <p className='rc-font-size' style={{ marginTop : 10 }}>{image?.title}</p>
+                    </section>
+                  )}
+                  <section id='comments-box'>
+                  {image?.comments && image?.comments.map(modalComment =>
+                    <Comment
+                      comment={modalComment}
+                      user={data?.user}
+                      key={modalComment.id}
+                      LSuser={currentUser}
+                    />
+                  )}
+                  </section>
+                </article>
+                <article
+                  id='article-of-icons-and-comment-form'
+                >
+                  <section id="icons-and-comment-form">
+                    <div className='flex'>
+                      <div className='block like-and-comment-icons'>
+                        {currentUserLikesThis ?
+                        <button
+                          onClick={() => handleLikes(image.id, "dislike") }
+                        >
+                          <img src="https://img.icons8.com/color/20/000000/like--v3.png"/>
+                        </button>
+                        :
+                        <button
+                          onClick={() => handleLikes(image.id, "like")}
+                          disabled={props.missingData}
+                        >
+                          <img src="https://img.icons8.com/ios/20/000000/like--v1.png"/>
+                        </button>}
+                        <p>{image?.likes} likes</p>
+                      </div>
+                      <div className='block like-and-comment-icons'>
+                        <img src="https://img.icons8.com/ios/20/000000/speech-bubble--v1.png" className='comment-icon' />
+                        <p>{image?.comments.length}</p>
+                      </div>
                     </div>
-                    <div className='block like-and-comment-icons'>
-                      <img src="https://img.icons8.com/ios/20/000000/speech-bubble--v1.png" className='comment-icon' />
-                      <p>{image?.comments.length}</p>
-                    </div>
-                  </div>
-                  <p id='created-at' className='rc-font-size'>{image?.createdAt}</p>
-                  <CommentForm imageId={image?.id} userId={currentUserId} />
-                </section>
-              </article>
+                    <p id='created-at' className='rc-font-size'>{image?.createdAt}</p>
+                    <CommentForm imageId={image?.id} userId={currentUserId} />
+                  </section>
+                </article>
               </Col>
             </Row>
           </Container>

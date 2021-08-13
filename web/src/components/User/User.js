@@ -4,11 +4,13 @@ import { getLoggedInUser } from 'src/functions/GetLoggedInUser'
 
 const User = ({ infoAndImages }) => {
   const { userImages } = infoAndImages;
+  const imagesToReverse = [...userImages]
+  const reversedImages = imagesToReverse.reverse();
   return (
     <>
       <UserInfo user={infoAndImages} />
       <Images
-        images={userImages}
+        images={reversedImages}
       />
     </>
   )

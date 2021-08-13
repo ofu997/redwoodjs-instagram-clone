@@ -15,6 +15,7 @@ export const QUERY = gql`
         title
         url
         likes
+        createdAt
         user {
           handle
           profilePicUrl
@@ -22,7 +23,9 @@ export const QUERY = gql`
         comments {
           id
           body
+          imageId
           user {
+            id
             handle
           }
         }

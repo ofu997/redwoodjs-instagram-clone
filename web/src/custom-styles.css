@@ -557,21 +557,15 @@
 
 /* right column stuff */
 
-@media (min-width: 614px) {
+@media (min-width: 768px) {
   #article-of-icons-and-comment-form {
     position: absolute;
     bottom: 16px;
   }
 }
 
-@media (min-width: 360px) {
-  #article-of-icons-and-comment-form {
-    position: 'relative'
-  }
-}
-
 #created-at {
-  margin: 10px 0px;
+  margin-bottom: -2px;
 }
 
 .rc-font-size {
@@ -595,7 +589,17 @@
 }
 
 #cardPicHandle {
-  margin-top: 20px;
+  margin-top: 5px;
+  margin-bottom: -5px;
+}
+
+.cardImg {
+  object-fit: cover;
+  max-height: 450px;
+}
+
+#cardBody {
+  padding: 8px 16px;
 }
 
 @media screen and (min-width: 1224px) {
@@ -613,5 +617,14 @@
 @media screen and (max-width: 767px) {
   .card {
     width: 300px;
+  }
+  #commentButtonText {
+    font-size: 0.7rem;
+  }
+  p {
+    font-size: 0.8rem;
+  }
+  .rc-font-size {
+    font-size: 0.6rem;
   }
 }
