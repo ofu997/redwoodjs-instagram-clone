@@ -149,14 +149,14 @@ const Images = ({ images }) => {
     }
   }
 
-  const handleLikes = (imageId, type) => {
+  const handleLikes = (imageId, action) => {
     ( currentUser.localStoragePassword === data.user.localStoragePassword ) ?
-    jwt.verify(data.user.jwt, 'my-secret-from-env-file-in-prod', function(err, decoded) {
+    jwt.verify(data.user.jwt, `${process.env.MY_SECRET}`, function(err, decoded) {
       if (err) {
         toast.error('Please log in again')
       }
       else {
-        switch(type) {
+        switch(action) {
           case "like":
             console.log('incrementLikes() pressed');
             incrementImageLikes({ variables: { imageId, currentUserId } });
@@ -190,10 +190,56 @@ const Images = ({ images }) => {
               >
                 <div id='cardPicHandle' className='flex'>
                   <div className='header-profile-pic' style={{ marginLeft:20 }}>
-                    <img src={image.user?.profilePicUrl} />
+                    {image.user?.profilePicUrl
+                      ? <img src={image.user?.profilePicUrl} />
+                      : <img src="https://img.icons8.com/ios/20/000000/user-male-circle.png" />
+                    }
                   </div>
-                  <p style={{ marginLeft:20 }}>{image.user?.handle}</p>
+                  <p style={{ marginLeft: 10 }}>{image.user?.handle}</p>
                 </div>
+                {/* <Card.Img src={image.url} />
+                <p>hi</p> */}
+                <img src={image.url}
+                  className='cardImg'
+                  onClick={() => handleShow(image.id)}
+                />
+                <Card.Body id='cardBody' bsPrefix='div'>
+                {/* <article
+                  id='article-of-icons-and-comment-form'
+                > */}
+                  <section id="icons-and-comment-form">
+                    <div className='flex'>
+                      <div className='block like-and-comment-icons'>
+                        {currentUserLikesThis ?
+                        <button
+                          onClick={() => handleLikes(image.id, "dislike") }
+                        >
+                          <img src="https://img.icons8.com/color/20/000000/like--v3.png"/>
+                        </button>
+                        :
+                        <button
+                          onClick={() => handleLikes(image.id, "like")}
+                          disabled={missingData}
+                        >
+                          <img src="https://img.icons8.com/ios/20/000000/like--v1.png"/>
+                        </button>}
+                        <p style={{ marginTop: -10 }}>{image?.likes} likes</p>
+                      </div>
+                      <div className='block like-and-comment-icons'>
+                        <img src="https://img.icons8.com/ios/20/000000/speech-bubble--v1.png" className='comment-icon' />
+                        <p style={{ marginTop: -5 }}>{image?.comments.length}</p>
+                      </div>
+                    </div>
+                    <div className='flex' style={{ marginTop : 5 }}>
+                      <p><strong>{image.user.handle}</strong></p>
+                      <p style={{ marginLeft : 10 }}>{truncate(image.title)}</p>
+                    </div>
+                    <p id='created-at' className='rc-font-size'>{image?.createdAt}</p>
+                    {/* <CommentForm imageId={image?.id} userId={currentUserId} /> */}
+                  </section>
+                {/* </article> */}
+                </Card.Body>
+                {/* <CommentForm imageId={image?.id} userId={currentUserId} /> */}
               </Card>
             )
           }).reverse()}

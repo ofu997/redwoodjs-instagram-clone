@@ -32,7 +32,7 @@ const Comment = props => {
       ||
       ( props.user.isAdmin && props.LSuser.localStoragePassword === props.user.localStoragePassword )
     ) ?
-      jwt.verify(props.user.jwt, 'my-secret-from-env-file-in-prod', function(err) {
+      jwt.verify(props.user.jwt, `${process.env.MY_SECRET}`, function(err) {
         if (err) {
           toast.error('Please log in again')
         }
@@ -48,7 +48,7 @@ const Comment = props => {
     <div style={{ display: 'flex', alignItems: 'center', fontSize: '0.9rem' }}>
       <p className='rc-font-size'>{props.comment.user.handle}: {props.comment.body}</p>
       {(
-        ( props.comment.user.id === props.LSuser.id && props.LSuser.localStoragePassword === props.user?.localStoragePassword )
+        ( props.comment.user?.id === props.LSuser?.id && props.LSuser.localStoragePassword === props.user?.localStoragePassword )
         ||
         props.user?.images.some(image => image.id === props.comment.imageId)
         ||

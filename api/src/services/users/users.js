@@ -105,7 +105,7 @@ export const loginUser = async ({ input }) => {
       handle,
       isAdmin,
     },
-    'my-secret-from-env-file-in-prod',
+    `${process.env.MY_SECRET}`,
     {
       // memo: set this longer
       expiresIn: '1d',
