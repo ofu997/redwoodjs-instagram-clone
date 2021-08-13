@@ -10,15 +10,29 @@ export const QUERY = gql`
       title
       url
       likes
+
+      user {
+        handle
+        profilePicUrl
+      }
+
+      userId
+      createdAt
+
       comments {
         id
         body
+        imageId
         user {
           id
           handle
           jwt
         }
         posterId
+      }
+
+      likedBy {
+          id
       }
     }
   }

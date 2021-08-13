@@ -178,63 +178,63 @@ const Images = ({ images }) => {
     <>
       {error && <h1>Cannot find user at this moment</h1>}
       <div id='cardContainer' className='flex flexWrapWrap justifyContentSE'>
-          {images.map((image) => {
-            const currentUserLikesThis = image.likedBy.some(item => item.id === currentUserId);
-            const userIsValidAndOwnsImage =
-              Boolean((currentUser.localStoragePassword === data?.user.localStoragePassword)
-              && data?.user.images.some(queriedImage => queriedImage.id === image.id));
-            return (
-              <Card
-                className='card'
-                key={image.id}
-              >
-                <div id='cardPicHandle' className='flex'>
-                  <div className='header-profile-pic' style={{ marginLeft:20 }}>
-                    {image.user?.profilePicUrl
-                      ? <img src={image.user?.profilePicUrl} />
-                      : <img src="https://img.icons8.com/ios/20/000000/user-male-circle.png" />
-                    }
+      {images.map((image) => {
+        const currentUserLikesThis = image.likedBy.some(item => item.id === currentUserId);
+        const userIsValidAndOwnsImage =
+          Boolean((currentUser.localStoragePassword === data?.user.localStoragePassword)
+          && data?.user.images.some(queriedImage => queriedImage.id === image.id));
+        return (
+          <Card
+            className='card'
+            key={image.id}
+          >
+            <div id='cardPicHandle' className='flex'>
+              <div className='header-profile-pic' style={{ marginLeft:20 }}>
+                {image.user?.profilePicUrl
+                  ? <img src={image.user?.profilePicUrl} />
+                  : <img src="https://img.icons8.com/ios/20/000000/user-male-circle.png" />
+                }
+              </div>
+              <p style={{ marginLeft: 10, fontWeight: 500 }}>{image.user?.handle}</p>
+            </div>
+            <img src={image.url}
+              className='cardImg'
+              onClick={() => handleShow(image.id)}
+            />
+            <Card.Body id='cardBody' bsPrefix='div'>
+              <section id="icons-and-comment-form">
+                <div className='flex'>
+                  <div className='block like-and-comment-icons'>
+                    {currentUserLikesThis ?
+                    <button
+                      onClick={() => handleLikes(image.id, "dislike") }
+                    >
+                      <img src="https://img.icons8.com/color/20/000000/like--v3.png"/>
+                    </button>
+                    :
+                    <button
+                      onClick={() => handleLikes(image.id, "like")}
+                      disabled={missingData}
+                    >
+                      <img src="https://img.icons8.com/ios/20/000000/like--v1.png"/>
+                    </button>}
+                    <p style={{ marginTop: -10 }}>{image?.likes} likes</p>
                   </div>
-                  <p style={{ marginLeft: 10, fontWeight: 500 }}>{image.user?.handle}</p>
+                  <div className='block like-and-comment-icons'>
+                    <img src="https://img.icons8.com/ios/20/000000/speech-bubble--v1.png" className='comment-icon' />
+                    <p style={{ marginTop: -5 }}>{image?.comments.length}</p>
+                  </div>
                 </div>
-                <img src={image.url}
-                  className='cardImg'
-                  onClick={() => handleShow(image.id)}
-                />
-                <Card.Body id='cardBody' bsPrefix='div'>
-                  <section id="icons-and-comment-form">
-                    <div className='flex'>
-                      <div className='block like-and-comment-icons'>
-                        {currentUserLikesThis ?
-                        <button
-                          onClick={() => handleLikes(image.id, "dislike") }
-                        >
-                          <img src="https://img.icons8.com/color/20/000000/like--v3.png"/>
-                        </button>
-                        :
-                        <button
-                          onClick={() => handleLikes(image.id, "like")}
-                          disabled={missingData}
-                        >
-                          <img src="https://img.icons8.com/ios/20/000000/like--v1.png"/>
-                        </button>}
-                        <p style={{ marginTop: -10 }}>{image?.likes} likes</p>
-                      </div>
-                      <div className='block like-and-comment-icons'>
-                        <img src="https://img.icons8.com/ios/20/000000/speech-bubble--v1.png" className='comment-icon' />
-                        <p style={{ marginTop: -5 }}>{image?.comments.length}</p>
-                      </div>
-                    </div>
-                    <div className='flex' style={{ marginTop : 5 }}>
-                      <p><strong>{image.user.handle}</strong>  {truncate(image.title)}</p>
-                    </div>
-                    <p id='created-at' className='rc-font-size'>{image?.createdAt}</p>
-                  </section>
-                </Card.Body>
-              </Card>
-            )
-          })}
-          </div>
+                <div className='flex' style={{ marginTop : 5 }}>
+                  <p><strong>{image.user.handle}</strong>  {truncate(image.title)}</p>
+                </div>
+                <p id='created-at' className='rc-font-size'>{image?.createdAt}</p>
+              </section>
+            </Card.Body>
+          </Card>
+        )
+      })}
+      </div>
       <ImageModal
         show={modalShow}
         onHide={() => setModalShow(false)}

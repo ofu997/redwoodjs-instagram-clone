@@ -21,6 +21,4 @@ const Routes = () =>
     <Route notfound page={NotFoundPage} />
   </Router>
 
-
-
 export default Routes
