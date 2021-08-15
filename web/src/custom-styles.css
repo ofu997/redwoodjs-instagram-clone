@@ -295,12 +295,6 @@
 .rw-table tbody th {
   text-align: right;
 }
-/* @media (min-width: 768px) {
-  .rw-table tbody th {
-    width: 20%;
-  }
-} */
-
 
 .rw-table tbody tr {
   background-color: #f7fafc;
@@ -461,11 +455,15 @@
 
 #user-info-content {
   display: flex;
-  justify-content: space-around;
-  align-content: center;
+  justify-content: center;
+  align-content: left;
   min-height: 100px;
   max-height: 20%;
   background-color: #f5f5f5;
+}
+
+#user-info-content section {
+  margin: 0 100px;
 }
 
 #user-page-profile-pic {
@@ -492,16 +490,25 @@
 }
 
 #user-page-user-info {
-  width: 50%;
+  width: 25%;
+  text-align: left;
+  align-content: center;
 }
 
-#user-page-user-info h1 {
-  text-align: center;
+#user-page-user-info h4 {
+  margin-top: 20px
 }
 
 #edit-info-link {
   width: 25%;
-  margin: 20px auto;
+}
+
+#user-info-handle-editLink {
+  display: flex;
+}
+
+#edit-info-link {
+  margin-left: 120px;
 }
 /* ImageModal */
 
@@ -580,7 +587,7 @@
 }
 
 .picBorder {
-  border: 2px solid #444444; 
+  border: 2px solid #444444;
 }
 
 /* images */
@@ -604,6 +611,24 @@
 
 #cardBody {
   padding: 8px 16px;
+}
+
+.linkThatDoesNotLookLikeALink {
+  text-decoration: none;
+  color: black;
+}
+
+.linkThatDoesNotLookLikeALink :hover {
+  text-decoration: underline;
+  color: blue;
+}
+
+#edit-info-link h4 {
+  border: 1px solid #a9a9a9;
+  border-radius: 5px;
+  text-align: center;
+  padding: 5px;
+  font-size: 0.9rem;
 }
 
 @media screen and (min-width: 1224px) {
@@ -630,5 +655,29 @@
   }
   .rc-font-size {
     font-size: 0.6rem;
+  }
+
+  /* user page */
+  #user-info-content {
+    max-height: 150px;
+  }
+  #user-page-profile-pic {
+    padding: 10px;
+    width: 100px;
+    height: 100px;
+  }
+  #user-page-user-info h4 {
+    font-size: 0.8rem;
+    margin-top: 5px;
+  }
+  #edit-info-link {
+    margin-left: 30px;
+  }
+  #user-info-content section {
+    margin: 0 5px;
+  }
+  #edit-info-link h4 {
+    border: none;
+    padding: 0px;
   }
 }

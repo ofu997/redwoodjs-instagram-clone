@@ -3,7 +3,7 @@ import { Link, routes } from '@redwoodjs/router'
 import Comment from 'src/components/Comment'
 import { QUERY } from 'src/components/ImagesCell'
 import { toast } from '@redwoodjs/web/toast'
-import { getLoggedInUser } from 'src/functions/WebFunctions'
+import { currentUser, currentUserId, dummyObject } from 'src/functions/WebFunctions'
 var jwt = require('jsonwebtoken')
 import { useState } from 'react'
 import { Button, Card } from 'react-bootstrap'
@@ -68,11 +68,11 @@ const USER_QUERY = gql`
   }
 `
 
-const dummyObject = { error: null, data: null };
+// const dummyObject = { error: null, data: null };
 
 const Images = ({ images }) => {
-  const currentUser = getLoggedInUser();
-  const currentUserId = currentUser.id;
+  // const currentUser = getLoggedInUser();
+  // const currentUserId = currentUser.id;
   const [modalShow, setModalShow] = useState(false);
   const [activeItem, setActiveItem] = useState([])
 
@@ -195,7 +195,12 @@ const Images = ({ images }) => {
                   : <img src="https://img.icons8.com/ios/20/000000/user-male-circle.png" />
                 }
               </div>
-              <p style={{ marginLeft: 10, fontWeight: 500 }}>{image.user?.handle}</p>
+              <Link
+                to={routes.userPage({ handle : image.user.handle })}
+                class='linkThatDoesNotLookLikeALink'
+              >
+                <p  style={{ marginLeft: 10, fontWeight: 500 }}>{image.user?.handle}</p>
+              </Link>
             </div>
             <img src={image.url}
               className='cardImg'
@@ -226,7 +231,14 @@ const Images = ({ images }) => {
                   </div>
                 </div>
                 <div className='flex' style={{ marginTop : 5 }}>
-                  <p><strong>{image.user.handle}</strong>  {truncate(image.title)}</p>
+                  <p>
+                    <Link
+                      to={routes.userPage({ handle : image.user.handle })}
+                      class='linkThatDoesNotLookLikeALink'
+                    >
+                      <strong>{image.user.handle}</strong>
+                    </Link>  {truncate(image.title)}
+                  </p>
                 </div>
                 <p id='created-at' className='rc-font-size'>{image?.createdAt}</p>
               </section>

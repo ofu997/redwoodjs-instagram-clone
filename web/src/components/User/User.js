@@ -25,17 +25,21 @@ const UserInfo = props => {
           <img src={props.user.profilePicUrl} />
         </section>
         <section id='user-page-user-info'>
-          <h1>{props.user.handle}</h1>
-          <h1>{props.user.name}</h1>
-          <h1>{props.user.bio}</h1>
+          <div id='user-info-handle-editLink'>
+          <h4>{props.user.handle}</h4>
           {currentUser.localStoragePassword === props.user.localStoragePassword && (
           <Link
             to={routes.editUserInfo({ handle: props.user.handle })}
             title={'Edit user ' + props.user.handle }
-            className="rw-button rw-button-small rw-button-blue"
+            className="linkThatDoesNotLookLikeALink"
+            id='edit-info-link'
           >
-            Edit info
+            <h4>Edit info</h4>
           </Link> )}
+          </div>
+          <h4>{props.user.name}</h4>
+          <h4>{props.user.bio}</h4>
+
         </section>
       </div>
     </>
