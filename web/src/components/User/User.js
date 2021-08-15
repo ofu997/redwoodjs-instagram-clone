@@ -1,6 +1,6 @@
 import Images from 'src/components/Images/Images'
 import { Link, routes } from '@redwoodjs/router'
-import { getLoggedInUser } from 'src/functions/GetLoggedInUser'
+import { getLoggedInUser } from 'src/functions/WebFunctions'
 
 const User = ({ infoAndImages }) => {
   const { userImages } = infoAndImages;

@@ -3,7 +3,7 @@ import { Link, routes } from '@redwoodjs/router'
 import Comment from 'src/components/Comment'
 import { QUERY } from 'src/components/ImagesCell'
 import { toast } from '@redwoodjs/web/toast'
-import { getLoggedInUser } from 'src/functions/GetLoggedInUser'
+import { getLoggedInUser } from 'src/functions/WebFunctions'
 var jwt = require('jsonwebtoken')
 import { useState } from 'react'
 import { Button, Card } from 'react-bootstrap'

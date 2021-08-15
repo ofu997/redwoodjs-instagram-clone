@@ -2,7 +2,7 @@ import { navigate, routes } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
 import toast from 'react-hot-toast'
 import EditUserInfoForm from 'src/components/UserForms/EditUserInfoForm'
-import { getLoggedInUser } from 'src/functions/GetLoggedInUser'
+import { getLoggedInUser } from 'src/functions/WebFunctions'
 
 export const QUERY = gql`
   query findUserByHandle($handle: String!) {

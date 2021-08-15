@@ -8,7 +8,7 @@ import {
 import { useMutation } from '@redwoodjs/web'
 import { QUERY } from 'src/components/ImagesCell'
 import { useState } from 'react'
-import { getLoggedInUser } from 'src/functions/GetLoggedInUser'
+import { getLoggedInUser } from 'src/functions/WebFunctions'
 import { toast } from '@redwoodjs/web/toast'
 
 const currentUser = getLoggedInUser();

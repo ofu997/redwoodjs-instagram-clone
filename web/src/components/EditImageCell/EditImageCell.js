@@ -2,7 +2,7 @@ import { useMutation } from '@redwoodjs/web'
 import { navigate, routes } from '@redwoodjs/router'
 import { toast } from '@redwoodjs/web/toast'
 import EditImage from 'src/components/EditImage'
-import { getLoggedInUser } from 'src/functions/GetLoggedInUser'
+import { getLoggedInUser } from 'src/functions/WebFunctions'
 
 export const QUERY = gql`
   query FindImageByIdEditImageCell($id: Int!) {

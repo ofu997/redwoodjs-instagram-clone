@@ -1,6 +1,6 @@
 import { Link, routes } from '@redwoodjs/router'
 import Comment from 'src/components/Comment'
-import { getLoggedInUser } from 'src/functions/GetLoggedInUser'
+import { getLoggedInUser } from 'src/functions/WebFunctions'
 import { Modal, Container, Row, Col } from 'react-bootstrap'
 import CommentForm from 'src/components/CommentForm'
 

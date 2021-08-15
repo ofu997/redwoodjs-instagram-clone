@@ -1,5 +1,5 @@
 import Image from 'src/components/Image'
-import { getLoggedInUser } from 'src/functions/GetLoggedInUser'
+import { getLoggedInUser } from 'src/functions/WebFunctions'
 
 const user = getLoggedInUser();
 

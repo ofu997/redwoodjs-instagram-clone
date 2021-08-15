@@ -5,9 +5,24 @@ import
 } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { navigate, routes } from '@redwoodjs/router';
-import { getLoggedInUser } from 'src/functions/GetLoggedInUser'
+import { getLoggedInUser, currentUserId, dummyObject } from 'src/functions/WebFunctions'
 import { toast } from '@redwoodjs/web/dist/toast';
-import { useMutation } from '@redwoodjs/web'
+import { useMutation, useQuery } from '@redwoodjs/web'
+
+const USER_QUERY = gql`
+  query GetUserProfilePicUrlById($currentUserId: Int!) {
+    user (id: $currentUserId) {
+      profilePicUrl
+    }
+  }
+`
+
+
+
+// const dummyObject = { error: null, data: null };
+
+//   const currentUser = getLoggedInUser();
+//   const currentUserId = currentUser.id;
 
 const Header = () => {
   const [user, setUser] = useState({ });
@@ -17,6 +32,13 @@ const Header = () => {
     setUser(localStorageUser);
   }, [])
 
+  const { error:useQueryError, data } = currentUserId ?
+    useQuery(USER_QUERY, {
+      variables: { currentUserId }
+    })
+    :
+    dummyObject;
+
   const LOG_OUT_MUTATION = gql`
     mutation LogOutMutation($id: Int!) {
       logoutUser(id: $id) {
@@ -24,7 +46,6 @@ const Header = () => {
       }
     }
   `
-
 
   const [logoutUser, { loading, error }] = useMutation(LOG_OUT_MUTATION, {
     onCompleted: () => {
@@ -64,12 +85,15 @@ const Header = () => {
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link href={routes.userPage({ handle: user.handle })} className="navbarItem">
-                {user.profilePicUrl ?
-                  (<div className='header-profile-pic'>
-                    <img src={user.profilePicUrl} />
-                  </div>)
-                  :
-                  (user.id && <img src="https://img.icons8.com/ios/20/000000/user-male-circle.png" />)
+                {data?.user.profilePicUrl
+                  ? (<div className='header-profile-pic'>
+                      <img src={data.user.profilePicUrl} class='picBorder' />
+                    </div>)
+                  : user.profilePicUrl 
+                    ? (<div className='header-profile-pic'>
+                        <img src={user.profilePicUrl} class='picBorder' />
+                      </div>)
+                    : (user.id && <img src="https://img.icons8.com/ios/20/000000/user-male-circle.png" />)
                 }
                 </Nav.Link>
               </Nav.Item>

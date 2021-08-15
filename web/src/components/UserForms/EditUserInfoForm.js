@@ -51,6 +51,9 @@ const EditUserInfoForm = props => {
             setProfilePicUrl(fireBaseUrl)
           })
           .then(() =>{
+            const rawLSuserToUpdate = localStorage.getItem('user')
+            const LSuserToUpdate = JSON.parse(rawLSuserToUpdate)
+            LSuserToUpdate.profilePicUrl = profilePicUrl 
             setShowUpload(false)
             setShowInput(false)
           })
