@@ -8,10 +8,9 @@ import {
 import { useMutation } from '@redwoodjs/web'
 import { QUERY } from 'src/components/ImagesCell'
 import { useState } from 'react'
-import { getLoggedInUser } from 'src/functions/WebFunctions'
+import { currentUserId } from 'src/functions/WebFunctions'
 import { toast } from '@redwoodjs/web/toast'
-
-const currentUser = getLoggedInUser();
+import jwt from 'jsonwebtoken'
 
 const CREATE_COMMENT_MUTATION = gql`
   mutation CreateCommentMutation($input: CreateCommentInput!) {
@@ -22,7 +21,7 @@ const CREATE_COMMENT_MUTATION = gql`
   }
 `
 
-const CommentForm = ({ imageId, userId }) => {
+const CommentForm = ({ imageId, userId, user }) => {
   const [createComment, { loading, error }] = useMutation(CREATE_COMMENT_MUTATION, {
     onCompleted: () =>
     {},
@@ -32,10 +31,18 @@ const CommentForm = ({ imageId, userId }) => {
 
   const onSubmit = () => {
     setContent('');
-    currentUser.id ? (
-      createComment({ variables: { input: { imageId, posterId: userId, body: content } } })
-    )
-    : toast.error('Must be logged in to comment')
+    currentUserId
+      ? (
+        jwt.verify(user.jwt, `${process.env.MY_SECRET}`, function(err) {
+          if (err) {
+            toast.error('Please log in again')
+          }
+          else {
+            createComment({ variables: { input: { imageId, posterId: userId, body: content } } })
+          }
+        })
+      )
+      : toast.error('Must be logged in to comment')
   }
 
   const [content, setContent] = useState('')
@@ -62,7 +69,6 @@ const CommentForm = ({ imageId, userId }) => {
             id="comment-input"
           />
           <FieldError name="content" className="rw-field-error" />
-
 
           <Submit
             disabled={loading}

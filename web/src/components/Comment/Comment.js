@@ -31,17 +31,17 @@ const Comment = props => {
       props.user.images.some(image => image.id === props.comment.imageId)
       ||
       ( props.user.isAdmin && props.LSuser.localStoragePassword === props.user.localStoragePassword )
-    ) ?
-      jwt.verify(props.user.jwt, `${process.env.MY_SECRET}`, function(err) {
-        if (err) {
-          toast.error('Please log in again')
-        }
-        else {
-          deleteComment({variables: {id} })
-        }
-      })
-    :
-    toast.error("Womp womp...invalid credentials")
+    )
+      ? jwt.verify(props.user.jwt, `${process.env.MY_SECRET}`, function(err) {
+          if (err) {
+            toast.error('Please log in again')
+          }
+          else {
+            deleteComment({variables: {id} })
+          }
+        })
+      :
+      toast.error("Womp womp...invalid credentials")
   }
 
   return (

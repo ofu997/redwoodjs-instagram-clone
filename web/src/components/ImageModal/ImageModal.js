@@ -94,7 +94,11 @@ const ImageModal = props => {
                       </div>
                     </div>
                     <p id='created-at' className='rc-font-size'>{image?.createdAt}</p>
-                    <CommentForm imageId={image?.id} userId={currentUserId} />
+                    <CommentForm 
+                      imageId={image?.id} 
+                      userId={currentUserId} 
+                      user={data?.user}
+                    />
                   </section>
                 </article>
               </Col>
