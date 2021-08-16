@@ -19,8 +19,8 @@ export const QUERY = gql`
 `
 
 const EDIT_USER_INFO_MUTATION = gql`
-  mutation EditUserInfoMutation($id: Int!, $input: CreateOrUpdateUserInfo!) {
-    createOrUpdateUserInfo(id: $id, input: $input) {
+  mutation EditUserInfoMutation($id: Int!, $input: UpdateUserInput!) {
+    updateUser(id: $id, input: $input) {
       id
     }
   }

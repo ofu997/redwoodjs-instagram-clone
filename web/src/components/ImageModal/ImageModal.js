@@ -49,7 +49,12 @@ const ImageModal = props => {
                   {image?.user.profilePicUrl && (
                       <img src={image?.user.profilePicUrl} />
                   )}
-                    <p>{image?.user.handle}</p>
+                  <Link
+                    to={routes.userPage({ handle : image?.user.handle })}
+                    class='link-that-does-not-look-like-a-link'
+                  >
+                    <p style={{ fontWeight: 500 }}>{image?.user.handle}</p>
+                  </Link>
                   </section>
                   {image?.title && (
                     <section id='caption'>

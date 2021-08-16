@@ -53,7 +53,7 @@ const EditUserInfoForm = props => {
           .then(() =>{
             const rawLSuserToUpdate = localStorage.getItem('user')
             const LSuserToUpdate = JSON.parse(rawLSuserToUpdate)
-            LSuserToUpdate.profilePicUrl = profilePicUrl 
+            LSuserToUpdate.profilePicUrl = profilePicUrl
             setShowUpload(false)
             setShowInput(false)
           })
@@ -70,6 +70,21 @@ const EditUserInfoForm = props => {
           titleClassName="rw-form-error-title"
           listClassName="rw-form-error-list"
         />
+
+        <Label
+          name="name"
+          className="rw-label"
+          errorClassName="rw-label rw-label-error"
+        >
+          Name
+        </Label>
+        <TextField
+          name="name"
+          defaultValue={props.user.name}
+          className="rw-input"
+          errorClassName="rw-input rw-input-error"
+        />
+        <FieldError name="name" className="rw-field-error" />
 
         <Label
           name="bio"

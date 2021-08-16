@@ -496,7 +496,16 @@
 }
 
 #user-page-user-info h4 {
-  margin-top: 20px
+  margin-top: 12px
+}
+
+#user-page-user-info h5 {
+  margin-top: 15px;
+}
+
+
+#user-page-user-info p {
+  font-size: 1.2rem;
 }
 
 #edit-info-link {
@@ -686,7 +695,7 @@
     width: 100px;
     height: 100px;
   }
-  #user-page-user-info h4 {
+  #user-page-user-info h4, #user-page-user-info h5 {
     font-size: 0.8rem;
     margin-top: 5px;
   }
