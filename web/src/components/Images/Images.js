@@ -197,7 +197,7 @@ const Images = ({ images }) => {
               </div>
               <Link
                 to={routes.userPage({ handle : image.user.handle })}
-                class='linkThatDoesNotLookLikeALink'
+                class='link-that-does-not-look-like-a-link'
               >
                 <p  style={{ marginLeft: 10, fontWeight: 500 }}>{image.user?.handle}</p>
               </Link>
@@ -234,7 +234,7 @@ const Images = ({ images }) => {
                   <p>
                     <Link
                       to={routes.userPage({ handle : image.user.handle })}
-                      class='linkThatDoesNotLookLikeALink'
+                      class='link-that-does-not-look-like-a-link'
                     >
                       <strong>{image.user.handle}</strong>
                     </Link>  {truncate(image.title)}
@@ -273,84 +273,3 @@ export default Images
 // A mutate function that you can call at any time to execute the mutation
 // An object with fields that represent the current status of the mutation's execution
 // src: https://www.apollographql.com/docs/react/data/mutations/
-
-
- {/*}
-              <tr key={image.id}>
-                <td>{truncate(image.id)}</td>
-                <td>{truncate(image.title)}</td>
-                <td>
-                  <img src={image.url} style={{ maxWidth: '150px' }} />
-                </td>
-                <td>{truncate(image.likes)}</td>
-                {currentUser && (
-                <td>
-                  {currentUserLikesThis &&
-                    <p>current user: {currentUser.handle} likes this</p>
-                  }
-                  {image.likedBy.map(user => {
-                    return <p key={user.id}>user with id: {user.id} likes this</p>
-                  })}
-                </td>
-                )}
-                <td>
-                {currentUserLikesThis ?
-                <button
-                  onClick={() => handleLikes(image.id, "dislike")}
-                >
-                  redHeart
-                </button>
-                :
-                <button
-                  onClick={() => handleLikes(image.id, "like")}
-                  disabled={missingData}
-                >
-                  blankHeart
-                </button>}
-                </td>
-                <td>
-                {image.comments.map(comment =>
-                    <Comment
-                      comment={comment}
-                      user={data?.user}
-                      key={comment.id}
-                      LSuser={currentUser}
-                    />
-                )}
-                <CommentForm imageId={image.id} userId={currentUserId} />
-                </td>
-                <td>
-                  <nav className="rw-table-actions">
-                    <Link
-                      to={routes.image({ id: image.id })}
-                      title={'Show image ' + image.id + ' detail'}
-                      className="rw-button rw-button-small"
-                    >
-                      Show
-                    </Link>
-                    <Button variant="primary" onClick={() => handleShow(image.id)}>
-                      Launch vertically centered modal
-                    </Button>
-                    {userIsValidAndOwnsImage && (
-                        <Link
-                          to={routes.editImage({ id: image.id })}
-                          title={'Edit image ' + image.id}
-                          className="rw-button rw-button-small rw-button-blue"
-                        >
-                          Edit
-                        </Link>
-                    )}
-                    {(userIsValidAndOwnsImage || data?.user.isAdmin) && (
-                      <a
-                        href="/"
-                        title={'Delete image ' + image.id}
-                        className="rw-button rw-button-small rw-button-red"
-                        onClick={() => onDeleteClick(image.id)}
-                      >
-                        Delete
-                      </a>
-                    )}
-                  </nav>
-                </td>
-              </tr>
-              */}

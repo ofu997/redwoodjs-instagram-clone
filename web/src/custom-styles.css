@@ -590,6 +590,20 @@
   border: 2px solid #444444;
 }
 
+.action-links {
+  border: 1px solid #a9a9a9;
+  border-radius: 5px;
+  text-align: center;
+  padding: 2px;
+  font-size: 0.7rem;
+  margin: 10px;
+}
+
+#delete-action-link {
+  background-color: rgb(255, 181, 181);
+  color: blue;
+}
+
 /* images */
 #cardContainer {
   margin-top: 20px;
@@ -613,12 +627,12 @@
   padding: 8px 16px;
 }
 
-.linkThatDoesNotLookLikeALink {
+.link-that-does-not-look-like-a-link {
   text-decoration: none;
   color: black;
 }
 
-.linkThatDoesNotLookLikeALink :hover {
+.link-that-does-not-look-like-a-link :hover {
   text-decoration: underline;
   color: blue;
 }

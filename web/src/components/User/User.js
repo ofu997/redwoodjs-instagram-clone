@@ -31,7 +31,7 @@ const UserInfo = props => {
           <Link
             to={routes.editUserInfo({ handle: props.user.handle })}
             title={'Edit user ' + props.user.handle }
-            className="linkThatDoesNotLookLikeALink"
+            className="link-that-does-not-look-like-a-link"
             id='edit-info-link'
           >
             <h4>Edit info</h4>

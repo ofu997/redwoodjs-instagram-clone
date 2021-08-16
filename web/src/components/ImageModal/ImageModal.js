@@ -82,7 +82,7 @@ const ImageModal = props => {
                         :
                         <button
                           onClick={() => handleLikes(image.id, "like")}
-                          disabled={props.missingData}
+                          disabled={missingData}
                         >
                           <img src="https://img.icons8.com/ios/20/000000/like--v1.png"/>
                         </button>}
@@ -94,11 +94,40 @@ const ImageModal = props => {
                       </div>
                     </div>
                     <p id='created-at' className='rc-font-size'>{image?.createdAt}</p>
-                    <CommentForm 
-                      imageId={image?.id} 
-                      userId={currentUserId} 
+                    <CommentForm
+                      imageId={image?.id}
+                      userId={currentUserId}
                       user={data?.user}
                     />
+                    <div className='flex'>
+                      <Link
+                        to={routes.image({ id: image?.id })}
+                        title={'Show image ' + image?.id + ' detail'}
+                        className="link-that-does-not-look-like-a-link action-links"
+                      >
+                        View standalone
+                      </Link>
+                      {userIsValidAndOwnsImage && (
+                      <Link
+                        to={routes.editImage({ id: image?.id })}
+                        title={'Edit image ' + image?.id}
+                        className="link-that-does-not-look-like-a-link action-links"
+                      >
+                        Edit
+                      </Link>
+                      )}
+                      {(userIsValidAndOwnsImage || data?.user.isAdmin) && (
+                      <a
+                        href="/"
+                        title={'Delete image ' + image?.id}
+                        id='delete-action-link'
+                        className="link-that-does-not-look-like-a-link action-links"
+                        onClick={() => deleteClick(image?.id)}
+                      >
+                        Delete
+                      </a>
+                      )}
+                    </div>
                   </section>
                 </article>
               </Col>

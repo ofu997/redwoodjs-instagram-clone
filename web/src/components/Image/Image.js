@@ -9,10 +9,11 @@ const Image = ({ image }) => {
     <>
       <Link
         to={routes.userPage({ handle : image.user.handle })}
-        class='linkThatDoesNotLookLikeALink'
+        class='link-that-does-not-look-like-a-link'
       >
         <p id='image-page-backlink'>&#8592; {image.user.handle}'s profile</p>
       </Link>
+
       <Images
         images={imageArray}
       />
