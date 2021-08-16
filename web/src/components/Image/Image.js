@@ -16,6 +16,7 @@ const Image = ({ image }) => {
 
       <Images
         images={imageArray}
+        viewStandalone={false}
       />
     </>
   )

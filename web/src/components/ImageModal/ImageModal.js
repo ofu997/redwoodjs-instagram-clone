@@ -5,7 +5,7 @@ import { Modal, Container, Row, Col } from 'react-bootstrap'
 import CommentForm from 'src/components/CommentForm'
 
 const ImageModal = props => {
-  const { data, imageId, images, missingData, handleLikes, deleteClick } = props;
+  const { data, imageId, images, missingData, handleLikes, deleteClick, viewStandalone } = props;
   const image = images.find(x => x.id === imageId)
   const currentUser = getLoggedInUser();
   const currentUserId = currentUser.id;
@@ -100,6 +100,7 @@ const ImageModal = props => {
                       user={data?.user}
                     />
                     <div className='flex'>
+                      {(viewStandalone != false) && (
                       <Link
                         to={routes.image({ id: image?.id })}
                         title={'Show image ' + image?.id + ' detail'}
@@ -107,6 +108,7 @@ const ImageModal = props => {
                       >
                         View standalone
                       </Link>
+                      )}
                       {userIsValidAndOwnsImage && (
                       <Link
                         to={routes.editImage({ id: image?.id })}

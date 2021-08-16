@@ -68,11 +68,8 @@ const USER_QUERY = gql`
   }
 `
 
-// const dummyObject = { error: null, data: null };
-
-const Images = ({ images }) => {
-  // const currentUser = getLoggedInUser();
-  // const currentUserId = currentUser.id;
+const Images = props => {
+  const { images, viewStandalone } = props;
   const [modalShow, setModalShow] = useState(false);
   const [activeItem, setActiveItem] = useState([])
 
@@ -180,9 +177,7 @@ const Images = ({ images }) => {
       <div id='cardContainer' className='flex flexWrapWrap justifyContentSE'>
       {images.map((image) => {
         const currentUserLikesThis = image.likedBy.some(item => item.id === currentUserId);
-        const userIsValidAndOwnsImage =
-          Boolean((currentUser.localStoragePassword === data?.user.localStoragePassword)
-          && data?.user.images.some(queriedImage => queriedImage.id === image.id));
+
         return (
           <Card
             className='card'
@@ -199,7 +194,7 @@ const Images = ({ images }) => {
                 to={routes.userPage({ handle : image.user.handle })}
                 class='link-that-does-not-look-like-a-link'
               >
-                <p  style={{ marginLeft: 10, fontWeight: 500 }}>{image.user?.handle}</p>
+                <p style={{ marginLeft: 10, fontWeight: 500 }}>{image.user?.handle}</p>
               </Link>
             </div>
             <img src={image.url}
@@ -258,6 +253,7 @@ const Images = ({ images }) => {
         deleteClick={onDeleteClick}
         handleShow={handleShow}
         images={images}
+        viewStandalone={viewStandalone}
       />
     </>
   )
