@@ -9,6 +9,7 @@ export const QUERY = gql`
     image: image(id: $id) {
       id
       title
+      url
       user {
         localStoragePassword
       }
@@ -39,14 +40,14 @@ export const Success = ({ image }) => {
   }
 
   return (
-  (LSuser.localStoragePassword === image.user.localStoragePassword) ? 
+  (LSuser.localStoragePassword === image.user.localStoragePassword) ?
     <EditImage
       image={image}
       onSave={onSave}
       error={error}
       loading={loading}
     />
-    : 
+    :
     <h3 className='branding-font'>Womp womp...invalid credentials</h3>
   )
 }
