@@ -631,6 +631,12 @@
   font-size: 0.9rem;
 }
 
+/* image page */
+#image-page-backlink {
+ font-weight: 600;
+ margin: 100px 0px 0px 100px;
+}
+
 @media screen and (min-width: 1224px) {
   .card {
     width: 450px;
@@ -680,4 +686,9 @@
     border: none;
     padding: 0px;
   }
+
+  /* image page */
+  #image-page-backlink {
+    margin: 20px 0px 0px 20px;
+ }
 }
