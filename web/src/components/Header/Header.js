@@ -1,13 +1,10 @@
-import
-{
-  Navbar,
-  Nav,
-} from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { navigate, routes } from '@redwoodjs/router';
 import { getLoggedInUser, currentUserId, dummyObject } from 'src/functions/WebFunctions'
 import { toast } from '@redwoodjs/web/dist/toast';
 import { useMutation, useQuery } from '@redwoodjs/web'
+import { PersonCircle, PlusSquare } from 'react-bootstrap-icons'
 
 const USER_QUERY = gql`
   query GetUserProfilePicUrlById($currentUserId: Int!) {
@@ -16,13 +13,6 @@ const USER_QUERY = gql`
     }
   }
 `
-
-
-
-// const dummyObject = { error: null, data: null };
-
-//   const currentUser = getLoggedInUser();
-//   const currentUserId = currentUser.id;
 
 const Header = () => {
   const [user, setUser] = useState({ });
@@ -78,9 +68,9 @@ const Header = () => {
             >
               <Nav.Item>
                 <Nav.Link href={routes.newImage()}>
-                {user.id &&
-                  <img src="https://img.icons8.com/ios/20/000000/plus-2-math.png" className='cntr-h' />
-                }
+                {user.id && (
+                  <PlusSquare size={20} color='black' />
+                )}
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item>
@@ -89,11 +79,11 @@ const Header = () => {
                   ? (<div className='header-profile-pic'>
                       <img src={data.user.profilePicUrl} class='picBorder' />
                     </div>)
-                  : user.profilePicUrl 
+                  : user.profilePicUrl
                     ? (<div className='header-profile-pic'>
                         <img src={user.profilePicUrl} class='picBorder' />
                       </div>)
-                    : (user.id && <img src="https://img.icons8.com/ios/20/000000/user-male-circle.png" />)
+                    : (<PersonCircle size={20} color='black' />)
                 }
                 </Nav.Link>
               </Nav.Item>

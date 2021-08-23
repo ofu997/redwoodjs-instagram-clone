@@ -3,6 +3,7 @@ import Comment from 'src/components/Comment'
 import { getLoggedInUser } from 'src/functions/WebFunctions'
 import { Modal, Container, Row, Col } from 'react-bootstrap'
 import CommentForm from 'src/components/CommentForm'
+import { Heart, HeartFill, Chat } from 'react-bootstrap-icons'
 
 const ImageModal = props => {
   const { data, imageId, images, missingData, handleLikes, deleteClick, viewStandalone } = props;
@@ -82,19 +83,19 @@ const ImageModal = props => {
                         <button
                           onClick={() => handleLikes(image.id, "dislike") }
                         >
-                          <img src="https://img.icons8.com/color/20/000000/like--v3.png"/>
+                          <HeartFill size={20} color="red" />
                         </button>
                         :
                         <button
                           onClick={() => handleLikes(image.id, "like")}
                           disabled={missingData}
                         >
-                          <img src="https://img.icons8.com/ios/20/000000/like--v1.png"/>
+                          <Heart size={20} />
                         </button>}
                         <p>{image?.likes} likes</p>
                       </div>
                       <div className='block like-and-comment-icons'>
-                        <img src="https://img.icons8.com/ios/20/000000/speech-bubble--v1.png" className='comment-icon' />
+                        <Chat size={20} />
                         <p>{image?.comments.length}</p>
                       </div>
                     </div>

@@ -39,7 +39,7 @@ const UserInfo = props => {
           </div>
           <h4>{props.user.name}</h4>
           <h4>{props.user.bio}</h4>
-          <p><strong>{props.user.userImages.length}</strong>  {props.user.userImages.length < 2 ? `memo`:`memos`}</p>
+          <p><strong>{props.user.userImages.length}</strong>  {props.user.userImages.length == 1 ? `memo`:`memos`}</p>
         </section>
       </div>
     </>

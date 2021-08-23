@@ -428,6 +428,11 @@
     padding: 0px 5px;
 }
 
+#comment-delete {
+  margin-bottom: 16px;
+  margin-left: 20px;
+}
+
 #comment-x-box:after {
      position: absolute;
     top: 0;

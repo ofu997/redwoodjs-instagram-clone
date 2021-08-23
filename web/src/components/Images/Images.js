@@ -1,14 +1,13 @@
 import { useMutation, useQuery } from '@redwoodjs/web'
 import { Link, routes } from '@redwoodjs/router'
-import Comment from 'src/components/Comment'
 import { QUERY } from 'src/components/ImagesCell'
 import { toast } from '@redwoodjs/web/toast'
 import { currentUser, currentUserId, dummyObject } from 'src/functions/WebFunctions'
 var jwt = require('jsonwebtoken')
 import { useState } from 'react'
-import { Button, Card } from 'react-bootstrap'
+import { Card } from 'react-bootstrap'
 import ImageModal from 'src/components/ImageModal'
-import CommentForm from 'src/components/CommentForm'
+import { Heart, HeartFill, PersonCircle, Chat } from 'react-bootstrap-icons'
 
 const DELETE_IMAGE_MUTATION = gql`
   mutation DeleteImageMutation($id: Int!) {
@@ -187,7 +186,7 @@ const Images = props => {
               <div className='header-profile-pic' style={{ marginLeft:20 }}>
                 {image.user?.profilePicUrl
                   ? <img src={image.user?.profilePicUrl} />
-                  : <img src="https://img.icons8.com/ios/20/000000/user-male-circle.png" />
+                  : <PersonCircle size={20} color='black' />
                 }
               </div>
               <Link
@@ -209,19 +208,19 @@ const Images = props => {
                     <button
                       onClick={() => handleLikes(image.id, "dislike") }
                     >
-                      <img src="https://img.icons8.com/color/20/000000/like--v3.png"/>
+                      <HeartFill size={20} color="red" />
                     </button>
                     :
                     <button
                       onClick={() => handleLikes(image.id, "like")}
                       disabled={missingData}
                     >
-                      <img src="https://img.icons8.com/ios/20/000000/like--v1.png"/>
+                      <Heart size={20} />
                     </button>}
                     <p style={{ marginTop: -10 }}>{image?.likes} likes</p>
                   </div>
                   <div className='block like-and-comment-icons'>
-                    <img src="https://img.icons8.com/ios/20/000000/speech-bubble--v1.png" className='comment-icon' />
+                    <Chat size={20} />
                     <p style={{ marginTop: -5 }}>{image?.comments.length}</p>
                   </div>
                 </div>

@@ -2,7 +2,7 @@ import { useMutation } from '@redwoodjs/web'
 import { QUERY } from 'src/components/ImagesCell'
 import { toast } from '@redwoodjs/web/toast'
 import jwt from 'jsonwebtoken'
-
+import { Trash } from 'react-bootstrap-icons'
 const DELETE_COMMENT_MUTATION = gql`
   mutation DeleteCommentMutation($id: Int!) {
     deleteComment(id: $id) {
@@ -54,14 +54,18 @@ const Comment = props => {
         ||
         ( props.user?.isAdmin && props.LSuser.localStoragePassword === props.user?.localStoragePassword )
       ) && (
-        <div
-          onClick={() => missingData? (
+        <>
+        <Trash
+          onClick={() => missingData
+            ? (
             toast.error("Must be logged in to delete comment")
-          )
-          : handleDelete(props.comment.id)}
-          id='comment-x-box'
-        >
-        </div>
+            )
+            : handleDelete(props.comment.id)
+          }
+          size={15}
+          id='comment-delete'
+        />
+        </>
       )}
     </div>
   )
