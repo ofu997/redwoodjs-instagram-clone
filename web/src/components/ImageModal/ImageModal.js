@@ -3,7 +3,7 @@ import Comment from 'src/components/Comment'
 import { getLoggedInUser } from 'src/functions/WebFunctions'
 import { Modal, Container, Row, Col } from 'react-bootstrap'
 import CommentForm from 'src/components/CommentForm'
-import { Heart, HeartFill, Chat } from 'react-bootstrap-icons'
+import { Heart, HeartFill, Chat, PencilSquare, Trash } from 'react-bootstrap-icons'
 
 const ImageModal = props => {
   const { data, imageId, images, missingData, handleLikes, deleteClick, viewStandalone } = props;
@@ -105,11 +105,10 @@ const ImageModal = props => {
                       userId={currentUserId}
                       user={data?.user}
                     />
-                    <div className='flex'>
+                    <div className='flex' style={{ alignItems: 'center' }}>
                       {(viewStandalone != false) && (
                       <Link
                         to={routes.image({ id: image?.id })}
-                        title={'Show image ' + image?.id + ' detail'}
                         className="link-that-does-not-look-like-a-link action-links"
                       >
                         View standalone
@@ -119,20 +118,19 @@ const ImageModal = props => {
                       <Link
                         to={routes.editImage({ id: image?.id })}
                         title={'Edit image ' + image?.id}
-                        className="link-that-does-not-look-like-a-link action-links"
+                        className="link-that-does-not-look-like-a-link"
                       >
-                        Edit
+                        <PencilSquare size={20} style={{ margin: 10 }} />
                       </Link>
                       )}
                       {(userIsValidAndOwnsImage || data?.user.isAdmin) && (
                       <a
                         href="/"
                         title={'Delete image ' + image?.id}
-                        id='delete-action-link'
-                        className="link-that-does-not-look-like-a-link action-links"
+                        className="link-that-does-not-look-like-a-link"
                         onClick={() => deleteClick(image?.id)}
                       >
-                        Delete
+                        <Trash size={20} style={{ margin: 10 }} />
                       </a>
                       )}
                     </div>

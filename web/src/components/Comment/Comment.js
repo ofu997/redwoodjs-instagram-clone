@@ -22,7 +22,7 @@ const Comment = props => {
   const missingData = !props.user ? true : false;
 
   const handleDelete = id => {
-    // comment posterId = userId (check LS and uQ match)
+    // user made the comment: comment posterId = userId (check LS and uQ match)
     // image belongs to user
     // isAdmin
     (
@@ -37,7 +37,9 @@ const Comment = props => {
             toast.error('Please log in again')
           }
           else {
-            deleteComment({variables: {id} })
+            if (confirm('Delete comment?')) {
+              deleteComment({variables: {id} })
+            }
           }
         })
       :
@@ -54,7 +56,6 @@ const Comment = props => {
         ||
         ( props.user?.isAdmin && props.LSuser.localStoragePassword === props.user?.localStoragePassword )
       ) && (
-        <>
         <Trash
           onClick={() => missingData
             ? (
@@ -65,7 +66,6 @@ const Comment = props => {
           size={15}
           id='comment-delete'
         />
-        </>
       )}
     </div>
   )
