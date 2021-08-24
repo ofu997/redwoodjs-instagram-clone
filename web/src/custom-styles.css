@@ -416,34 +416,9 @@
   display: flex;
 }
 
-#comment-x-box {
-  margin-left: 20px;
-    height: 22px;
-    width: 22px;
-    background-color: white;
-    border-radius: 4px;
-    border: 1px solid red;
-    position: relative;
-    background: #fafafa;
-    padding: 0px 5px;
-}
-
 #comment-delete {
   margin-bottom: 16px;
   margin-left: 20px;
-}
-
-#comment-x-box:after {
-     position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    content: "\2573";
-    font-size: 11px;
-    color: black;
-    line-height: 22px;
-    text-align: center;
 }
 
 /* edit image cell */
@@ -458,7 +433,7 @@
 
 /* user page */
 
-#user-info-content {
+#user-info-container {
   display: flex;
   justify-content: center;
   align-content: left;
@@ -467,7 +442,7 @@
   background-color: #f5f5f5;
 }
 
-#user-info-content section {
+#user-info-container section {
   margin: 0 100px;
 }
 
@@ -608,14 +583,9 @@
   border: 1px solid #a9a9a9;
   border-radius: 5px;
   text-align: center;
-  padding: 2px;
+  padding: 4px;
   font-size: 0.7rem;
   margin: 10px;
-}
-
-#delete-action-link {
-  background-color: rgb(255, 181, 181);
-  color: blue;
 }
 
 /* images */
