@@ -3,7 +3,7 @@ import Comment from 'src/components/Comment'
 import { getLoggedInUser } from 'src/functions/WebFunctions'
 import { Modal, Container, Row, Col } from 'react-bootstrap'
 import CommentForm from 'src/components/CommentForm'
-import { Heart, HeartFill, Chat, PencilSquare, Trash } from 'react-bootstrap-icons'
+import { Heart, HeartFill, Chat, PencilSquare, Trash, PersonCircle } from 'react-bootstrap-icons'
 
 const ImageModal = props => {
   const { data, imageId, images, missingData, handleLikes, deleteClick, viewStandalone } = props;
@@ -47,12 +47,17 @@ const ImageModal = props => {
                 <article
                 >
                   <section id='miniProfPicAndHandle'>
-                  {image?.user.profilePicUrl && (
+                  {image?.user.profilePicUrl
+                    ? (
                       <img src={image?.user.profilePicUrl} />
-                  )}
+                    )
+                    : (
+                      <PersonCircle size={20} />
+                    )
+                  }
                   <Link
                     to={routes.userPage({ handle : image?.user.handle })}
-                    class='link-that-does-not-look-like-a-link'
+                    className='link-that-does-not-look-like-a-link'
                   >
                     <p style={{ fontWeight: 500 }}>{image?.user.handle}</p>
                   </Link>
@@ -92,7 +97,7 @@ const ImageModal = props => {
                         >
                           <Heart size={20} />
                         </button>}
-                        <p>{image?.likes} likes</p>
+                        <p>{image?.likes} {image?.likes === 1 ? `like` :`likes`}</p>
                       </div>
                       <div className='block like-and-comment-icons'>
                         <Chat size={20} />

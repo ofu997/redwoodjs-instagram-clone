@@ -454,18 +454,18 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  overflow:hidden;
+  /* overflow:hidden; */
   width: 200px;
   height: 200px;
 }
 
 #user-page-profile-pic img {
   border-radius: 50%;
-  width: auto;
-  height: auto;
+  width: 100px;
+  height: 100px;
   min-width: 90%;
   min-height: 90%;
-  overflow: hidden;
+  /* overflow: hidden; */
   object-fit: cover;
 }
 
@@ -483,11 +483,6 @@
   margin-top: 15px;
 }
 
-
-#user-page-user-info p {
-  font-size: 1.2rem;
-}
-
 #edit-info-link {
   width: 25%;
 }
@@ -498,6 +493,10 @@
 
 #edit-info-link {
   margin-left: 120px;
+}
+
+.user-bio {
+  font-size: 1.4rem;
 }
 /* ImageModal */
 
@@ -589,6 +588,7 @@
 }
 
 /* images */
+
 #cardContainer {
   margin-top: 20px;
 }
@@ -662,13 +662,23 @@
   }
 
   /* user page */
+  #user-info-container section {
+    margin: 0 15px;
+  }
   #user-info-content {
     max-height: 150px;
   }
   #user-page-profile-pic {
-    padding: 10px;
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
+    align-self: center;
+  }
+  #user-page-profile-pic img {
+    width: 75px;
+    height: 75px;
+  }
+  .user-bio {
+    font-size: 0.8rem;
   }
   #user-page-user-info h4, #user-page-user-info h5 {
     font-size: 0.8rem;

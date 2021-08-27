@@ -37,9 +37,9 @@ const UserInfo = props => {
               <h4>Edit info</h4>
             </Link> )}
           </div>
+          <p className='user-bio'><strong>{props.user.userImages.length}</strong>  {props.user.userImages.length == 1 ? `memo`:`memos`}</p>
           <h4>{props.user.name}</h4>
-          <p style={{ fontSize:'1.4rem' }}>{props.user.bio}</p>
-          <p><strong>{props.user.userImages.length}</strong>  {props.user.userImages.length == 1 ? `memo`:`memos`}</p>
+          <p className='user-bio'>{props.user.bio}</p>
         </section>
       </div>
     </>

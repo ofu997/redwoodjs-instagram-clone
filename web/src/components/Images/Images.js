@@ -191,7 +191,7 @@ const Images = props => {
               </div>
               <Link
                 to={routes.userPage({ handle : image.user.handle })}
-                class='link-that-does-not-look-like-a-link'
+                className='link-that-does-not-look-like-a-link'
               >
                 <p style={{ marginLeft: 10, fontWeight: 500 }}>{image.user?.handle}</p>
               </Link>
@@ -217,7 +217,7 @@ const Images = props => {
                     >
                       <Heart size={20} />
                     </button>}
-                    <p style={{ marginTop: -10 }}>{image?.likes} likes</p>
+                    <p style={{ marginTop: -10 }}>{image?.likes} {image?.likes === 1 ? `like` : `likes`}</p>
                   </div>
                   <div className='block like-and-comment-icons'>
                     <Chat size={20} />
@@ -228,7 +228,7 @@ const Images = props => {
                   <p>
                     <Link
                       to={routes.userPage({ handle : image.user.handle })}
-                      class='link-that-does-not-look-like-a-link'
+                      className='link-that-does-not-look-like-a-link'
                     >
                       <strong>{image.user.handle}</strong>
                     </Link>  {truncate(image.title)}
