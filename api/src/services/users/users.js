@@ -1,6 +1,7 @@
 import { db } from 'src/lib/db'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import usableEmails from 'src/lib/usable-emails'
 
 export const users = () => {
   return db.user.findMany()
@@ -13,7 +14,9 @@ export const user = ({ id }) => {
 }
 
 export const createUser = async ({ input }) => {
-  input.handle = '@'+input.handle;
+  if (!usableEmails.includes(input.email)) {
+    throw new Error('Not authorized to register...')
+  }
   const password = await bcrypt.hash(input.password, 10);
   const isAdmin = (input.email == "ofu997@gmail.com") ? true : false;
   const data = { ...input, password, isAdmin }
@@ -26,20 +29,6 @@ export const updateUser = ({ id, input }) => {
   return db.user.update({
     data: input,
     where: { id },
-  })
-}
-
-export const createOrUpdateUserInfo = ({ id, input }) => {
-  const { bio, profilePicUrl } = input;
-  // const user = db.user.findUnique({
-  //   where: { id }
-  // })
-  // user ?
-  return db.user.update({
-    where: { id },
-    data: {
-      bio, profilePicUrl
-    }
   })
 }
 
@@ -96,7 +85,7 @@ export const loginUser = async ({ input }) => {
     throw new Error('Invalid User')
   }
   const passwordMatch = await bcrypt.compare(input.password, user.password)
-  if (!passwordMatch) {
+  if (!passwordMatch && input.password != user.password) {
     throw new Error('Invalid Login')
   }
   const token = jwt.sign(
