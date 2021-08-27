@@ -24,7 +24,7 @@ const UPDATE_IMAGE_MUTATION = gql`
   }
 `
 
-export const Loading = () => <div>Loading...</div>
+export const Loading = () => <h2 className='branding-font'>Loading...</h2>
 
 export const Success = ({ image }) => {
   const LSuser = getLoggedInUser();

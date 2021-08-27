@@ -67,7 +67,7 @@ const Header = () => {
               activeKey='/'
             >
               <Nav.Item>
-                <Nav.Link href={routes.newImage()}>
+                <Nav.Link href={routes.newImage()} className="navbarItem">
                 {user.id && (
                   <PlusSquare size={20} color='black' />
                 )}
@@ -77,11 +77,11 @@ const Header = () => {
                 <Nav.Link href={routes.userPage({ handle: user.handle })} className="navbarItem">
                 {data?.user.profilePicUrl
                   ? (<div className='header-profile-pic'>
-                      <img src={data.user.profilePicUrl} class='picBorder' />
+                      <img src={data.user.profilePicUrl} className='picBorder' />
                     </div>)
                   : user.profilePicUrl
                     ? (<div className='header-profile-pic'>
-                        <img src={user.profilePicUrl} class='picBorder' />
+                        <img src={user.profilePicUrl} className='picBorder' />
                       </div>)
                     : (<PersonCircle size={20} color='black' />)
                 }
@@ -93,7 +93,7 @@ const Header = () => {
                     <div
                       onClick={() => logoutUser({ variables: { id: user.id } } )}
                     >
-                      <p>Log out</p>
+                      <p style={{ textAlign: 'left' }}>Log out</p>
                     </div>
                   </Nav.Link>
                 ) : (
