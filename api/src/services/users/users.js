@@ -15,7 +15,19 @@ export const user = ({ id }) => {
 
 export const createUser = async ({ input }) => {
   if (!usableEmails.includes(input.email)) {
-    throw new Error('Not authorized to register...')
+    throw new Error('Not authorized to register')
+  }
+  const handleIsTaken = await db.user.findUnique({
+    where: { handle: input.handle }
+  })
+  if (handleIsTaken) {
+    throw new Error(`Handle: ${handleIsTaken.handle} is already taken`)
+  }
+  const emailIsTaken = await db.user.findUnique({
+    where: { email: input.email }
+  })
+  if (emailIsTaken) {
+    throw new Error(`Email: ${emailIsTaken.email} is already taken`)
   }
   const password = await bcrypt.hash(input.password, 10);
   const isAdmin = (input.email == "ofu997@gmail.com") ? true : false;

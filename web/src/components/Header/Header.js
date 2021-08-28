@@ -98,7 +98,7 @@ const Header = () => {
                   </Nav.Link>
                 ) : (
                   <Nav.Link href={routes.handleUsersPage()} className="navbarItem">
-                    <p>Log in</p>
+                    <p style={{ textAlign: 'left' }}>Log in</p>
                   </Nav.Link>
                 )}
               </Nav.Item>
