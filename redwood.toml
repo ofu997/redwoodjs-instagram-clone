@@ -13,3 +13,5 @@
   port = 8911
 [browser]
   open = true
+[web]
+  includeEnvironmentVariables = ['DATABASE_URL', 'MY_SECRET']
