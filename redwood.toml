@@ -7,7 +7,7 @@
 
 [web]
   port = 8910
-  apiProxyPath = "/.redwood/functions"
+  apiProxyPath = "/.netlify/functions"
   includeEnvironmentVariables = [ 'MY_SECRET', 'ANOTHER_ONE' ]
 [api]
   port = 8911
