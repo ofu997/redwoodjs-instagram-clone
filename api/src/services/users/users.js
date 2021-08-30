@@ -92,10 +92,10 @@ export const loginUser = async ({ input }) => {
   const user = await db.user.findUnique({
     where: { email: input.email },
   })
-  const { id, handle, isAdmin } = user
   if (!user) {
     throw new Error('Invalid User')
   }
+  const { id, handle, isAdmin } = user
   const passwordMatch = await bcrypt.compare(input.password, user.password)
   if (!passwordMatch && input.password != user.password) {
     throw new Error('Invalid Login')
