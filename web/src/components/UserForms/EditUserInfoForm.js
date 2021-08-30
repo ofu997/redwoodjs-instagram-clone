@@ -143,13 +143,12 @@ const EditUserInfoForm = props => {
           </div>
         )}
 
-        {profilePicUrl &&
-          <div className="rw-button-group">
-            <Submit disabled={props.loading} className="rw-button rw-button-blue">
-              Save
-            </Submit>
-          </div>
-        }
+        <div className="rw-button-group">
+          <Submit disabled={props.loading} className="rw-button rw-button-blue">
+            Save
+          </Submit>
+        </div>
+        
       </Form>
     </div>
   )
