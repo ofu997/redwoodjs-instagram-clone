@@ -570,8 +570,8 @@
 .header-profile-pic img {
   border-radius: 50%;
   object-fit: cover;
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
 }
 
 .picBorder {
@@ -633,6 +633,25 @@
 #image-page-backlink {
  font-weight: 600;
  margin: 100px 0px 0px 100px;
+}
+
+/* login and signup page */
+.signUpLogInFormWrapper h4 {
+  margin-top: 2rem;
+}
+
+.signUpLogInFormWrapper section {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  padding: 0.5rem 2rem;
+}
+
+.signLogForm {
+  width: 50%;
+  min-width: 250px;
+  padding: 20px 50px 5px 50px;
+  margin-top: 2rem;
 }
 
 @media screen and (min-width: 1224px) {

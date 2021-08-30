@@ -69,7 +69,7 @@ const Header = () => {
               <Nav.Item>
                 <Nav.Link href={routes.newImage()} className="navbarItem">
                 {user.id && (
-                  <PlusSquare size={20} color='black' />
+                  <PlusSquare size={25} color='black' />
                 )}
                 </Nav.Link>
               </Nav.Item>
@@ -83,7 +83,7 @@ const Header = () => {
                     ? (<div className='header-profile-pic'>
                         <img src={user.profilePicUrl} className='picBorder' />
                       </div>)
-                    : (<PersonCircle size={20} color='black' />)
+                    : (<PersonCircle size={25} color='black' />)
                 }
                 </Nav.Link>
               </Nav.Item>

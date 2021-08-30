@@ -38,13 +38,14 @@ const SignUpForm = props => {
   }
 
   return (
-    <div>
-      <div className="rw-form-wrapper" style={{ display: 'flex', margin: '0 auto', justifyContent: 'center', padding: '4 rem' }}>
+    <div className='signUpLogInFormWrapper'>
+      <h4 className='cntr-h rw-text-center'>Sign up</h4>
+      <section className="rw-form-wrapper">
         <Form
-          style={{ border: '1px solid #afeeee', width: '50%', minWidth: '200px', padding: '50px', marginTop: '75px', boxShadow: '12px 12px 2px 1px rgba(0, 0, 255, .2)' }}
+          style={{ border: '1px solid #afeeee', boxShadow: '12px 12px 2px 1px rgba(0, 0, 255, .2)' }}
           onSubmit={handleSignUp}
+          className='signLogForm'
         >
-
             <FormError
               error={error}
               loading={loading}
@@ -67,7 +68,7 @@ const SignUpForm = props => {
                 validation={{
                   required: true,
                   pattern: {
-                    value: /^[a-zA-Z0-9_ ]{2,30}$/,
+                    value: /^.{2,30}$/,
                   }
                 }}
                 placeholder='Name'
@@ -133,7 +134,7 @@ const SignUpForm = props => {
               </div>
             </div>
         </Form>
-      </div>
+      </section>
     </div>
   )
 }

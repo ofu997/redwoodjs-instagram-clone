@@ -44,11 +44,13 @@ const LogInForm = () => {
   }
 
   return (
-    <>
-      <div className="rw-form-wrapper" style={{ display: 'flex', margin: '0 auto', justifyContent: 'center', padding: '4 rem' }}>
+    <div className='signUpLogInFormWrapper'>
+      <h4 className='cntr-h rw-text-center'>Log in</h4>
+      <section className="rw-form-wrapper">
         <Form
-          style={{ border: '1px solid rgba(0, 0, 255, .2)', width: '50%', minWidth: '200px', padding: '50px', marginTop: '75px', boxShadow: '12px 12px 2px 1px #afeeee' }}
+          style={{ border: '1px solid rgba(0, 0, 255, .2)', boxShadow: '12px 12px 2px 1px #afeeee' }}
           onSubmit={handleSignIn}
+          className='signLogForm'
         >
 
             <FormError
@@ -101,8 +103,8 @@ const LogInForm = () => {
               </div>
             </div>
         </Form>
-      </div>
-    </>
+      </section>
+    </div>
   )
 }
 

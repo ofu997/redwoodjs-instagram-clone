@@ -108,19 +108,11 @@ const Images = props => {
   })
 
   const [incrementImageLikes] = useMutation(INCREMENT_IMAGE_LIKES_MUTATION, {
-    onCompleted: () => {
-      console.log('like button was pressed')
-      toast.success('Likes incremented.', { classes: 'rw-flash-success' })
-    },
     refetchQueries: [{ query: QUERY }],
     awaitRefetchQueries: true,
   })
 
   const [decrementImageLikes] = useMutation(DECREMENT_IMAGE_LIKES_MUTATION, {
-    onCompleted: () => {
-      console.log('dislike button was pressed')
-      toast.success('Likes decremented.', { classes: 'rw-flash-success' })
-    },
     refetchQueries: [{ query: QUERY }],
     awaitRefetchQueries: true,
   })
