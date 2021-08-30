@@ -6,6 +6,7 @@
 # https://redwoodjs.com/docs/app-configuration-redwood-toml
 
 [web]
+  title = "Memofolio"
   port = 8910
   apiProxyPath = "/.netlify/functions"
   includeEnvironmentVariables = [ 'MY_SECRET', 'DATABASE_URL' ]
