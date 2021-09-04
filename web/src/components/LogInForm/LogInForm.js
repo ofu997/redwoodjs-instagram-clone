@@ -25,13 +25,8 @@ const LogInForm = () => {
   const [loginUser, { loading, error }] = useMutation(LOG_IN_MUTATION, {
     onCompleted: ({ loginUser }) => {
       toast.success('Signed in', { classes: 'rw-flash-success' })
-
-      const { id, handle, localStoragePassword, profilePicUrl } = loginUser;
-      const user = { id, handle, localStoragePassword, profilePicUrl }
-      localStorage.setItem('user', JSON.stringify(user));
-      setTimeout(() => {
+      localStorage.setItem('user', JSON.stringify(loginUser));
         navigate(routes.images())
-      }, 50)
     },
     onError: (e) => {
       console.log(e)
@@ -60,9 +55,7 @@ const LogInForm = () => {
               wrapperClassName="bg-red-100 text-red-900 text-sm p-3 rounded"
             />
 
-            <div
-              className='cntr-h'
-            >
+            <div className='cntr-h'>
               <Label
                 name="email"
                 className="rw-label"
