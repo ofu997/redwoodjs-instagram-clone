@@ -516,14 +516,14 @@
 }
 
 #caption {
-  max-height: 15vh;
+  max-height: 20vh;
   overflow-y: auto;
   border-bottom: 1px solid gray;
   border-top: 1px solid gray;
 }
 
 #comments-box {
-  max-height: 15vh;
+  max-height: 20vh;
   overflow-y: auto;
 }
 
@@ -552,19 +552,25 @@
 
 /* right column stuff */
 
+#article-of-icons-and-comment-form {
+  margin-top: 10px;
+}
+
 @media (min-width: 768px) {
   #article-of-icons-and-comment-form {
     position: absolute;
+
     bottom: 16px;
   }
 }
 
 #created-at {
   margin-bottom: -2px;
+  font-size: 0.6rem;
 }
 
 .rc-font-size {
-  font-size: 0.8rem;
+  font-size: 1rem;
 }
 
 .header-profile-pic img {
@@ -676,7 +682,8 @@
   p {
     font-size: 0.8rem;
   }
-  .rc-font-size {
+
+  #created-at {
     font-size: 0.6rem;
   }
 
