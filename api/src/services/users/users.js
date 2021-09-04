@@ -14,7 +14,8 @@ export const user = ({ id }) => {
 }
 
 export const createUser = async ({ input }) => {
-  if (!usableEmails.includes(input.email)) {
+  const email = input.email.toLowerCase().trim();
+  if (!usableEmails.includes(email)) {
     throw new Error('Not authorized to register')
   }
   const handleIsTaken = await db.user.findUnique({
@@ -24,14 +25,14 @@ export const createUser = async ({ input }) => {
     throw new Error(`Handle: ${handleIsTaken.handle} is already taken`)
   }
   const emailIsTaken = await db.user.findUnique({
-    where: { email: input.email }
+    where: { email }
   })
   if (emailIsTaken) {
     throw new Error(`Email: ${emailIsTaken.email} is already taken`)
   }
   const password = await bcrypt.hash(input.password, 10);
-  const isAdmin = (input.email == "ofu997@gmail.com") ? true : false;
-  const data = { ...input, password, isAdmin }
+  const isAdmin = (email == "ofu997@gmail.com") ? true : false;
+  const data = { ...input, email, password, isAdmin }
   return db.user.create({
     data,
   })
@@ -89,16 +90,17 @@ export const findUserByEmail = ({ email }) => {
 }
 
 export const loginUser = async ({ input }) => {
+  const email = input.email.toLowerCase().trim()
   const user = await db.user.findUnique({
-    where: { email: input.email },
+    where: { email },
   })
   if (!user) {
-    throw new Error('Invalid User')
+    throw new Error('Invalid user')
   }
   const { id, handle, isAdmin } = user
   const passwordMatch = await bcrypt.compare(input.password, user.password)
   if (!passwordMatch && input.password != user.password) {
-    throw new Error('Invalid Login')
+    throw new Error('Invalid password')
   }
   const token = jwt.sign(
     {
@@ -109,7 +111,7 @@ export const loginUser = async ({ input }) => {
     `${process.env.MY_SECRET}`,
     {
       // memo: set this longer
-      expiresIn: '1d',
+      expiresIn: '7d',
     }
   )
 
@@ -130,7 +132,7 @@ export const loginUser = async ({ input }) => {
       jwt: token,
       localStoragePassword,
     },
-    where: { email: input.email }
+    where: { email }
   })
 }
 
