@@ -2,9 +2,9 @@ import { useMutation, useQuery } from '@redwoodjs/web'
 import { Link, routes } from '@redwoodjs/router'
 import { QUERY } from 'src/components/ImagesCell'
 import { toast } from '@redwoodjs/web/toast'
-import { currentUser, currentUserId, dummyObject } from 'src/functions/WebFunctions'
+import { currentUser, getLoggedInUser, dummyObject } from 'src/functions/WebFunctions'
 var jwt = require('jsonwebtoken')
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Card } from 'react-bootstrap'
 import ImageModal from 'src/components/ImageModal'
 import { Heart, HeartFill, PersonCircle, Chat } from 'react-bootstrap-icons'
@@ -72,6 +72,8 @@ const Images = props => {
   const [modalShow, setModalShow] = useState(false);
   const [activeItem, setActiveItem] = useState([])
 
+  const currentUserId = getLoggedInUser().id;
+
   const handleShow = id => {
     setActiveItem(id);
     setModalShow(true);
@@ -79,7 +81,7 @@ const Images = props => {
 
   const { error, data } = currentUserId ?
     useQuery(USER_QUERY, {
-      variables: { currentUserId }
+      variables: { currentUserId },
     })
     :
     dummyObject;
