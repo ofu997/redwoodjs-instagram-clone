@@ -421,6 +421,12 @@
   margin-left: 20px;
 }
 
+/* create image */
+
+#new-image-container {
+  width: 400px
+}
+
 /* edit image cell */
 
 .margin-new-or-edit-image-component {
@@ -725,4 +731,7 @@
   #image-page-backlink {
     margin: 20px 0px 0px 20px;
  }
+ #new-image-container {
+  width: 90%;
+}
 }

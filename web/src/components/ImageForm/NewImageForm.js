@@ -3,7 +3,6 @@ import {
   FormError,
   FieldError,
   Label,
-  TextField,
   TextAreaField,
   Submit,
 } from '@redwoodjs/forms'
@@ -79,26 +78,11 @@ const NewImageForm = (props) => {
         />
 
         <Label
-          name="caption"
-          className="rw-label"
-          errorClassName="rw-label rw-label-error"
-        >
-          Caption
-        </Label>
-        <TextAreaField
-          name="caption"
-          defaultValue={props.image?.title}
-          className="rw-input"
-          errorClassName="rw-input rw-input-error"
-        />
-        <FieldError name="caption" className="rw-field-error" />
-
-        <Label
           name="select"
           className="rw-label"
           errorClassName="rw-label rw-label-error"
           style={{
-            marginTop: '100px'
+            marginTop: '5vh'
           }}
         >
           Select
@@ -120,7 +104,7 @@ const NewImageForm = (props) => {
         }
 
         {url && (
-          <div style={{ maxWidth: '25%' }}>
+          <div className='cntr-h' id='new-image-container'>
             <img src={url} style={{ display: 'block', margin: '2rem 0' }} />
             <div
               onClick={() => {
@@ -136,25 +120,24 @@ const NewImageForm = (props) => {
           </div>
         )}
 
-        <div style={{ display: 'none' }}>
-          <div id='formLikes' >
+        {url && (
+          <>
             <Label
-              name="url"
+              name="caption"
               className="rw-label"
               errorClassName="rw-label rw-label-error"
             >
-              Url
-          </Label>
-            <TextField
-              name="url"
-              defaultValue={props.image?.url}
+              Caption
+            </Label>
+            <TextAreaField
+              name="caption"
+              defaultValue={props.image?.title}
               className="rw-input"
               errorClassName="rw-input rw-input-error"
-              validation={{ required: false }}
             />
-            <FieldError name="url" className="rw-field-error" />
-          </div>
-        </div>
+            <FieldError name="caption" className="rw-field-error" />
+          </>
+        )}
 
         {url &&
           <div className="rw-button-group">
@@ -163,7 +146,6 @@ const NewImageForm = (props) => {
             </Submit>
           </div>
         }
-
       </Form>
     </div>
   )

@@ -2,7 +2,6 @@ import { useMutation } from '@redwoodjs/web'
 import { navigate, routes } from '@redwoodjs/router'
 import NewImageForm from 'src/components/ImageForm/NewImageForm'
 import { getLoggedInUser } from 'src/functions/WebFunctions'
-import { QUERY } from 'src/components/ImagesCell'
 import { toast } from '@redwoodjs/web/toast'
 
 const CREATE_IMAGE_MUTATION = gql`
@@ -20,7 +19,7 @@ const NewImage = () => {
   const [createImage, { loading, error }] = useMutation(CREATE_IMAGE_MUTATION, {
     onCompleted: () => {
       navigate(routes.images())
-      toast.success('Image created.', { classes: 'rw-flash-success' })
+      toast.success('Memo created.', { classes: 'rw-flash-success' })
     },
   })
 
