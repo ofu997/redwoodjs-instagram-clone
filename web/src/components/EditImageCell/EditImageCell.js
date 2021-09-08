@@ -29,9 +29,9 @@ export const Loading = () => <h2 className='branding-font'>Loading...</h2>
 export const Success = ({ image }) => {
   const LSuser = getLoggedInUser();
   const [updateImage, { loading, error }] = useMutation(UPDATE_IMAGE_MUTATION, {
-    onCompleted: () => {
-      navigate(routes.images())
-      toast.success('Image updated.', { classes: 'rw-flash-success' })
+    onCompleted: ({ updateImage }) => {
+      navigate(routes.image({ id: updateImage.id }))
+      toast.success('Memo updated.', { classes: 'rw-flash-success' })
     },
   })
 

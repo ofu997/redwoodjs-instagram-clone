@@ -1,6 +1,7 @@
 import Images from 'src/components/Images/Images'
 import { Link, routes } from '@redwoodjs/router'
 import { getLoggedInUser } from 'src/functions/WebFunctions'
+import { Head } from '@redwoodjs/web'
 
 const User = ({ infoAndImages }) => {
   const { userImages } = infoAndImages;
@@ -20,6 +21,9 @@ const UserInfo = props => {
   const currentUser = getLoggedInUser();
   return (
     <>
+      <Head>
+        <title>{props.user.name} | Memofolio</title>
+      </Head>
       <div id='user-info-container'>
         <section id='user-page-profile-pic'>
           <img src={props.user.profilePicUrl} />

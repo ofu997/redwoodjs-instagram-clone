@@ -100,7 +100,7 @@ const Images = props => {
 
   const [deleteImage] = useMutation(DELETE_IMAGE_MUTATION, {
     onCompleted: () => {
-      toast.success('Image deleted.', { classes: 'rw-flash-success' })
+      toast.success('Memo deleted.', { classes: 'rw-flash-success' })
     },
     // This refetches the query on the list page. Read more about other ways to
     // update the cache over here:
@@ -134,7 +134,7 @@ const Images = props => {
   })
 
   const onDeleteClick = (id) => {
-    if (confirm('Are you sure you want to delete image ' + id + '?')) {
+    if (confirm('Are you sure you want to delete this image?')) {
       deleteImage({ variables: { id } })
     }
   }
