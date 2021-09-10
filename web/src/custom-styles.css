@@ -266,9 +266,7 @@
   font-size: 0.75rem;
   color: #c53030;
 }
-.rw-table-wrapper-responsive {
-  /* overflow-x: scroll; */
-}
+
 .rw-table-wrapper-responsive .rw-table {
   min-width: 48rem;
 }
@@ -554,6 +552,10 @@
   justify-content: center;
   align-items: center;
   min-height: 60vh;
+}
+
+#modal-image-container img {
+  object-fit: contain;
 }
 
 /* right column stuff */

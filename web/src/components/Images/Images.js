@@ -71,7 +71,6 @@ const Images = props => {
   const { images, viewStandalone } = props;
   const [modalShow, setModalShow] = useState(false);
   const [activeItem, setActiveItem] = useState([])
-
   const currentUserId = getLoggedInUser().id;
 
   const handleShow = id => {
@@ -119,20 +118,6 @@ const Images = props => {
     awaitRefetchQueries: true,
   })
 
-  const [addToUserLikes] = useMutation(ADD_TO_USER_LIKES_MUTATION, {
-    onCompleted: () => {
-      console.log('added to user likes')
-    },
-    awaitRefetchQueries: true,
-  })
-
-  const [removeFromUserLikes] = useMutation(REMOVE_FROM_USER_LIKES_MUTATION, {
-    onCompleted: () => {
-      console.log('removed from user likes')
-    },
-    awaitRefetchQueries: true,
-  })
-
   const onDeleteClick = (id) => {
     if (confirm('Are you sure you want to delete this image?')) {
       deleteImage({ variables: { id } })
@@ -141,21 +126,25 @@ const Images = props => {
 
   const handleLikes = (imageId, action) => {
     ( currentUser.localStoragePassword === data.user.localStoragePassword ) ?
-    jwt.verify(data.user.jwt, `${process.env.MY_SECRET}`, function(err, decoded) {
+    jwt.verify(data.user.jwt, `${process.env.MY_SECRET}`, function(err) {
       if (err) {
         toast.error('Please log in again')
       }
       else {
         switch(action) {
           case "like":
-            console.log('incrementLikes() pressed');
+            toast('liked', {
+              icon: '❤️',
+              classes: 'rw-flash-success'
+            })
             incrementImageLikes({ variables: { imageId, currentUserId } });
-            addToUserLikes({ variables: { imageId, currentUserId } });
             break;
           case "dislike":
-            console.log('decrementLikes() pressed');
+            toast('disliked', {
+              icon: '🤍',
+              classes: 'rw-flash-success'
+            })
             decrementImageLikes({ variables: { imageId, currentUserId } });
-            removeFromUserLikes({ variables: { imageId, currentUserId } });
             break;
         }
       }
@@ -175,8 +164,9 @@ const Images = props => {
           <Card
             className='card'
             key={image.id}
+
           >
-            <div id='cardPicHandle' className='flex'>
+            <div id='cardPicHandle' className='flex' onClick={() => handleShow(image.id)}>
               <div className='header-profile-pic' style={{ marginLeft:20 }}>
                 {image.user?.profilePicUrl
                   ? <img src={image.user?.profilePicUrl} />
@@ -192,9 +182,12 @@ const Images = props => {
             </div>
             <img src={image.url}
               className='cardImg'
-              onClick={() => handleShow(image.id)}
+              onDoubleClick={() => currentUserLikesThis
+                ? handleLikes(image.id, "dislike")
+                : handleLikes(image.id, "like")
+              }
             />
-            <Card.Body id='cardBody' bsPrefix='div'>
+            <Card.Body id='cardBody' bsPrefix='div' onClick={() => handleShow(image.id)}>
               <section id="icons-and-comment-form">
                 <div className='flex'>
                   <div className='block like-and-comment-icons'>

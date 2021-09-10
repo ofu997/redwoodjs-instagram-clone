@@ -38,7 +38,12 @@ const ImageModal = props => {
                 id='left-column'
               >
                 <div id='modal-image-container'>
-                  <img src={image?.url} id='modal-image' style={{ objectFit: 'contain' }} />
+                  <img src={image?.url}
+                    onDoubleClick={() => currentUserLikesThis
+                      ? handleLikes(image.id, "dislike")
+                      : handleLikes(image.id, "like")
+                    }
+                  />
                 </div>
               </Col>
               <Col md={4}
