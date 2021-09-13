@@ -6,7 +6,7 @@ import CommentForm from 'src/components/CommentForm'
 import { Heart, HeartFill, Chat, PencilSquare, Trash, PersonCircle } from 'react-bootstrap-icons'
 
 const ImageModal = props => {
-  const { data, imageId, images, missingData, handleLikes, deleteClick, viewStandalone } = props;
+  const { data, imageId, images, missingData, handleLikes, deleteClick, viewStandalone, disabled, setDisabled } = props;
   const image = images.find(x => x.id === imageId)
   const currentUser = getLoggedInUser();
   const currentUserId = currentUser.id;
@@ -14,6 +14,15 @@ const ImageModal = props => {
   const userIsValidAndOwnsImage =
     Boolean((currentUser.localStoragePassword === data?.user.localStoragePassword)
     && data?.user.images.some(x => x.id === imageId));
+  const handleLikeRequests = (currentUserLikesThis) => {
+    !disabled && (
+      setDisabled(true),
+      setTimeout(() => setDisabled(false), 2500),
+      currentUserLikesThis
+        ? handleLikes(image.id, "dislike")
+        : handleLikes(image.id, "like")
+    )
+  }
 
   return(
     <>
@@ -39,10 +48,7 @@ const ImageModal = props => {
               >
                 <div id='modal-image-container'>
                   <img src={image?.url}
-                    onDoubleClick={() => currentUserLikesThis
-                      ? handleLikes(image.id, "dislike")
-                      : handleLikes(image.id, "like")
-                    }
+                    onDoubleClick={() => !missingData && handleLikeRequests(currentUserLikesThis)}
                   />
                 </div>
               </Col>
@@ -91,13 +97,14 @@ const ImageModal = props => {
                       <div className='block like-and-comment-icons'>
                         {currentUserLikesThis ?
                         <button
-                          onClick={() => handleLikes(image.id, "dislike") }
+                          onClick={() => handleLikeRequests(currentUserLikesThis)}
+                          disabled={missingData}
                         >
                           <HeartFill size={20} color="red" />
                         </button>
                         :
                         <button
-                          onClick={() => handleLikes(image.id, "like")}
+                          onClick={() => handleLikeRequests(currentUserLikesThis)}
                           disabled={missingData}
                         >
                           <Heart size={20} />
