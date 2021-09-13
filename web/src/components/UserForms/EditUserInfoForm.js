@@ -27,11 +27,9 @@ const EditUserInfoForm = props => {
 
   const handleFirebaseUpload = (e) => {
     if (!profilePicAsFile) {
-      console.log('no file selected')
       return;
     }
     e.preventDefault()
-    console.log('start of upload')
     if (profilePicAsFile === '') {
       console.error(`not an image, the image file is a ${typeof (profilePicAsFile)}`)
     }
@@ -47,7 +45,6 @@ const EditUserInfoForm = props => {
           .child(profilePicAsFile.name)
           .getDownloadURL()
           .then(fireBaseUrl => {
-            console.log(`firebaseurl: ${fireBaseUrl}`)
             setProfilePicUrl(fireBaseUrl)
           })
           .then(() =>{
@@ -148,7 +145,7 @@ const EditUserInfoForm = props => {
             Save
           </Submit>
         </div>
-        
+
       </Form>
     </div>
   )

@@ -23,7 +23,6 @@ const NewImageForm = (props) => {
     props.onSave(dataWithUrlUserId)
   }
 
-  console.log(imageAsFile)
   const handleImageAsFile = (e) => {
     setImageAsFile(e.target.files[0])
     setShowUpload(true)
@@ -34,7 +33,6 @@ const NewImageForm = (props) => {
       return
     }
     e.preventDefault()
-    console.log('start of upload')
     // async magic goes here...
     if (imageAsFile === '') {
       console.error(`not an image, the image file is a ${typeof (imageAsFile)}`)
@@ -44,7 +42,6 @@ const NewImageForm = (props) => {
     uploadTask.on('state_changed',
       (snapShot) => {
         //takes a snap shot of the process as it is happening
-        console.log(`snapshot: ${snapShot}`)
       }, (err) => {
         //catches the errors
         console.log(err)
@@ -56,7 +53,6 @@ const NewImageForm = (props) => {
           .child(imageAsFile.name)
           .getDownloadURL()
           .then(fireBaseUrl => {
-            console.log(`firebaseurl: ${fireBaseUrl}`)
             setUrl(fireBaseUrl)
           })
           .then(()=>{
