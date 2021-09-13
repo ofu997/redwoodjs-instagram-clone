@@ -2,9 +2,9 @@ import { useMutation, useQuery } from '@redwoodjs/web'
 import { Link, routes } from '@redwoodjs/router'
 import { QUERY } from 'src/components/ImagesCell'
 import { toast } from '@redwoodjs/web/toast'
-import { currentUser, getLoggedInUser, dummyObject } from 'src/functions/WebFunctions'
+import { getLoggedInUser, dummyObject } from 'src/functions/WebFunctions'
 var jwt = require('jsonwebtoken')
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Card } from 'react-bootstrap'
 import ImageModal from 'src/components/ImageModal'
 import { Heart, HeartFill, PersonCircle, Chat } from 'react-bootstrap-icons'
@@ -33,26 +33,6 @@ const DECREMENT_IMAGE_LIKES_MUTATION = gql`
   }
 `
 
-const ADD_TO_USER_LIKES_MUTATION = gql`
-  mutation AddToUserLikesMutation($imageId: Int!, $currentUserId: Int!) {
-    addToUserLikes(imageId: $imageId, id: $currentUserId) {
-      userLikes {
-        id
-      }
-    }
-  }
-`
-
-const REMOVE_FROM_USER_LIKES_MUTATION = gql`
-  mutation RemoveFromUserLikesMutation($imageId: Int!, $currentUserId: Int!) {
-    removeFromUserLikes(imageId: $imageId, id: $currentUserId) {
-      userLikes {
-        id
-      }
-    }
-  }
-`
-
 const USER_QUERY = gql`
   query GetUserJwtById($currentUserId: Int!) {
     user (id: $currentUserId) {
@@ -71,6 +51,8 @@ const Images = props => {
   const { images, viewStandalone } = props;
   const [modalShow, setModalShow] = useState(false);
   const [activeItem, setActiveItem] = useState([])
+  const [disabled, setDisabled] = useState(false)
+  const currentUser = getLoggedInUser();
   const currentUserId = getLoggedInUser().id;
 
   const handleShow = id => {
@@ -125,32 +107,31 @@ const Images = props => {
   }
 
   const handleLikes = (imageId, action) => {
-    ( currentUser.localStoragePassword === data.user.localStoragePassword ) ?
-    jwt.verify(data.user.jwt, `${process.env.MY_SECRET}`, function(err) {
-      if (err) {
-        toast.error('Please log in again')
-      }
-      else {
-        switch(action) {
-          case "like":
-            toast('liked', {
-              icon: '❤️',
-              classes: 'rw-flash-success'
-            })
-            incrementImageLikes({ variables: { imageId, currentUserId } });
-            break;
-          case "dislike":
-            toast('disliked', {
-              icon: '🤍',
-              classes: 'rw-flash-success'
-            })
-            decrementImageLikes({ variables: { imageId, currentUserId } });
-            break;
+    (currentUser.localStoragePassword === data.user.localStoragePassword)
+      ? jwt.verify(data.user.jwt, `${process.env.MY_SECRET}`, function (err) {
+        if (err) {
+          toast.error('Please log in again')
         }
-      }
-    })
-    :
-    toast.error("Womp womp...invalid credentials")
+        else {
+          switch (action) {
+            case "like":
+              toast('liked', {
+                icon: '❤️',
+                classes: 'rw-flash-success'
+              })
+              incrementImageLikes({ variables: { imageId, currentUserId } });
+              break;
+            case "dislike":
+              toast('disliked', {
+                icon: '🤍',
+                classes: 'rw-flash-success'
+              })
+              decrementImageLikes({ variables: { imageId, currentUserId } });
+              break;
+          }
+        }
+      })
+      : toast.error("Womp womp...invalid credentials")
   }
 
   return (
@@ -159,6 +140,15 @@ const Images = props => {
       <div id='cardContainer' className='flex flexWrapWrap justifyContentSE'>
       {images.map((image) => {
         const currentUserLikesThis = image.likedBy.some(item => item.id === currentUserId);
+        const handleLikeRequests = (currentUserLikesThis) => {
+          !disabled && (
+            setDisabled(true),
+            setTimeout(() => setDisabled(false), 2500),
+            currentUserLikesThis
+              ? handleLikes(image.id, "dislike")
+              : handleLikes(image.id, "like")
+          )
+        }
 
         return (
           <Card
@@ -182,24 +172,22 @@ const Images = props => {
             </div>
             <img src={image.url}
               className='cardImg'
-              onDoubleClick={() => currentUserLikesThis
-                ? handleLikes(image.id, "dislike")
-                : handleLikes(image.id, "like")
-              }
+              onDoubleClick={() => !missingData && handleLikeRequests(currentUserLikesThis)}
             />
-            <Card.Body id='cardBody' bsPrefix='div' onClick={() => handleShow(image.id)}>
+            <Card.Body id='cardBody' bsPrefix='div'>
               <section id="icons-and-comment-form">
                 <div className='flex'>
                   <div className='block like-and-comment-icons'>
                     {currentUserLikesThis ?
                     <button
-                      onClick={() => handleLikes(image.id, "dislike") }
+                      disabled={missingData}
+                      onClick={() => handleLikeRequests(currentUserLikesThis)}
                     >
                       <HeartFill size={20} color="red" />
                     </button>
                     :
                     <button
-                      onClick={() => handleLikes(image.id, "like")}
+                      onClick={() => handleLikeRequests(currentUserLikesThis)}
                       disabled={missingData}
                     >
                       <Heart size={20} />
@@ -211,17 +199,21 @@ const Images = props => {
                     <p style={{ marginTop: -5 }}>{image?.comments.length}</p>
                   </div>
                 </div>
-                <div className='flex' style={{ marginTop : 5 }}>
-                  <p>
-                    <Link
-                      to={routes.userPage({ handle : image.user.handle })}
-                      className='link-that-does-not-look-like-a-link'
-                    >
-                      <strong>{image.user.handle}</strong>
-                    </Link>  {truncate(image.title)}
-                  </p>
-                </div>
-                <p id='created-at' className='rc-font-size'>{image?.createdAt}</p>
+                <section
+                  onClick={() => handleShow(image.id)}
+                >
+                  <div className='flex' style={{ marginTop : 5 }}>
+                    <p>
+                      <Link
+                        to={routes.userPage({ handle : image.user.handle })}
+                        className='link-that-does-not-look-like-a-link'
+                      >
+                        <strong>{image.user.handle}</strong>
+                      </Link>  {truncate(image.title)}
+                    </p>
+                  </div>
+                  <p id='created-at' className='rc-font-size'>{image?.createdAt}</p>
+                </section>
               </section>
             </Card.Body>
           </Card>
@@ -240,6 +232,8 @@ const Images = props => {
         handleShow={handleShow}
         images={images}
         viewStandalone={viewStandalone}
+        disabled={disabled}
+        setDisabled={setDisabled}
       />
     </>
   )
