@@ -643,6 +643,10 @@
   font-size: 0.9rem;
 }
 
+.allow-newline {
+  white-space: pre-line;
+}
+
 /* image page */
 #image-page-backlink {
  font-weight: 600;
@@ -734,6 +738,6 @@
     margin: 20px 0px 0px 20px;
  }
  #new-image-container {
-  width: 90%;
+  width: 275px;
 }
 }

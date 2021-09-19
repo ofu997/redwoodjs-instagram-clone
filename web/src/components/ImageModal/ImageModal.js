@@ -75,7 +75,7 @@ const ImageModal = props => {
                   </section>
                   {image?.title && (
                     <section id='caption'>
-                      <p className='rc-font-size' style={{ marginTop : 10 }}>{image?.title}</p>
+                      <p className='rc-font-size allow-newline' style={{ marginTop : 10 }}>{image?.title}</p>
                     </section>
                   )}
                   <section id='comments-box'>
