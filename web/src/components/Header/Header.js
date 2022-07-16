@@ -73,32 +73,34 @@ const Header = () => {
                 )}
                 </Nav.Link>
               </Nav.Item>
-              <Nav.Item>
-                <Nav.Link href={routes.userPage({ handle: user.handle })} className="navbarItem">
+              <Nav.Item className='cntr-v'>
                 {data?.user.profilePicUrl
-                  ? (<div className='header-profile-pic'>
-                      <img src={data.user.profilePicUrl} className='picBorder' />
-                    </div>)
+                  ? (<Nav.Link href={routes.userPage({ handle: user.handle })} className="navbarItem">
+                        <div className='header-profile-pic'>
+                          <img src={data.user.profilePicUrl} className='picBorder' />
+                        </div>
+                    </Nav.Link>)
                   : user.profilePicUrl
-                    ? (<div className='header-profile-pic'>
-                        <img src={user.profilePicUrl} className='picBorder' />
-                      </div>)
-                    : (<PersonCircle size={25} color='black' />)
+                    ? (<Nav.Link href={routes.userPage({ handle: user.handle })} className="navbarItem">
+                        <div className='header-profile-pic'>
+                          <img src={user.profilePicUrl} className='picBorder' />
+                        </div>
+                      </Nav.Link>)
+                    : (<PersonCircle size={25} color='black' className="navbarItem" />)
                 }
-                </Nav.Link>
               </Nav.Item>
-              <Nav.Item>
+              <Nav.Item className='cntr-v' >
                 {user.id ? (
                   <Nav.Link className="navbarItem">
                     <div
                       onClick={() => logoutUser({ variables: { id: user.id } } )}
                     >
-                      <p style={{ textAlign: 'left' }}>Log out</p>
+                      <p className='login-logout-text'>Log out</p>
                     </div>
                   </Nav.Link>
                 ) : (
                   <Nav.Link href={routes.handleUsersPage()} className="navbarItem">
-                    <p style={{ textAlign: 'left' }}>Log in</p>
+                    <p className='login-logout-text'>Log in</p>
                   </Nav.Link>
                 )}
               </Nav.Item>

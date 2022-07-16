@@ -142,7 +142,6 @@
 }
 .rw-form-wrapper {
   box-sizing: border-box;
-  font-size: 0.875rem;
   margin-top: -1rem;
 }
 .rw-form-error-wrapper {
@@ -656,6 +655,7 @@
 /* login and signup page */
 .signUpLogInFormWrapper h4 {
   margin-top: 2rem;
+  font-size: 1.125rem;
 }
 
 .signUpLogInFormWrapper section {
@@ -672,6 +672,26 @@
   margin-top: 2rem;
 }
 
+#ShowOrMask {
+  margin-left: 25%;
+}
+
+.login-logout-text {
+  text-align: left;
+}
+
+.button-with-blue-text {
+  color: #0095f6;
+  padding: 5px;
+  border-radius: 5%;
+  margin: 5px;
+}
+
+#CommentButton {
+  border: 1px solid gray;
+}
+
+
 @media screen and (min-width: 1224px) {
   .card {
     width: 450px;
@@ -685,16 +705,27 @@
 }
 
 @media screen and (max-width: 767px) {
+  .signLogForm {
+    min-width: 80%;
+    padding: 10px;
+  }
+  #ShowOrMask {
+    margin-left: 10%;
+  }
+  #ShowOrMask p {
+    font-size: 1rem;
+  }
+
+  .login-logout-text {
+    text-align: center;
+  }
+
   .card {
     width: 300px;
-  }
-  #commentButtonText {
-    font-size: 0.7rem;
   }
   p {
     font-size: 0.8rem;
   }
-
   #created-at {
     font-size: 0.6rem;
   }
@@ -736,8 +767,9 @@
   /* image page */
   #image-page-backlink {
     margin: 20px 0px 0px 20px;
- }
- #new-image-container {
-  width: 275px;
-}
+  }
+  #new-image-container {
+    width: 275px;
+  }
+
 }

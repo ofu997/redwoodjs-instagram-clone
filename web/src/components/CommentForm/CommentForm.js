@@ -73,7 +73,7 @@ const CommentForm = ({ imageId, userId, user }) => {
           <Submit
             disabled={loading}
           >
-            <p id='commentButtonText' style={{ color: '#0095f6', padding: 5, border: '1px solid gray', borderRadius: '5%', margin: '5px' }}>
+            <p className="button-with-blue-text" id="CommentButton" >
               Comment
             </p>
           </Submit>
