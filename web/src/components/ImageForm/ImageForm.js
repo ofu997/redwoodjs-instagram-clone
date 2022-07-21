@@ -6,6 +6,7 @@ import {
   TextAreaField,
   Submit,
 } from '@redwoodjs/forms'
+import { Link, routes } from '@redwoodjs/router'
 
 const ImageForm = (props) => {
   const onSubmit = (data) => {
@@ -42,6 +43,14 @@ const ImageForm = (props) => {
           <Submit disabled={props.loading} className="rw-button rw-button-blue">
             Save
           </Submit>
+          <div className='rw-button rw-button-green'>
+            <Link
+              to={routes.userPage({ handle: props.image?.user.handle })}
+              className='link-that-does-not-look-like-a-link'
+            >
+              Back
+            </Link>
+          </div>
         </div>
       </Form>
     </div>

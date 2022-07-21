@@ -12,6 +12,7 @@ export const QUERY = gql`
       url
       user {
         localStoragePassword
+        handle
       }
     }
   }
