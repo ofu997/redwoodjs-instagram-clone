@@ -74,26 +74,22 @@ const NewImageForm = (props) => {
         />
 
         <Label
-          name="select"
           className="rw-label"
           errorClassName="rw-label rw-label-error"
-          style={{
-            marginTop: '5vh'
-          }}
+          style={{ marginTop: '5vh' }}
         >
-          Select
         </Label>
         {showInput && !url &&
-          <input
-            type='file'
-            onChange={handleImageAsFile}
-          />
+            <input
+              type='file'
+              onChange={handleImageAsFile}
+              className='image-input'
+            />
         }
 
         {showUpload &&
           <div style={{ marginTop: '50px', maxWidth: '25%' }}>
-            <div className="rw-button-group rw-button rw-button-green" onClick={handleFirebaseUpload}
-            >
+            <div className="rw-button-group rw-button rw-button-green" onClick={handleFirebaseUpload}>
               Upload
             </div>
           </div>

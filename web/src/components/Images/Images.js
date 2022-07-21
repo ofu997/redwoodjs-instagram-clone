@@ -157,7 +157,7 @@ const Images = props => {
 
           >
             <div id='cardPicHandle' className='flex' onClick={() => handleShow(image.id)}>
-              <div className='header-profile-pic' style={{ marginLeft:20 }}>
+              <div className='header-nav-items' style={{ marginLeft:20 }}>
                 {image.user?.profilePicUrl
                   ? <img src={image.user?.profilePicUrl} />
                   : <PersonCircle size={20} color='black' />
@@ -194,7 +194,7 @@ const Images = props => {
                     </button>}
                     <p style={{ marginTop: -10 }}>{image?.likes} {image?.likes === 1 ? `like` : `likes`}</p>
                   </div>
-                  <div className='block like-and-comment-icons'>
+                  <div className='block like-and-comment-icons' onClick={() => handleShow(image.id)}>
                     <Chat size={20} />
                     <p style={{ marginTop: -5 }}>{image?.comments.length}</p>
                   </div>

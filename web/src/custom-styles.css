@@ -580,11 +580,20 @@
   font-size: 1rem;
 }
 
-.header-profile-pic img {
-  border-radius: 50%;
+.header-nav-items * {
   object-fit: cover;
   width: 25px;
   height: 25px;
+  margin: auto;
+  display: block;
+}
+
+.header-nav-items svg {
+  border-radius: 0;
+}
+
+.header-nav-items img {
+  border-radius: 50%;
 }
 
 .picBorder {
@@ -691,6 +700,42 @@
   border: 1px solid gray;
 }
 
+/* Image input */
+
+.image-input {
+  color: transparent;
+}
+.image-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.image-input::before {
+  content: 'Select image';
+  color: black;
+  display: inline-block;
+  background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  border-radius: 0.3rem;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 250;
+  font-size: 1.2rem;
+  font-family: Auckland, serif;
+  letter-spacing: 0.05rem;
+}
+.image-input:hover::before {
+  border-color: black;
+}
+.image-input:active {
+  outline: 0;
+}
+.image-input:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
 
 @media screen and (min-width: 1224px) {
   .card {
