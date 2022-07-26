@@ -13,6 +13,8 @@ const Image = ({ image }) => {
         ogType='website'
         ogUrl={`https://memofolio.netlify.app/memo/${image.id}`}
         ogContentUrl={image.url}
+        description={`${image.title.substring(0, 75)}`}
+        robots={['nofollow']}
       />
       <Link
         to={routes.userPage({ handle : image.user.handle })}

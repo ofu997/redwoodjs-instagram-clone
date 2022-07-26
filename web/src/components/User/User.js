@@ -1,7 +1,7 @@
 import Images from 'src/components/Images/Images'
 import { Link, routes } from '@redwoodjs/router'
 import { getLoggedInUser } from 'src/functions/WebFunctions'
-import { Head } from '@redwoodjs/web'
+import { MetaTags } from '@redwoodjs/web'
 
 const User = ({ infoAndImages }) => {
   const { userImages } = infoAndImages;
@@ -21,9 +21,14 @@ const UserInfo = props => {
   const currentUser = getLoggedInUser();
   return (
     <>
-      <Head>
-        <title>{props.user.name} | Memofolio</title>
-      </Head>
+      <MetaTags
+        title={`${props.user.name} | Memofolio`}
+        ogType='website'
+        ogUrl={`https://memofolio.netlify.app/u/${props.user.handle}`}
+        ogContentUrl={props.user.profilePicUrl}
+        description={`${props.user.bio.substring(0, 75)}`}
+        robots={['nofollow']}
+      />
       <div id='user-info-container'>
         <section id='user-page-profile-pic'>
           <img src={props.user.profilePicUrl} />
