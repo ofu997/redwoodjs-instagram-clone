@@ -25,7 +25,7 @@ const LogInForm = () => {
 
   const [loginUser, { loading, error }] = useMutation(LOG_IN_MUTATION, {
     onCompleted: ({ loginUser }) => {
-      toast.success('Signed in', { classes: 'rw-flash-success' })
+      toast.success('Signed in', { "className": 'rw-flash-success' })
       localStorage.setItem('user', JSON.stringify(loginUser));
       navigate(routes.images())
     },
@@ -35,13 +35,13 @@ const LogInForm = () => {
     ignoreResults: false,
   })
 
-  const handleSignIn = data => {
+  const handleSignIn = (data: {}) => {
     loginUser({ variables: { input: data } })
   }
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleShowPassword = () => {
+  const handleShowPassword = (): void => {
     setShowPassword(!showPassword);
   }
 

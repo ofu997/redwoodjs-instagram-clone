@@ -6,30 +6,30 @@ import { toast } from '@redwoodjs/web/dist/toast';
 import { useMutation, useQuery } from '@redwoodjs/web'
 import { PersonCircle, PlusSquare } from 'react-bootstrap-icons'
 
-// const USER_QUERY = gql`
-//   query GetUserProfilePicUrlById($currentUserId: Int!) {
-//     user (id: $currentUserId) {
-//       profilePicUrl
-//     }
-//   }
-// `
+const USER_QUERY = gql`
+  query HeaderQuery($currentUserId: Int!) {
+    userByQuery : user (id: $currentUserId) {
+      localStoragePassword
+    }
+  }
+`
 
 const Header = () => {
   const [user, setUser] = useState({ });
 
-  //const currentUserId = getLoggedInUser().id;
+  const currentUserId = getLoggedInUser().id;
 
   useEffect(() => {
     const localStorageUser = getLoggedInUser();
     setUser(localStorageUser);
   }, [])
 
-  // const { error:useQueryError, data } = currentUserId ?
-  //   useQuery(USER_QUERY, {
-  //     variables: { currentUserId }
-  //   })
-  //   :
-  //   dummyObject;
+  const { error:useQueryError, data } = currentUserId ?
+    useQuery(USER_QUERY, {
+      variables: { currentUserId }
+    })
+    :
+    dummyObject;
 
   const LOG_OUT_MUTATION = gql`
     mutation LogOutMutation($id: Int!) {
@@ -66,39 +66,25 @@ const Header = () => {
               className="justify-content-end"
               activeKey='/'
             >
+            {
+            (data && user.localStoragePassword === data.userByQuery.localStoragePassword)
+            &&
               <Nav.Item className='cntr-v'>
                 <Nav.Link href={routes.newImage()} className="navbarItem">
-                {user.id && (
                   <div className='header-nav-items'>
                     <PlusSquare size={25} color='black' />
                   </div>
-                )}
                 </Nav.Link>
               </Nav.Item>
+            }
               <Nav.Item className='cntr-v'>
-                {/* {data?.user.profilePicUrl
-                  ? (<Nav.Link href={routes.userPage({ handle: user.handle })} className="navbarItem">
-                        <div className='header-nav-items'>
-                          <img src={data.user.profilePicUrl} className='picBorder' />
-                        </div>
-                    </Nav.Link>)
-                  : user.profilePicUrl
-                    ? (<Nav.Link href={routes.userPage({ handle: user.handle })} className="navbarItem">
-                        <div className='header-nav-items'>
-                          <img src={user.profilePicUrl} className='picBorder' />
-                        </div>
-                      </Nav.Link>)
-                    : (<PersonCircle size={25} color='black' className="navbarItem" />)
-                } */}
-                {
-                  user.profilePicUrl
-                    ? (<Nav.Link href={routes.userPage({ handle: user.handle })} className="navbarItem">
-                        <div className='header-nav-items'>
-                          <img src={user.profilePicUrl} className='picBorder' />
-                        </div>
-                      </Nav.Link>)
-                    : (<PersonCircle size={25} color='black' className="navbarItem" />)
-                }
+              {user.profilePicUrl
+              ? (<Nav.Link href={routes.userPage({ handle: user.handle })} className="navbarItem">
+                  <div className='header-nav-items'>
+                    <img src={user.profilePicUrl} className='picBorder' />
+                  </div>
+                </Nav.Link>)
+              : (<PersonCircle size={25} color='black' className="navbarItem" />)}
               </Nav.Item>
               <Nav.Item className='cntr-v' >
                 {user.id ? (

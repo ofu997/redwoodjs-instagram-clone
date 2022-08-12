@@ -148,6 +148,8 @@ const Images = props => {
               ? handleLikes(image.id, "dislike")
               : handleLikes(image.id, "like")
           )
+          // 1. setdisabled(true)
+          // 2. makesure that handlelikes happens first then 3. await setdisabled false with async
         }
 
         return (
@@ -203,7 +205,7 @@ const Images = props => {
                   onClick={() => handleShow(image.id)}
                 >
                   <div className='flex' style={{ marginTop : 5 }}>
-                    <p class='allow-newline'>
+                    <p className='allow-newline'>
                       <Link
                         to={routes.userPage({ handle : image.user.handle })}
                         className='link-that-does-not-look-like-a-link'
