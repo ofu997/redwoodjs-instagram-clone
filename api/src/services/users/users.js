@@ -38,7 +38,10 @@ export const createUser = async ({ input }) => {
   })
 }
 
-export const updateUser = ({ id, input }) => {
+export const updateUser = async ({ id, input }) => {
+  if (input.password) {
+    input.password = await bcrypt.hash(input.password, 10);
+  }
   return db.user.update({
     data: input,
     where: { id },
