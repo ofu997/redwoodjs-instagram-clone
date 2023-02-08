@@ -1,5 +1,5 @@
 [build]
-command = "NODE_OPTIONS=--openssl-legacy-provider yarn rw deploy netlify"
+command = "yarn rw deploy netlify"
 publish = "web/dist"
 functions = "api/dist/functions"
 
