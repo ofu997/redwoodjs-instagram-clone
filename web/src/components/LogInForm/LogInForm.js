@@ -117,7 +117,7 @@ const LogInForm = () => {
         </button>
       </div>
     </div>
-  )
+  );
 }
 
 export default LogInForm
