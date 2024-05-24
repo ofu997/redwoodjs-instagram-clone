@@ -26,7 +26,7 @@ const UserInfo = props => {
         ogType='website'
         ogUrl={`https://memofolio.netlify.app/u/${props.user.handle}`}
         ogContentUrl={props.user.profilePicUrl}
-        description={`${props.user.bio.substring(0, 75)}`}
+        description={`${props.user.bio?.substring(0, 75)}`}
         robots={['nofollow']}
       />
       <div id='user-info-container'>
