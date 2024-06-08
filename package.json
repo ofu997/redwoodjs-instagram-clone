@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "@redwoodjs/core": "^0.36.4",
-    "@webpack-cli/serve": "1.5.2"
+    "@webpack-cli/serve": "5.1.4"
   },
   "eslintConfig": {
     "extends": "@redwoodjs/eslint-config",
@@ -21,10 +21,10 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "firebase": "^8.2.3",
     "multer": "^1.4.2"
   },
   "resolutions": {
-    "@webpack-cli/serve": "1.5.2"
-  }
+    "@webpack-cli/serve": "5.1.4"
+  },
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }
