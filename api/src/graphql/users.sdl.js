@@ -16,12 +16,12 @@ export const schema = gql`
   }
 
   type Query {
-    users: [User!]!
-    user(id: Int!): User
+    users: [User!]! @skipAuth
+    user(id: Int!): User @skipAuth
 
-    findUserByHandle(handle: String!): User
-    findUserByPassword(password: String!): User
-    findUserByEmail(email: String!): User
+    findUserByHandle(handle: String!): User @skipAuth
+    findUserByPassword(password: String!): User @skipAuth
+    findUserByEmail(email: String!): User @skipAuth
   }
 
   type LoginResponse {
@@ -51,13 +51,13 @@ export const schema = gql`
   }
 
   type Mutation {
-    createUser(input: CreateUserInput!): User!
-    updateUser(id: Int!, input: UpdateUserInput!): User!
-    deleteUser(id: Int!): User!
+    createUser(input: CreateUserInput!): User! @skipAuth
+    updateUser(id: Int!, input: UpdateUserInput!): User! @skipAuth
+    deleteUser(id: Int!): User! @skipAuth
 
-    addToUserLikes(imageId: Int!, id: Int!): User!
-    removeFromUserLikes(imageId: Int!, id: Int!): User!
-    loginUser(input: SignUpOrInInput!): User!
-    logoutUser(id: Int!): User!
+    addToUserLikes(imageId: Int!, id: Int!): User! @skipAuth
+    removeFromUserLikes(imageId: Int!, id: Int!): User! @skipAuth
+    loginUser(input: SignUpOrInInput!): User! @skipAuth
+    logoutUser(id: Int!): User! @skipAuth
   }
 `

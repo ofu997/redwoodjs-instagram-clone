@@ -136,7 +136,7 @@ const SignUpForm = props => {
         </Form>
       </section>
     </div>
-  )
+  );
 }
 
 export default SignUpForm

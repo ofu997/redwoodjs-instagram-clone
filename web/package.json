@@ -13,13 +13,14 @@
     ]
   },
   "dependencies": {
-    "@redwoodjs/auth": "^0.35.0",
-    "@redwoodjs/forms": "^0.35.0",
-    "@redwoodjs/router": "^0.35.0",
-    "@redwoodjs/web": "^0.35.0",
+    "@redwoodjs/auth": "^0.47.0",
+    "@redwoodjs/forms": "^0.47.0",
+    "@redwoodjs/router": "^0.47.0",
+    "@redwoodjs/web": "^0.47.0",
     "apollo-client": "^2.6.10",
     "bootstrap": "^5.0.1",
     "filestack-react": "^4.0.0",
+    "firebase": "9.6.4",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^3.1.2",
     "prop-types": "^15.7.2",
@@ -31,6 +32,6 @@
   "devDependencies": {
     "autoprefixer": "9.8.6",
     "postcss-loader": "4.0.2",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
+    "tailwindcss": "^3.3.1"
   }
 }
