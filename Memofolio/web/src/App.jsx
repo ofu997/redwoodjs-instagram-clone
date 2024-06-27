@@ -5,6 +5,8 @@ import FatalErrorPage from 'src/pages/FatalErrorPage'
 import Routes from 'src/Routes'
 
 import './index.css'
+import './custom-styles.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const App = () => (
   <FatalErrorBoundary page={FatalErrorPage}>
