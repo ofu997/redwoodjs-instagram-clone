@@ -1,18 +1,25 @@
-import Images from 'src/components/Images'
+import Image from 'src/components/Image'
+import { getLoggedInUser } from 'src/functions/WebFunctions'
+
+const user = getLoggedInUser()
 
 export const QUERY = gql`
-  query AllImages {
-    images {
+  query FindImageByCellImageCell($id: Int!) {
+    image: image(id: $id) {
       id
       title
       url
       likes
+
       user {
         handle
         profilePicUrl
+        name
       }
+
       userId
       createdAt
+
       comments {
         id
         body
@@ -20,8 +27,11 @@ export const QUERY = gql`
         user {
           id
           handle
+          jwt
         }
+        posterId
       }
+
       likedBy {
         id
       }
@@ -31,12 +41,8 @@ export const QUERY = gql`
 
 export const Loading = () => <h2 className="branding-font">Loading...</h2>
 
-export const Empty = () => <h2 className="branding-font">Empty</h2>
+export const Empty = () => <div>Image not found</div>
 
-export const Failure = ({ error }) => (
-  <h2 className="branding-font">Error: {error.message}</h2>
-)
-
-export const Success = ({ images }) => {
-  return <Images images={images} />
+export const Success = ({ image }) => {
+  return <Image image={image} user={user} />
 }
