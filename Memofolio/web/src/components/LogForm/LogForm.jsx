@@ -16,7 +16,7 @@ const LOG_IN_MUTATION = gql`
   }
 `
 
-const LogInForm = () => {
+const LogForm = () => {
   const [loginUser, { loading, error }] = useMutation(LOG_IN_MUTATION, {
     onCompleted: ({ loginUser }) => {
       toast.success('Signed in', { classes: 'rw-flash-success' })
@@ -112,4 +112,4 @@ const LogInForm = () => {
   )
 }
 
-export default LogInForm
+export default LogForm
