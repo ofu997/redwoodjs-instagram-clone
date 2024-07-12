@@ -12,7 +12,7 @@ export const schema = gql`
   }
 
   type Query {
-    images: [Image!] @skipAuth
+    images: [Image] @skipAuth
     image(id: Int!): Image @skipAuth
   }
 
