@@ -1,5 +1,11 @@
 import { users, user, createUser, updateUser, deleteUser } from './users'
 
+// Generated boilerplate tests do not account for all circumstances
+// and can fail without adjustments, e.g. Float.
+//           Please refer to the RedwoodJS Testing Docs:
+//       https://redwoodjs.com/docs/testing#testing-services
+// https://redwoodjs.com/docs/testing#jest-expect-type-considerations
+
 describe('users', () => {
   scenario('returns all users', async (scenario) => {
     const result = await users()
@@ -13,19 +19,19 @@ describe('users', () => {
     expect(result).toEqual(scenario.user.one)
   })
 
-  scenario('creates a user', async (scenario) => {
+  scenario('creates a user', async () => {
     const result = await createUser({
       input: {
         name: 'String',
-        handle: 'String691071',
-        email: 'String2928516',
+        handle: 'String1188629',
+        email: 'String9371428',
         password: 'String',
       },
     })
 
     expect(result.name).toEqual('String')
-    expect(result.handle).toEqual('String691071')
-    expect(result.email).toEqual('String2928516')
+    expect(result.handle).toEqual('String1188629')
+    expect(result.email).toEqual('String9371428')
     expect(result.password).toEqual('String')
   })
 

@@ -1,6 +1,7 @@
-import { db } from 'src/lib/db'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+
+import { db } from 'src/lib/db'
 import usableEmails from 'src/lib/usable-emails'
 
 export const users = () => {
@@ -14,24 +15,24 @@ export const user = ({ id }) => {
 }
 
 export const createUser = async ({ input }) => {
-  const email = input.email.toLowerCase().trim();
+  const email = input.email.toLowerCase().trim()
   if (!usableEmails.includes(email)) {
     throw new Error('Not authorized to register')
   }
   const handleIsTaken = await db.user.findUnique({
-    where: { handle: input.handle }
+    where: { handle: input.handle },
   })
   if (handleIsTaken) {
     throw new Error(`Handle: ${handleIsTaken.handle} is already taken`)
   }
   const emailIsTaken = await db.user.findUnique({
-    where: { email }
+    where: { email },
   })
   if (emailIsTaken) {
     throw new Error(`Email: ${emailIsTaken.email} is already taken`)
   }
-  const password = await bcrypt.hash(input.password, 10);
-  const isAdmin = (email == "ofu997@gmail.com") ? true : false;
+  const password = await bcrypt.hash(input.password, 10)
+  const isAdmin = email == 'ofu997@gmail.com' ? true : false
   const data = { ...input, email, password, isAdmin }
   return db.user.create({
     data,
@@ -40,7 +41,7 @@ export const createUser = async ({ input }) => {
 
 export const updateUser = async ({ id, input }) => {
   if (input.password) {
-    input.password = await bcrypt.hash(input.password, 10);
+    input.password = await bcrypt.hash(input.password, 10)
   }
   return db.user.update({
     data: input,
@@ -59,9 +60,9 @@ export const addToUserLikes = ({ imageId, id }) => {
     data: {
       userLikes: {
         connect: {
-          id: imageId
-        }
-      }
+          id: imageId,
+        },
+      },
     },
     where: { id },
   })
@@ -72,9 +73,9 @@ export const removeFromUserLikes = ({ imageId, id }) => {
     data: {
       userLikes: {
         disconnect: {
-          id: imageId
-        }
-      }
+          id: imageId,
+        },
+      },
     },
     where: { id },
   })
@@ -119,23 +120,25 @@ export const loginUser = async ({ input }) => {
   )
 
   const generatePassword = () => {
-    let length=15, result = "",
-    charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789`~!@#$%^&*()-_=+[]\{}|;':,./<>?";
+    let length = 15,
+      result = '',
+      charset =
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789`~!@#$%^&*()-_=+[]{}|;':,./<>?"
 
-    for (let i=0, n = charset.length; i < length; i++) {
-      result += charset.charAt(Math.floor(Math.random() * n));
+    for (let i = 0, n = charset.length; i < length; i++) {
+      result += charset.charAt(Math.floor(Math.random() * n))
     }
-    return result;
-  };
+    return result
+  }
 
-  const localStoragePassword = generatePassword();
+  const localStoragePassword = generatePassword()
 
   return db.user.update({
     data: {
       jwt: token,
       localStoragePassword,
     },
-    where: { email }
+    where: { email },
   })
 }
 
@@ -143,9 +146,9 @@ export const logoutUser = ({ id }) => {
   return db.user.update({
     data: {
       jwt: null,
-      localStoragePassword: null
+      localStoragePassword: null,
     },
-    where: { id }
+    where: { id },
   })
 }
 
@@ -164,6 +167,6 @@ export const User = {
     db.user.findUnique({ where: { id: root.id } }).comments(),
 }
 
-export const beforeResolver = rules => {
+export const beforeResolver = (rules) => {
   rules.skip()
 }

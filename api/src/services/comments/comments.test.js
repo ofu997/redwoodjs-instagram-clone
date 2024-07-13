@@ -6,6 +6,12 @@ import {
   deleteComment,
 } from './comments'
 
+// Generated boilerplate tests do not account for all circumstances
+// and can fail without adjustments, e.g. Float.
+//           Please refer to the RedwoodJS Testing Docs:
+//       https://redwoodjs.com/docs/testing#testing-services
+// https://redwoodjs.com/docs/testing#jest-expect-type-considerations
+
 describe('comments', () => {
   scenario('returns all comments', async (scenario) => {
     const result = await comments()
@@ -23,14 +29,14 @@ describe('comments', () => {
     const result = await createComment({
       input: {
         body: 'String',
-        imageId: 'scenario.comment.two.imageId',
-        posterId: 'scenario.comment.two.posterId',
+        imageId: scenario.comment.two.imageId,
+        posterId: scenario.comment.two.posterId,
       },
     })
 
     expect(result.body).toEqual('String')
-    expect(result.imageId).toEqual('scenario.comment.two.imageId')
-    expect(result.posterId).toEqual('scenario.comment.two.posterId')
+    expect(result.imageId).toEqual(scenario.comment.two.imageId)
+    expect(result.posterId).toEqual(scenario.comment.two.posterId)
   })
 
   scenario('updates a comment', async (scenario) => {
@@ -44,7 +50,9 @@ describe('comments', () => {
   })
 
   scenario('deletes a comment', async (scenario) => {
-    const original = await deleteComment({ id: scenario.comment.one.id })
+    const original = await deleteComment({
+      id: scenario.comment.one.id,
+    })
     const result = await comment({ id: original.id })
 
     expect(result).toEqual(null)

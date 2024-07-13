@@ -2,9 +2,9 @@ import { db } from 'src/lib/db'
 
 export const images = () => {
   return db.image.findMany({
-    orderBy : {
-      id : 'desc'
-    }
+    orderBy: {
+      id: 'desc',
+    },
   })
 }
 
@@ -16,19 +16,30 @@ export const image = ({ id }) => {
 
 export const createImage = ({ input }) => {
   const now = new Date()
-  const monthNames = ['Jan', 'Feb', 'Mar',
-    'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept',
-    'Oct', 'Nov', 'Dec']
-  const year = `'${now.getFullYear().toString().slice(2)}`;
-  const createdAt = `${now.getDate()} ${monthNames[now.getMonth()]} ${year}`;
+  const monthNames = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sept',
+    'Oct',
+    'Nov',
+    'Dec',
+  ]
+  const year = `'${now.getFullYear().toString().slice(2)}`
+  const createdAt = `${now.getDate()} ${monthNames[now.getMonth()]} ${year}`
   return db.image.create({
     data: {
       userId: {
-        connect: { id: input.userId }
+        connect: { id: input.userId },
       },
       ...input,
-      createdAt
-    }
+      createdAt,
+    },
   })
 }
 
@@ -49,13 +60,13 @@ export const incrementImageLikes = ({ id, currentUserId }) => {
   return db.image.update({
     data: {
       likes: {
-        increment: 1
+        increment: 1,
       },
       likedBy: {
         connect: {
-          id: currentUserId
-        }
-      }
+          id: currentUserId,
+        },
+      },
     },
     where: { id },
   })
@@ -65,13 +76,13 @@ export const decrementImageLikes = ({ id, currentUserId }) => {
   return db.image.update({
     data: {
       likes: {
-        decrement: 1
+        decrement: 1,
       },
       likedBy: {
         disconnect: {
-          id: currentUserId
-        }
-      }
+          id: currentUserId,
+        },
+      },
     },
     where: { id },
   })
@@ -86,6 +97,6 @@ export const Image = {
     db.image.findUnique({ where: { id: root.id } }).user(),
 }
 
-export const beforeResolver = rules => {
+export const beforeResolver = (rules) => {
   rules.skip()
 }

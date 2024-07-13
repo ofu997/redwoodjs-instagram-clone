@@ -30,12 +30,10 @@ export const deleteComment = ({ id }) => {
 }
 
 export const Comment = {
-  image: (_obj, { root }) =>
-    db.comment.findUnique({ where: { id: root.id } }).image(),
-  user: (_obj, { root }) =>
-    db.comment.findUnique({ where: { id: root.id } }).user(),
-}
-
-export const beforeResolver = rules => {
-  rules.skip()
+  image: (_obj, { root }) => {
+    return db.comment.findUnique({ where: { id: root?.id } }).image()
+  },
+  user: (_obj, { root }) => {
+    return db.comment.findUnique({ where: { id: root?.id } }).user()
+  },
 }

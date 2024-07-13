@@ -1,55 +1,58 @@
 export const standard = defineScenario({
   comment: {
     one: {
-      body: 'String',
-      image: {
-        create: {
-          title: 'String',
-          url: 'String',
-          user: {
-            create: {
-              name: 'String',
-              handle: 'String7848372',
-              email: 'String7733756',
-              password: 'String',
+      data: {
+        body: 'String',
+        image: {
+          create: {
+            title: 'String',
+            url: 'String',
+            createdAt: 'String',
+            user: {
+              create: {
+                name: 'String',
+                handle: 'String1841785',
+                email: 'String3531167',
+                password: 'String',
+              },
             },
           },
         },
-      },
-
-      user: {
-        create: {
-          name: 'String',
-          handle: 'String3311377',
-          email: 'String3425195',
-          password: 'String',
+        user: {
+          create: {
+            name: 'String',
+            handle: 'String6815683',
+            email: 'String7682393',
+            password: 'String',
+          },
         },
       },
     },
-
     two: {
-      body: 'String',
-      image: {
-        create: {
-          title: 'String',
-          url: 'String',
-          user: {
-            create: {
-              name: 'String',
-              handle: 'String8307251',
-              email: 'String3711591',
-              password: 'String',
+      data: {
+        body: 'String',
+        image: {
+          create: {
+            title: 'String',
+            url: 'String',
+            createdAt: 'String',
+            user: {
+              create: {
+                name: 'String',
+                handle: 'String8262069',
+                email: 'String5428128',
+                password: 'String',
+              },
             },
           },
         },
-      },
-
-      user: {
-        create: {
-          name: 'String',
-          handle: 'String2412267',
-          email: 'String9616397',
-          password: 'String',
+        user: {
+          create: {
+            name: 'String',
+            handle: 'String5626602',
+            email: 'String9365408',
+            password: 'String',
+          },
         },
       },
     },

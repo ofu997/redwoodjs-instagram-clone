@@ -7,24 +7,18 @@
     ]
   },
   "devDependencies": {
-    "@redwoodjs/core": "^0.36.4",
-    "@webpack-cli/serve": "5.1.4"
+    "@redwoodjs/core": "7.6.3",
+    "@redwoodjs/project-config": "7.6.3"
   },
   "eslintConfig": {
     "extends": "@redwoodjs/eslint-config",
     "root": true
   },
   "engines": {
-    "node": ">=14",
-    "yarn": ">=1.15"
+    "node": "=20.x"
   },
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "multer": "^1.4.2"
+  "prisma": {
+    "seed": "yarn rw exec seed"
   },
-  "resolutions": {
-    "@webpack-cli/serve": "5.1.4"
-  },
-  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
+  "packageManager": "yarn@4.2.2"
 }

@@ -1,5 +1,11 @@
 import { images, image, createImage, updateImage, deleteImage } from './images'
 
+// Generated boilerplate tests do not account for all circumstances
+// and can fail without adjustments, e.g. Float.
+//           Please refer to the RedwoodJS Testing Docs:
+//       https://redwoodjs.com/docs/testing#testing-services
+// https://redwoodjs.com/docs/testing#jest-expect-type-considerations
+
 describe('images', () => {
   scenario('returns all images', async (scenario) => {
     const result = await images()
@@ -18,13 +24,15 @@ describe('images', () => {
       input: {
         title: 'String',
         url: 'String',
-        userId: 'scenario.image.two.userId',
+        createdAt: 'String',
+        userId: scenario.image.two.userId,
       },
     })
 
     expect(result.title).toEqual('String')
     expect(result.url).toEqual('String')
-    expect(result.userId).toEqual('scenario.image.two.userId')
+    expect(result.createdAt).toEqual('String')
+    expect(result.userId).toEqual(scenario.image.two.userId)
   })
 
   scenario('updates a image', async (scenario) => {

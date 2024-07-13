@@ -1,5 +1,5 @@
-import ImagesLayout from 'src/layouts/ImagesLayout'
 import NewImage from 'src/components/NewImage'
+import ImagesLayout from 'src/layouts/ImagesLayout'
 
 const NewImagePage = () => {
   return (

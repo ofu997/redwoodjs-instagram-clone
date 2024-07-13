@@ -1,8 +1,9 @@
 import { useState } from 'react'
 
-import SignUpForm from 'src/components/SignUpForm/SignUpForm.js'
-import LogInForm from 'src/components/LogInForm/LogInForm.js'
 import { Link, routes } from '@redwoodjs/router'
+
+import LogForm from 'src/components/LogForm'
+import SignUpForm from 'src/components/SignUpForm'
 
 const HandleUsersPage = () => {
   const [showSignUpForm, setShowSignUpForm] = useState(false)
@@ -15,29 +16,34 @@ const HandleUsersPage = () => {
 
   return (
     <>
-    <Link
-    to={routes.images()}
-    className='link-that-does-not-look-like-a-link'
-  >
-      <h4 style={{ margin: '5rem 0rem 0rem 5rem' }}>Home</h4>
+      <Link
+        to={routes.images()}
+        className="link-that-does-not-look-like-a-link"
+      >
+        <h4 style={{ margin: '5rem 0rem 0rem 5rem' }}>Home</h4>
       </Link>
-      {showSignUpForm &&
+      {showSignUpForm && (
         <SignUpForm
           setShowSignUpForm={setShowSignUpForm}
           setShowLogInForm={setShowLogInForm}
         />
-      }
-      {showLogInForm &&
-        <LogInForm />
-      }
-
-      <h5
-        onClick={toggleSignUpLogIn}
-        style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}
-      >
-        {
-          showLogInForm? `Don't have an account? Sign Up` : `Already have an account? Log In`
-        }
+      )}
+      {showLogInForm && <LogForm />}
+      <h5>
+        <button
+          onClick={toggleSignUpLogIn}
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: '20px',
+            backgroundColor: 'transparent',
+            borderWidth: '0px'
+          }}
+        >
+          {showLogInForm
+            ? `Don't have an account? Sign Up`
+            : `Already have an account? Log In`}
+        </button>
       </h5>
     </>
   )

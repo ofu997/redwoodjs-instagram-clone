@@ -1,27 +1,32 @@
 export const standard = defineScenario({
   image: {
     one: {
-      title: 'String',
-      url: 'String',
-      user: {
-        create: {
-          name: 'String',
-          handle: 'String2057634',
-          email: 'String8950635',
-          password: 'String',
+      data: {
+        title: 'String',
+        url: 'String',
+        createdAt: 'String',
+        user: {
+          create: {
+            name: 'String',
+            handle: 'String3258279',
+            email: 'String8216103',
+            password: 'String',
+          },
         },
       },
     },
-
     two: {
-      title: 'String',
-      url: 'String',
-      user: {
-        create: {
-          name: 'String',
-          handle: 'String6204791',
-          email: 'String2338809',
-          password: 'String',
+      data: {
+        title: 'String',
+        url: 'String',
+        createdAt: 'String',
+        user: {
+          create: {
+            name: 'String',
+            handle: 'String3712223',
+            email: 'String8208617',
+            password: 'String',
+          },
         },
       },
     },

@@ -12,15 +12,14 @@ export const schema = gql`
   }
 
   type Query {
-    images: [Image!]!
-    image(id: Int!): Image
+    images: [Image] @skipAuth
+    image(id: Int!): Image @skipAuth
   }
 
   input CreateImageInput {
     title: String!
     url: String!
     userId: Int!
-
   }
 
   input UpdateImageInput {
@@ -31,11 +30,11 @@ export const schema = gql`
   }
 
   type Mutation {
-    createImage(input: CreateImageInput!): Image!
-    updateImage(id: Int!, input: UpdateImageInput!): Image!
-    deleteImage(id: Int!): Image!
+    createImage(input: CreateImageInput!): Image! @skipAuth
+    updateImage(id: Int!, input: UpdateImageInput!): Image! @skipAuth
+    deleteImage(id: Int!): Image! @skipAuth
 
-    incrementImageLikes(id: Int!, currentUserId: Int!): Image!
-    decrementImageLikes(id: Int!, currentUserId: Int!): Image!
+    incrementImageLikes(id: Int!, currentUserId: Int!): Image! @skipAuth
+    decrementImageLikes(id: Int!, currentUserId: Int!): Image! @skipAuth
   }
 `
