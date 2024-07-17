@@ -12,7 +12,8 @@
   includeEnvironmentVariables = [
     # Add any ENV vars that should be available to the web side to this array
     # See https://redwoodjs.com/docs/environment-variables#web
-    'DATABASE_URL'
+    'DATABASE_URL',
+    'DIRECT_URL'
   ]
 [api]
   port = 8911

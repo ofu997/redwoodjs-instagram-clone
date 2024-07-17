@@ -10,30 +10,30 @@ export const QUERY = gql`
       jwt
       localStoragePassword
 
-      # userImages: images {
-      #   id
-      #   title
-      #   url
-      #   likes
-      #   createdAt
-      #   user {
-      #     handle
-      #     profilePicUrl
-      #   }
-      #   comments {
-      #     id
-      #     body
-      #     imageId
-      #     user {
-      #       id
-      #       handle
-      #     }
-      #   }
-      #   likedBy {
-      #     id
-      #     handle
-      #   }
-      # }
+      userImages: images {
+        id
+        title
+        url
+        likes
+        createdAt
+        user {
+          handle
+          profilePicUrl
+        }
+        comments {
+          id
+          body
+          imageId
+          user {
+            id
+            handle
+          }
+        }
+        likedBy {
+          id
+          handle
+        }
+      }
     }
   }
 `
@@ -47,6 +47,6 @@ export const Failure = ({ error }) => (
 )
 
 export const Success = ({ userInfoAndImages }) => {
-  return <h1>reached success: {userInfoAndImages}</h1>
-  // return <User infoAndImages={userInfoAndImages} />
+  // return <h1>reached success: {userInfoAndImages}</h1>
+  return <User infoAndImages={userInfoAndImages} />
 }
